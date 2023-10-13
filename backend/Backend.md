@@ -7,7 +7,7 @@
 - Crear archivo `.env` con las variables de entorno, en la carpeta `/config`
   - Sigue la estructura del archivo `.env.example`
   - Agrega la variable `PORT` con el puerto en el que quieres que corra el servidor
-  - Agrega la variable `HOST` con la URL del servidor
+  - Agrega la variable `HOST` con la URL del servido
   - Agrega la variable `DB_URL` con la URI de la base de datos
   - Agrega la variable `ACCESS_JWT_SECRET` con la clave secreta para crear los tokens de autenticacion
   - Agrega la variable `REFRESH_JWT_SECRET` con la clave secreta para crear los tokens de refresco
