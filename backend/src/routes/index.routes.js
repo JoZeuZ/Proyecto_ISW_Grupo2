@@ -19,5 +19,8 @@ router.use("/users", authenticationMiddleware, userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
 
+// Define las rutas para los fondos /api/fondo
+router.use("/fondo", require("./fondo.routes.js"));
+
 // Exporta el enrutador
 module.exports = router;
