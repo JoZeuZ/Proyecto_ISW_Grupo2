@@ -21,6 +21,8 @@ router.use("/auth", authRoutes);
 
 // Define las rutas para los fondos /api/fondo
 router.use("/fondo", require("./fondo.routes.js"));
+// Define las rutas para los concursos /api/concurso
+router.use("/concurso", require("./concurso.routes.js"));
 
 // Exporta el enrutador
 module.exports = router;
