@@ -3,7 +3,7 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const FondoService = require("../services/fondo.service");
 const { handleError } = require("../utils/errorHandler");
-const { func } = require("joi");
+const { fondoBodySchema, fondoIdSchema } = require("../schema/fondo.schema");
 
 async function getFondo(req, res) {
     try {

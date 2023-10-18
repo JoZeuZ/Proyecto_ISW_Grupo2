@@ -17,7 +17,7 @@ async function getConcursos() {
 async function createConcurso(concurso) {
   try {
     const {
-      name,
+      nombre,
       bases,
       fechaInicio,
       fechaFin,
@@ -27,7 +27,7 @@ async function createConcurso(concurso) {
     } = concurso;
 
     const newConcurso = new concurso({
-      name,
+      nombre,
       bases,
       fechaInicio,
       fechaFin,

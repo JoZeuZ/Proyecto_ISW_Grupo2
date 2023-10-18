@@ -21,14 +21,14 @@
     "express": "^4.18.2",
     "joi": "17.10.2",
     "jsonwebtoken": "9.0.2",
-    "mongoose": "^7.5.2",
+    "mongoose": "^7.6.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "8.50.0",
     "eslint-config-google": "0.14.0",
     "jsdoc": "4.0.2",
-    "nodemon": "3.0.1",
+    "nodemon": "^3.0.1",
     "prettier": "3.0.3"
   }
 }

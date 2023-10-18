@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const ConcursoSchema = new mongoose.Schema({
-    name: {
+    nombre: {
         type: String,
         required: true
     },

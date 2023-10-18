@@ -1,8 +1,9 @@
 "use strict";
 
-const {respondSuccess, respondError} = require("../utils/resHandler"); 
+const { respondSuccess, respondError } = require("../utils/resHandler");
 const ConcursoService = require("../services/concurso.service");
-const {handleError} = require("../utils/errorHandler");
+const { handleError } = require("../utils/errorHandler");
+const { concursoBodySchema, concursoIdSchema } = require("../schema/concurso.schema");
 
 async function getConcursos(req, res) {
   try {
@@ -20,10 +21,13 @@ async function getConcursos(req, res) {
 
 async function createConcurso(req, res) {
   try {
-    const {body} = req;
-    const [newConcurso, concursoError] = await ConcursoService.createConcurso(body);
+    const { body } = req;
+    const { error: bodyError } = concursoBodySchema.validate(body);
+    if (bodyError) return respondError(req, res, 400, bodyError.message);
 
+    const [newConcurso, concursoError] = await ConcursoService.createConcurso(body);
     if (concursoError) return respondError(req, res, 400, concursoError);
+
     if (!newConcurso) {
       return respondError(req, res, 400, "No se creo el concurso");
     }
@@ -37,33 +41,45 @@ async function createConcurso(req, res) {
 
 async function getConcursoById(req, res) {
   try {
-    const {params} = req;
+    const { params } = req;
+    const { error: paramsError } = concursoIdSchema.validate(params);
+    if (paramsError) return respondError(req, res, 400, paramsError.message);
+
     const [concurso, errorConcurso] = await ConcursoService.getConcursoById(params.id);
     if (errorConcurso) return respondError(req, res, 404, errorConcurso);
 
     respondSuccess(req, res, 200, concurso);
   } catch (error) {
     handleError(error, "concurso.controller -> getConcursoById");
-    respondError(req, res, 400, error.message);
+    respondError(req, res, 500, error.message);
   }
 }
 
 async function updateConcurso(req, res) {
   try {
-    const {params, body} = req;
+    const { params, body } = req;
+    const { error: paramsError } = concursoIdSchema.validate(params);
+    if (paramsError) return respondError(req, res, 400, paramsError.message);
+
+    const { error: bodyError } = concursoBodySchema.validate(body);
+    if (bodyError) return respondError(req, res, 400, bodyError.message);
+
     const [concursoUpdated, errorConcurso] = await ConcursoService.updateConcurso(params.id, body);
     if (errorConcurso) return respondError(req, res, 404, errorConcurso);
 
     respondSuccess(req, res, 200, concursoUpdated);
   } catch (error) {
     handleError(error, "concurso.controller -> updateConcurso");
-    respondError(req, res, 400, error.message);
+    respondError(req, res, 500, error.message);
   }
 }
 
 async function deleteConcurso(req, res) {
   try {
-    const {params} = req;
+    const { params } = req;
+    const { error: paramsError } = concursoIdSchema.validate(params);
+    if (paramsError) return respondError(req, res, 400, paramsError.message);
+
     const [concursoDeleted, errorConcurso] = await ConcursoService.deleteConcurso(params.id);
     if (errorConcurso) return respondError(req, res, 404, errorConcurso);
 
