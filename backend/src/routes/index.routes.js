@@ -20,7 +20,7 @@ const router = express.Router();
 router.use("/users", authenticationMiddleware, userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
-
+//Define las rutas para la rubrica /api/rubrica
 router.use("/rubrica", rubricaRoutes);
 
 // Exporta el enrutador
