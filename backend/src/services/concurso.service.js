@@ -1,9 +1,9 @@
 "use strict";
 
-const concurso = require("../models/concurso.model");
+const Concurso = require("../models/concurso.model");
 const { handleError } = require("../utils/errorHandler");
 
-async function getConcursos() {
+async function getConcurso() {
   try {
     const concursos = await concurso.find().exec();
     if (!concursos) return [null, "No hay concursos"];
@@ -84,7 +84,7 @@ async function deleteConcurso(id) {
 }
 
 module.exports = {
-  getConcursos,
+  getConcurso,
   createConcurso,
   getConcursoById,
   updateConcurso,

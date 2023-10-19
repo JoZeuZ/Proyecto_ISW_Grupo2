@@ -3,7 +3,7 @@
 const Fondo = require("../models/fondo.model.js");
 const { handleError } = require("../utils/errorHandler");
 
-async function getFondos() {
+async function getFondo() {
   try {
     const fondos = await Fondo.find().exec();
     if (!fondos) return [null, "No hay fondos"];
@@ -16,20 +16,13 @@ async function getFondos() {
 
 async function createFondo(fondo) {
   try {
-    const { montoTotal, montoAsignado, montoDisponible, adminID, concursos} = fondo;
-    const fondosFound = await Fondo.findOne({ adminID: fondo.adminID });
+    const { montoTotal, montoAsignado} = fondo;
+    const fondosFound = await Fondo.findOne({_id: fondo._id}).exec();
     if (fondosFound) return [null, "El fondo ya existe"];
-
-    const concursosFound = await Concurso.find({ name: { $in: concursos } });
-    if (concursosFound.length === 0) return [null, "El concurso no existe"];
-    const myConcurso = concursosFound.map((concurso) => concurso._id);
 
     const newFondo = new Fondo({
       montoTotal,
-      montoAsignado,
-      montoDisponible,
-      adminID,
-      concursos: myConcurso,
+      montoAsignado
     });
     await newFondo.save();
 
@@ -55,22 +48,14 @@ async function updateFondo(id, fondo) {
     const fondoFound= await Fondo.findById(id);
     if (!fondoFound) return [null, "El fondo no existe"];
 
-    const { montoTotal, montoAsignado, montoDisponible, adminID, concursos} = fondo;
-
-    const concursosFound = await Concurso.find({ name: { $in: concursos } });
-    if (concursosFound.length === 0) return [null, "El concurso no existe"];
-
-    const myConcurso = concursosFound.map((concurso) => concurso._id);
+    const { montoTotal, montoAsignado} = fondo;
 
     const fondoUpdated = await Fondo.findByIdAndUpdate(
       id,
       {
         $set: {
           montoTotal,
-          montoAsignado,
-          montoDisponible,
-          adminID,
-          concursos: myConcurso,
+          montoAsignado
         },
       },
       { new: true }
@@ -94,7 +79,7 @@ async function deleteFondo(id) {
 }
 
 module.exports = {
-  getFondos,
+  getFondo,
   createFondo,
   getFondoById,
   updateFondo,
