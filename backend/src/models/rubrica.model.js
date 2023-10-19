@@ -25,12 +25,12 @@ const rubricaSchema = new mongoose.Schema({
         type: String,
     },
     criterios: [criterioSchema],
-    concursos: [{
+    concurso: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Concurso",
     }, ],
 });
 
-const rubrica = mongoose.model("Rubrica", rubricaSchema);
+const rubrica = mongoose.model("rubrica", rubricaSchema);
 
 module.exports = rubrica;
