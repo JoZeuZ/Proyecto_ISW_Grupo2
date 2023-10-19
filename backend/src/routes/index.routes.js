@@ -8,6 +8,9 @@ const userRoutes = require("./user.routes.js");
 /** Enrutador de autenticación */
 const authRoutes = require("./auth.routes.js");
 
+const postulacionRoutes = require("./postulacion.routes.js");
+
+const concursoRoutes = require("./concurso.routes.js");
 /** Middleware de autenticación */
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
 
@@ -19,5 +22,8 @@ router.use("/users", authenticationMiddleware, userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
 
+router.use("/concurso", concursoRoutes);
+
+router.use("/postulacion", postulacionRoutes);
 // Exporta el enrutador
 module.exports = router;
