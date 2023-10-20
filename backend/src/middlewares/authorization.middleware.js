@@ -32,6 +32,49 @@ async function isAdmin(req, res, next) {
   }
 }
 
+async function isPostulante(req, res, next) {
+  try {
+    const user = await User.findOne({ email: req.email });
+    const roles = await Role.find({ _id: { $in: user.roles } });
+    for (let i = 0; i < roles.length; i++) {
+      if (roles[i].name === "postulante") {
+        next();
+        return;
+      }
+    }
+    return respondError(
+      req,
+      res,
+      401,
+      "Se requiere un rol de postulante para realizar esta acción",
+    );
+  } catch (error) {
+    handleError(error, "authorization.middleware -> isPostulante");
+  }
+}
+
+async function isEvaluador(req, res, next) {
+  try {
+    const user = await User.findOne({ email: req.email });
+    const roles = await Role.find({ _id: { $in: user.roles } });
+    for (let i = 0; i < roles.length; i++) {
+      if (roles[i].name === "evaluador") {
+        next();
+        return;
+      }
+    }
+    return respondError(
+      req,
+      res,
+      401,
+      "Se requiere un rol de evaluador para realizar esta acción",
+    );
+  } catch (error) {
+    handleError(error, "authorization.middleware -> isEvaluador");
+  }
+}
 module.exports = {
   isAdmin,
+  isPostulante,
+  isEvaluador,
 };

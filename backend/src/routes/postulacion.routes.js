@@ -3,21 +3,21 @@
 const express = require("express");
 
 const postulacionController = require("../controllers/postulacion.controller.js");
-const authorizationMiddleware = require("../middlewares/authorization.middleware.js");
-const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
+const { isAdmin } = require('../middlewares/authorization.middleware');
+const { verifyJWT } = require('../middlewares/authentication.middleware');
+const {isPostulante} = require('../middlewares/authorization.middleware');
 
 const router = express.Router();
 
-router.use(authenticationMiddleware);
-
 router.get("/", postulacionController.getPostulaciones);
+router.post("/",  isAdmin,isPostulante, postulacionController.createPostulacion);
 router.get("/:id", postulacionController.getPostulacionById);
-router.post("/", authorizationMiddleware, postulacionController.createPostulacion);
-router.put("/:id", authorizationMiddleware, postulacionController.updatePostulacion);
-router.delete("/:id", authorizationMiddleware, postulacionController.deletePostulacion);
-
+router.put("/:id",  isAdmin,isPostulante, postulacionController.updatePostulacion);
+router.delete("/:id",  isAdmin,isPostulante, postulacionController.deletePostulacion); 
 
 module.exports = router;
+
+
 
 
 
