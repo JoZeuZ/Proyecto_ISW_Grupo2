@@ -22,18 +22,18 @@ async function createConcurso(concurso) {
       fechaInicio,
       fechaFin,
       montoAsignado,
-      fondoID,
-      adminID,
+      fondo,
     } = concurso;
+    const concursosFound = await Concurso.findOne({ nombre: concurso.nombre }).exec();
+    if (concursosFound) return [null, "El concurso ya existe"];
 
-    const newConcurso = new concurso({
+    const newConcurso = new Concurso({
       nombre,
       bases,
       fechaInicio,
       fechaFin,
       montoAsignado,
-      fondoID,
-      adminID,
+      fondo,
     });
     await newConcurso.save();
 
@@ -45,7 +45,7 @@ async function createConcurso(concurso) {
 
 async function getConcursoById(id) {
   try {
-    const concursoFound = await concurso.findById(id).exec();
+    const concursoFound = await Concurso.findById(id).exec();
     if (!concursoFound) return [null, "El concurso no existe"];
 
     return [concursoFound, null];
@@ -56,7 +56,7 @@ async function getConcursoById(id) {
 
 async function updateConcurso(id, concurso) {
   try {
-    const concursoUpdated = await concurso.findByIdAndUpdate(
+    const concursoUpdated = await Concurso.findByIdAndUpdate(
       id,
       {
         $set: concurso,
@@ -74,7 +74,7 @@ async function updateConcurso(id, concurso) {
 
 async function deleteConcurso(id) {
   try {
-    const concursoDeleted = await concurso.findByIdAndDelete(id);
+    const concursoDeleted = await Concurso.findByIdAndDelete(id);
     if (!concursoDeleted) return [null, "El concurso no existe"];
 
     return [concursoDeleted, null];

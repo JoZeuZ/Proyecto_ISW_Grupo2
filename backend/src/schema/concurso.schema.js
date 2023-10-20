@@ -2,40 +2,56 @@
 
 const Joi = require("joi");
 
-/**
- * Esquema de validación para el cuerpo de la solicitud de Fondo.
- * @constant {Object}
- */
-const fondoBodySchema = Joi.object({
-    montoTotal: Joi.number().required().min(0).messages({
-        "number.base": "El monto total debe ser un número.",
-        "number.min": "El monto total no puede ser negativo.",
-        "any.required": "El monto total es obligatorio."
-    }),
-    adminID: Joi.string()
+
+const concursoBodySchema = Joi.object({
+    nombre: Joi.string()
+        .required()
+        .messages({
+            "string.base": "El nombre debe ser de tipo string.",
+            "string.empty": "El nombre no puede estar vacío.",
+            "any.required": "El nombre es obligatorio."
+        }),
+    bases: Joi.string()
+        .required()
+        .messages({
+            "string.base": "Las bases deben ser de tipo string.",
+            "string.empty": "Las bases no pueden estar vacías.",
+            "any.required": "Las bases son obligatorias."
+        }),
+    fechaInicio: Joi.date()
+        .required()
+        .messages({
+            "date.base": "La fecha de inicio debe ser una fecha válida.",
+            "any.required": "La fecha de inicio es obligatoria."
+        }),
+    fechaFin: Joi.date()
+        .required()
+        .messages({
+            "date.base": "La fecha de fin debe ser una fecha válida.",
+            "any.required": "La fecha de fin es obligatoria."
+        }),
+    montoAsignado: Joi.number()
+        .required()
+        .min(0)
+        .messages({
+            "number.base": "El monto asignado debe ser un número.",
+            "number.min": "El monto asignado no puede ser negativo.",
+            "any.required": "El monto asignado es obligatorio."
+        }),
+    fondo: Joi.string()
         .required()
         .pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)
         .messages({
-            "string.empty": "El adminID no puede estar vacío.",
-            "any.required": "El adminID es obligatorio.",
-            "string.base": "El adminID debe ser de tipo string.",
-            "string.pattern.base": "El adminID proporcionado no es un ObjectId válido."
-        }),
-    concursos: Joi.array()
-        .items(Joi.string().pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/))
-        .messages({
-            "array.base": "Los concursos deben ser de tipo array.",
-            "string.pattern.base": "El concursoID proporcionado no es un ObjectId válido."
+            "string.empty": "El fondo no puede estar vacío.",
+            "any.required": "El fondo es obligatorio.",
+            "string.base": "El fondo debe ser de tipo string.",
+            "string.pattern.base": "El fondo proporcionado no es un ObjectId válido."
         })
 }).messages({
     "object.unknown": "No se permiten propiedades adicionales."
 });
 
-/**
- * Esquema de validación para el id de Fondo.
- * @constant {Object}
- */
-const fondoIdSchema = Joi.object({
+const concursoIdSchema = Joi.object({
     id: Joi.string()
         .required()
         .pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)
@@ -47,4 +63,4 @@ const fondoIdSchema = Joi.object({
         }),
 });
 
-module.exports = { fondoBodySchema, fondoIdSchema };
+module.exports = { concursoBodySchema, concursoIdSchema };
