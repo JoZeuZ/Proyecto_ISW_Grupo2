@@ -5,7 +5,7 @@ const { handleError } = require("../utils/errorHandler");
 
 async function getConcurso() {
   try {
-    const concursos = await concurso.find().exec();
+    const concursos = await Concurso.find().exec();
     if (!concursos) return [null, "No hay concursos"];
 
     return [concursos, null];
