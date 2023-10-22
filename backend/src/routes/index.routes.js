@@ -1,18 +1,16 @@
 "use strict";
 // Importa el modulo 'express' para crear las rutas
 const express = require("express");
-
+// Enrutador de rubrica
+const rubricaRoutes = require("./rubrica.routes.js");
+// Enrutador de evaluacion
+const evaluacionRoutes = require("./evaluacion.routes.js");
 /** Enrutador de usuarios  */
 const userRoutes = require("./user.routes.js");
-
 /** Enrutador de autenticación */
 const authRoutes = require("./auth.routes.js");
-
-const rubricaRoutes = require("./rubrica.routes.js");
-
 /** Middleware de autenticación */
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
-
 /** Instancia del enrutador */
 const router = express.Router();
 
@@ -22,6 +20,8 @@ router.use("/users", authenticationMiddleware, userRoutes);
 router.use("/auth", authRoutes);
 //Define las rutas para la rubrica /api/rubrica
 router.use("/rubrica", rubricaRoutes);
+//Define las rutas para la evaluacion /api/evaluacion
+router.use("/evaluacion", evaluacionRoutes);
 
 // Exporta el enrutador
 module.exports = router;

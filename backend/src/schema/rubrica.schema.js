@@ -29,10 +29,14 @@ const rubricaBodySchema = Joi.object({
         "any.required": "Los criterios son obligatorios.",
         "object.base": "Los criterios deben ser de tipo object.",
     }),
-    concursos: Joi.array().items(Joi.string().pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)).messages({
-        "array.base": "Los concursos deben ser de tipo array.",
-        "object.base": "Los concursos deben ser de tipo object.",
-        "string.pattern.base": "Los concursos proporcionados no son ObjectIds válidos.",
+    puntajeAprobacion: Joi.number().required().messages({
+        "number.base": "El puntaje de aprobación debe ser de tipo number.",
+        "any.required": "El puntaje de aprobación es obligatorio.",
+    }),
+    concurso: Joi.string().required().messages({
+        "string.empty": "El id del concurso no puede estar vacío.",
+        "any.required": "El id del concurso es obligatorio.",
+        "string.base": "El id del concurso debe ser de tipo string.",
     }),
 }).messages({
     "object.unknown": "No se permiten propiedades adicionales.",

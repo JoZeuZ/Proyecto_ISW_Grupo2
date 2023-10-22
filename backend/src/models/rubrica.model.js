@@ -9,6 +9,7 @@ const criterioSchema = new mongoose.Schema({
     },
     descripcion: {
         type: String,
+        required: true,
     },
     puntaje: {
         type: Number,
@@ -24,11 +25,18 @@ const rubricaSchema = new mongoose.Schema({
     descripcion: {
         type: String,
     },
-    criterios: [criterioSchema],
-    concurso: [{
+    criterios:[{
+        type: criterioSchema,
+        required: true,
+    }],
+    puntajeAprobacion: {
+        type: Number,
+        required: true,
+    },
+    concurso: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Concurso",
-    }, ],
+    },
 });
 
 const rubrica = mongoose.model("rubrica", rubricaSchema);

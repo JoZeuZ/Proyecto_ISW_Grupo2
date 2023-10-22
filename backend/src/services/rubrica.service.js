@@ -38,13 +38,14 @@ async function getRubricaById(id) {
  */
 async function createRubrica(rubrica) {
     try {
-        const { name, descripcion, criterios, concursos } = rubrica;
+        const { name, descripcion, criterios, puntajeAprobacion, concursos } = rubrica;
         const rubricaFound = await Rubrica.findOne({ name: rubrica.name });
         if (rubricaFound) return [null, "La rubrica ya existe"];
         const newRubrica = new Rubrica({
             name,
             descripcion,
             criterios,
+            puntajeAprobacion,
             concursos,
         });
         await newRubrica.save();
