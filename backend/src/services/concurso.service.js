@@ -1,6 +1,7 @@
 "use strict";
 
 const Concurso = require("../models/concurso.model");
+const Fondo = require("../models/fondo.model");
 const { handleError } = require("../utils/errorHandler");
 
 async function getConcurso() {
@@ -22,10 +23,14 @@ async function createConcurso(concurso) {
       fechaInicio,
       fechaFin,
       montoAsignado,
-      fondo,
+      fondo
     } = concurso;
-    const concursosFound = await Concurso.findOne({ nombre: concurso.nombre }).exec();
+    const concursosFound = await Concurso.findOne({ nombre: concurso.nombre });
     if (concursosFound) return [null, "El concurso ya existe"];
+
+    const fondoFound = await Fondo.find({ _id: { $in: fondo } });
+    if (fondoFound.length === 0) return [null, "El fondo no existe"];
+    const myFondo = fondoFound.map((fondo) => fondo._id);
 
     const newConcurso = new Concurso({
       nombre,
@@ -33,7 +38,7 @@ async function createConcurso(concurso) {
       fechaInicio,
       fechaFin,
       montoAsignado,
-      fondo,
+      fondo: myFondo,
     });
     await newConcurso.save();
 
@@ -56,14 +61,29 @@ async function getConcursoById(id) {
 
 async function updateConcurso(id, concurso) {
   try {
+    const concursoFound = await Concurso.findById(id);
+    if (!concursoFound) return [null, "El concurso no existe"];
+
+    const { nombre, bases, fechaInicio, fechaFin, montoAsignado, fondo } = concurso;
+
+    const fondoFound = await Fondo.find({ _id: { $in: fondo } });
+    if (fondoFound.length === 0) return [null, "El fondo no existe"];
+    const myFondo = fondoFound.map((fondo) => fondo._id);
+
     const concursoUpdated = await Concurso.findByIdAndUpdate(
       id,
       {
-        $set: concurso,
+        $set: {
+          nombre,
+          bases,
+          fechaInicio,
+          fechaFin,
+          montoAsignado,
+          fondo: myFondo,
+        },
       },
       { new: true }
     );
-    if (!concursoUpdated) return [null, "El concurso no existe"];
 
     return [concursoUpdated, null];
   } catch (error) {

@@ -1,10 +1,23 @@
+/**
+ * Funciones middleware para manejar operaciones relacionadas con fondos.
+ * @module fondoMiddleware
+ */
+
 "use strict";
+
 const mongoose = require('mongoose');
 const { respondError } = require('../utils/resHandler');
 const { handleError } = require('../utils/errorHandler');
-const Fondo = require("../models/Fondo.model");
+const Fondo = require("../models/fondo.model");
 const Concurso = require("../models/concurso.model");
 
+/**
+ * Valida la cantidad asignada a un concurso y actualiza la cantidad asignada del fondo correspondiente.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @param {Function} next - Función middleware siguiente de Express.
+ * @returns {Promise<void>} - Promesa que se resuelve cuando la cadena de middleware está completa.
+ */
 async function validarMonto(req, res, next) {
   try {
     const concurso = req.body;
@@ -27,6 +40,8 @@ async function validarMonto(req, res, next) {
 
     // Actualizar el monto asignado del fondo
     fondo.montoAsignado = montoAsignadoActualizado;
+    // Agregar el concurso al array de concursos del fondo
+    fondo.concursos.push(concurso._id);
     await fondo.save();
 
     next();
@@ -36,6 +51,13 @@ async function validarMonto(req, res, next) {
   }
 }
 
+/**
+ * Resta la cantidad asignada a un concurso del fondo correspondiente.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @param {Function} next - Función middleware siguiente de Express.
+ * @returns {Promise<void>} - Promesa que se resuelve cuando la cadena de middleware está completa.
+ */
 async function restarMontoFondo(req, res, next) {
   try {
     const concursoId = req.params.id;
@@ -53,6 +75,7 @@ async function restarMontoFondo(req, res, next) {
     respondError(req, res, 500, 'Error al restar monto del fondo');
   }
 }
+
 module.exports = {
   validarMonto,
   restarMontoFondo

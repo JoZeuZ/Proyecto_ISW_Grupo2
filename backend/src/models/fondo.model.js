@@ -11,12 +11,11 @@ const fondoSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    // montoDisponible: {
-    //     type: Number,
-    //     default: function() {
-    //         return this.montoTotal - this.montoAsignado;
-    //     }
-    // }
+    concursos: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Concurso",
+    }],
+
 })
 
 
