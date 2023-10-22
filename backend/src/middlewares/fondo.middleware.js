@@ -67,6 +67,8 @@ async function restarMontoFondo(req, res, next) {
     }
 
     concurso.fondo.montoAsignado -= concurso.montoAsignado;
+    // Remover el concurso del array de concursos del fondo
+    concurso.fondo.concursos = concurso.fondo.concursos.filter(id => id.toString() !== concursoId);
     await concurso.fondo.save();
 
     next();
@@ -75,6 +77,7 @@ async function restarMontoFondo(req, res, next) {
     respondError(req, res, 500, 'Error al restar monto del fondo');
   }
 }
+
 
 module.exports = {
   validarMonto,
