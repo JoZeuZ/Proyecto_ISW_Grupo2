@@ -1,5 +1,5 @@
 /**
- * Funciones middleware para manejar operaciones relacionadas con fondos.
+ * Funcion middleware para manejar operaciones relacionadas con fondos.
  * @module fondoMiddleware
  */
 
@@ -15,8 +15,6 @@ const Concurso = require("../models/concurso.model");
  * Valida la cantidad asignada a un concurso y actualiza la cantidad asignada del fondo correspondiente.
  * @param {Object} req - Objeto de solicitud de Express.
  * @param {Object} res - Objeto de respuesta de Express.
- * @param {Function} next - Función middleware siguiente de Express.
- * @returns {Promise<void>} - Promesa que se resuelve cuando la cadena de middleware está completa.
  */
 async function validarMonto(req, res, next) {
   try {
@@ -40,8 +38,6 @@ async function validarMonto(req, res, next) {
 
     // Actualizar el monto asignado del fondo
     fondo.montoAsignado = montoAsignadoActualizado;
-    // Agregar el concurso al array de concursos del fondo
-    fondo.concursos.push(concurso._id);
     await fondo.save();
 
     next();
@@ -51,35 +47,29 @@ async function validarMonto(req, res, next) {
   }
 }
 
-/**
- * Resta la cantidad asignada a un concurso del fondo correspondiente.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- * @param {Function} next - Función middleware siguiente de Express.
- * @returns {Promise<void>} - Promesa que se resuelve cuando la cadena de middleware está completa.
- */
-async function restarMontoFondo(req, res, next) {
-  try {
-    const concursoId = req.params.id;
-    const concurso = await Concurso.findById(concursoId).populate('fondo');
-    if (!concurso || !concurso.fondo) {
-      return respondError(req, res, 404, 'Concurso o fondo no encontrado');
-    }
 
-    concurso.fondo.montoAsignado -= concurso.montoAsignado;
-    // Remover el concurso del array de concursos del fondo
-    concurso.fondo.concursos = concurso.fondo.concursos.filter(id => id.toString() !== concursoId);
-    await concurso.fondo.save();
+// async function restarMontoFondo(req, res, next) {
+//   try {
+//     const concursoId = req.params.id;
+//     const concurso = await Concurso.findById(concursoId).populate('fondo');
+//     if (!concurso || !concurso.fondo) {
+//       return respondError(req, res, 404, 'Concurso o fondo no encontrado');
+//     }
 
-    next();
-  } catch (error) {
-    handleError(error, "monto.middleware -> restarMontoFondo");
-    respondError(req, res, 500, 'Error al restar monto del fondo');
-  }
-}
+//     concurso.fondo.montoAsignado -= concurso.montoAsignado;
+//     // Remover el concurso del array de concursos del fondo
+//     concurso.fondo.concursos = concurso.fondo.concursos.filter(id => id.toString() !== concursoId);
+//     await concurso.fondo.save();
+
+//     next();
+//   } catch (error) {
+//     handleError(error, "monto.middleware -> restarMontoFondo");
+//     respondError(req, res, 500, 'Error al restar monto del fondo');
+//   }
+// }
 
 
 module.exports = {
   validarMonto,
-  restarMontoFondo
+  // restarMontoFondo
 };

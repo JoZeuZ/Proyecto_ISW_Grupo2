@@ -15,6 +15,6 @@ router.get("/", concursoController.getConcurso);
 router.post("/", authorizationMiddleware.isAdmin, montoMiddleware.validarMonto, concursoController.createConcurso);
 router.get("/:id", concursoController.getConcursoById);
 router.put("/:id", authorizationMiddleware.isAdmin, montoMiddleware.validarMonto, concursoController.updateConcurso);
-router.delete("/:id", authorizationMiddleware.isAdmin, montoMiddleware.restarMontoFondo, concursoController.deleteConcurso);
+router.delete("/:id", authorizationMiddleware.isAdmin, concursoController.deleteConcurso);
 
 module.exports = router;
