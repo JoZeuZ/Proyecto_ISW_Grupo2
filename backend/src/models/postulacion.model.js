@@ -10,6 +10,10 @@ const PostulacionSchema = new mongoose.Schema({
     descripcion:{
         type: String,
     },
+    correoElectronico:{
+        type: String,
+        required: true
+    },
     propuestaProyecto:{
         nombre: {
             type: String,
@@ -59,6 +63,7 @@ const PostulacionSchema = new mongoose.Schema({
   concurso: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",
+    required: true,
 }, ],
 });    
 

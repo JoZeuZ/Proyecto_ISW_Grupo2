@@ -15,6 +15,11 @@ const postulacionBodySchema = Joi.object({
     descripcion: Joi.string().messages({
         "string.base": "La descripción debe ser de tipo string.",
     }),
+    correoElectronico: Joi.string().required().messages({
+        "string.empty": "El correo electrónico no puede estar vacío.",
+        "any.required": "El correo electrónico es obligatorio.",
+        "string.base": "El correo electrónico debe ser de tipo string.",
+    }),
     propuestaProyecto: Joi.object({
         nombre: Joi.string().required().messages({
             "string.empty": "El nombre de la propuesta de proyecto no puede estar vacío.",

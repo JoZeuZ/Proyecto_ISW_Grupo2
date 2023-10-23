@@ -19,6 +19,7 @@ async function createPostulacion(postulacion) {
         const{
             nombre,
             descripcion,
+            correoElectronico,
             propuestaProyecto,
             imagenes,
             certificados,
@@ -29,6 +30,7 @@ async function createPostulacion(postulacion) {
         const newPostulacion = new Postulacion({
             nombre,
             descripcion,
+            correoElectronico,
             propuestaProyecto,
             imagenes,
             certificados,
