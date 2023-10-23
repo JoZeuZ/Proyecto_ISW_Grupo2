@@ -1,11 +1,11 @@
 "use strict";
 
-const postulacion = require("../models/postulacion.model");
+const Postulacion = require("../models/postulacion.model");
 const { handleError } = require("../utils/errorHandler");
 
 async function getPostulaciones() {
     try {
-        const postulaciones = await postulacion.find().exec();
+        const postulaciones = await Postulacion.find().exec();
         if (!postulaciones) return [null, "No hay postulaciones"];
     
         return [postulaciones, null];
@@ -22,15 +22,17 @@ async function createPostulacion(postulacion) {
             propuestaProyecto,
             imagenes,
             certificados,
+            concurso,
         } = postulacion;
-        const postulacionFound = await postulacion.findOne({nombre: postulacion.nombre}).exec();
+        const postulacionFound = await Postulacion.findOne({nombre: postulacion.nombre}).exec();
         if (postulacionFound) return [null, "La postulacion ya existe"];
-        const newPostulacion = new postulacion({
+        const newPostulacion = new Postulacion({
             nombre,
             descripcion,
             propuestaProyecto,
             imagenes,
             certificados,
+            concurso,
         });
         await newPostulacion.save();
         return [newPostulacion, null];
@@ -42,7 +44,7 @@ async function createPostulacion(postulacion) {
 
 async function getPostulacionById(id) {
     try {
-        const postulacionFound = await postulacion.findById(id).exec();
+        const postulacionFound = await Postulacion.findById(id).exec();
         if (!postulacionFound) return [null, "La postulacion no existe"];
     
         return [postulacionFound, null];
@@ -53,7 +55,7 @@ async function getPostulacionById(id) {
 
 async function updatePostulacion(id, postulacion) {
     try {
-        const postulacionUpdated = await postulacion.findByIdAndUpdate(
+        const postulacionUpdated = await Postulacion.findByIdAndUpdate(
             id,
             postulacion,
             { new: true }
@@ -67,7 +69,7 @@ async function updatePostulacion(id, postulacion) {
 }
 async function deletePostulacion(id) {
     try {
-        const postulacionDeleted = await postulacion.findByIdAndDelete(id);
+        const postulacionDeleted = await Postulacion.findByIdAndDelete(id);
         if (!postulacionDeleted) return [null, "La postulacion no existe"];
     
         return [postulacionDeleted, null];

@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const postulacionSchema = new mongoose.Schema({
+const PostulacionSchema = new mongoose.Schema({
     nombre:{
         type: String,
         required: true
@@ -56,12 +56,12 @@ const postulacionSchema = new mongoose.Schema({
       },
     },
   ],
-  concursos: [{
+  concurso: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",
 }, ],
 });    
 
 
-const Postulacion = mongoose.model('Postulacion', postulacionSchema);
+const Postulacion = mongoose.model('Postulacion', PostulacionSchema);
 module.exports = Postulacion;

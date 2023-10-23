@@ -69,7 +69,7 @@ const postulacionBodySchema = Joi.object({
             }),
         })
     ),
-    concursos: Joi.array().items(
+    concurso: Joi.array().items(
         Joi.string().pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)
     ).messages({
         "array.base": "Los concursos deben ser de tipo array.",

@@ -23,16 +23,12 @@ const ConcursoSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    fondoID: {
+    fondo: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Fondo',
         required: true
-    },
-    adminID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
     }
 });
+
 const Concurso = mongoose.model('Concurso', ConcursoSchema);
 module.exports = Concurso;

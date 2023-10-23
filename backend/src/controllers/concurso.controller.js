@@ -5,9 +5,9 @@ const ConcursoService = require("../services/concurso.service");
 const { handleError } = require("../utils/errorHandler");
 const { concursoBodySchema, concursoIdSchema } = require("../schema/concurso.schema");
 
-async function getConcursos(req, res) {
+async function getConcurso(req, res) {
   try {
-    const [concursos, errorConcursos] = await ConcursoService.getConcursos();
+    const [concursos, errorConcursos] = await ConcursoService.getConcurso();
     if (errorConcursos) return respondError(req, res, 404, errorConcursos);
 
     concursos.length === 0
@@ -91,7 +91,7 @@ async function deleteConcurso(req, res) {
 }
 
 module.exports = {
-  getConcursos,
+  getConcurso,
   createConcurso,
   getConcursoById,
   updateConcurso,
