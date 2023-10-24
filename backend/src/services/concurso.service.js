@@ -2,6 +2,7 @@
 
 const Concurso = require("../models/concurso.model");
 const Fondo = require("../models/fondo.model");
+const moment = require('moment');
 const { handleError } = require("../utils/errorHandler");
 
 async function getConcurso() {
@@ -9,7 +10,18 @@ async function getConcurso() {
     const concursos = await Concurso.find().exec();
     if (!concursos) return [null, "No hay concursos"];
 
-    return [concursos, null];
+    const concursosFormateados = concursos.map(concurso => {
+      const fechaInicioFormateada = moment(concurso.fechaInicio).format('DD/MM/YYYY');
+      const fechaFinFormateada = moment(concurso.fechaFin).format('DD/MM/YYYY');
+
+      return {
+        ...concurso.toObject(),
+        fechaInicio: fechaInicioFormateada,
+        fechaFin: fechaFinFormateada
+      };
+    });
+
+    return [concursosFormateados, null];
   } catch (error) {
     handleError(error, "concurso.service -> getConcursos");
   }
@@ -25,6 +37,17 @@ async function createConcurso(concurso) {
       montoAsignado,
       fondo
     } = concurso;
+
+    const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
+    const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
+
+    if (!fechaInicioMoment.isValid() || !fechaFinMoment.isValid()) {
+      return [null, 'Formato de fecha inválido'];
+    }
+
+    const fechaInicioUTC = fechaInicioMoment.toDate();
+    const fechaFinUTC = fechaFinMoment.toDate();
+
     const concursosFound = await Concurso.findOne({ nombre: concurso.nombre });
     if (concursosFound) return [null, "El concurso ya existe"];
 
@@ -35,8 +58,8 @@ async function createConcurso(concurso) {
     const newConcurso = new Concurso({
       nombre,
       bases,
-      fechaInicio,
-      fechaFin,
+      fechaInicio: fechaInicioUTC,
+      fechaFin: fechaFinUTC,
       montoAsignado,
       fondo: myFondo,
     });
@@ -45,6 +68,7 @@ async function createConcurso(concurso) {
     return [newConcurso, null];
   } catch (error) {
     handleError(error, "concurso.service -> createConcurso");
+    return [null, 'Error interno del servidor'];
   }
 }
 
@@ -53,7 +77,16 @@ async function getConcursoById(id) {
     const concursoFound = await Concurso.findById(id).exec();
     if (!concursoFound) return [null, "El concurso no existe"];
 
-    return [concursoFound, null];
+    const fechaInicioFormateada = moment(concursoFound.fechaInicio).format('DD/MM/YYYY');
+    const fechaFinFormateada = moment(concursoFound.fechaFin).format('DD/MM/YYYY');
+
+    const concursoFormateado = {
+      ...concursoFound.toObject(),
+      fechaInicio: fechaInicioFormateada,
+      fechaFin: fechaFinFormateada
+    };
+
+    return [concursoFormateado, null];
   } catch (error) {
     handleError(error, "concurso.service -> getConcursoById");
   }
