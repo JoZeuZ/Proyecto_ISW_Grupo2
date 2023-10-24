@@ -2,16 +2,24 @@
 
 const mongoose = require('mongoose');
 
-const postulacionSchema = new mongoose.Schema({
-    nombre:{
+const PostulacionSchema = new mongoose.Schema({
+    nombrePostulante:{
         type: String,
         required: true
     },
     descripcion:{
         type: String,
+        required: true
+    },
+    correoElectronico:{
+        type: String,
+        required: true
+    },
+    numeroTelefono:{
+        type: String
     },
     propuestaProyecto:{
-        nombre: {
+        tema: {
             type: String,
             required: true
         },
@@ -22,7 +30,7 @@ const postulacionSchema = new mongoose.Schema({
         formato: {
             type: String,
             required: true
-        }   
+        }
     },
     imagenes: [
     {
@@ -56,12 +64,13 @@ const postulacionSchema = new mongoose.Schema({
       },
     },
   ],
-  concursos: [{
+  concurso: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",
+    required: true,
 }, ],
-});    
+});
 
 
-const Postulacion = mongoose.model('Postulacion', postulacionSchema);
+const Postulacion = mongoose.model('Postulacion', PostulacionSchema, "postulaciones");
 module.exports = Postulacion;

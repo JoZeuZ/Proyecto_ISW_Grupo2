@@ -2,6 +2,17 @@
 
 const mongoose = require("mongoose");
 
+const criterioEvaluadoSchema = new mongoose.Schema({
+  criterio: {
+    type: String,
+    required: true,
+  },
+  puntaje: {
+    type: Number,
+    required: true,
+  },
+});
+
 const informeSchema = new mongoose.Schema({
   evaluador: {
     type: mongoose.Schema.Types.ObjectId,
