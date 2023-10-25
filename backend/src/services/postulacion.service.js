@@ -17,23 +17,29 @@ async function getPostulaciones() {
 async function createPostulacion(postulacion) {
     try{
         const{
-            nombre,
-            descripcion,
+            nombrePostulante,
+            rutPostulante,
             correoElectronico,
+            numeroTelefono,
+            descripcion,
+            nombreEmpresa,
+            rutEmpresa,
             propuestaProyecto,
-            imagenes,
-            certificados,
+            imagenesRespaldoPostulacion,
             concurso,
         } = postulacion;
         const postulacionFound = await Postulacion.findOne({nombre: postulacion.nombre}).exec();
         if (postulacionFound) return [null, "La postulacion ya existe"];
         const newPostulacion = new Postulacion({
-            nombre,
-            descripcion,
+            nombrePostulante,
+            rutPostulante,
             correoElectronico,
+            numeroTelefono,
+            descripcion,
+            nombreEmpresa,
+            rutEmpresa,
             propuestaProyecto,
-            imagenes,
-            certificados,
+            imagenesRespaldoPostulacion,
             concurso,
         });
         await newPostulacion.save();

@@ -14,7 +14,7 @@ router.get("/", postulacionController.getPostulaciones);
 router.post("/", authorizationMiddleware.isAdmin, postulacionController.createPostulacion);
 router.get("/:id", postulacionController.getPostulacionById);
 router.put("/:id", authorizationMiddleware.isAdmin, postulacionController.updatePostulacion);
-router.delete("/:id", authorizationMiddleware.isAdmin, postulacionController.deletePostulacion);
+router.delete("/:id",authorizationMiddleware.isAdmin , postulacionController.deletePostulacion);
 
 module.exports = router;
 

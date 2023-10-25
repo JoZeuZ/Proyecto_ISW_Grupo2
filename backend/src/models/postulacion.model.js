@@ -3,23 +3,41 @@
 const mongoose = require('mongoose');
 
 const PostulacionSchema = new mongoose.Schema({
-    nombre:{
+    nombrePostulante:{
         type: String,
         required: true
+    },
+    rutPostulante:{
+        type: String,
+        required: true,
+        unique: true
+    },
+    correoElectronico:{
+      type: String,
+      required: true
+    },
+    numeroTelefono:{
+      type: String
     },
     descripcion:{
         type: String,
+        required: true
     },
-    correoElectronico:{
+    nombreEmpresa:{
         type: String,
         required: true
+    },
+    rutEmpresa:{
+        type: String,
+        required: true,
+        unique: true
     },
     propuestaProyecto:{
         nombre: {
             type: String,
             required: true
         },
-        contenido: {
+        descripcion: {
             type: String,
             required: true
         },
@@ -28,45 +46,18 @@ const PostulacionSchema = new mongoose.Schema({
             required: true
         }   
     },
-    imagenes: [
-    {
-      nombre: {
+    imagenesRespaldoPostulacion:[
+      {
         type: String,
-        required: true,
-      },
-      data: {
-        type: Buffer,
-        required: true,
-      },
-      contentType: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-  certificados: [
-    {
-      nombre: {
-        type: String,
-        required: true,
-      },
-      contenido: {
-        type: String,
-        required: true,
-      },
-      formato: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-  concurso: [{
+        required: true
+      }
+    ],
+  concurso: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",
     required: true,
-}, ],
+  }, 
 });    
 
-
-const Postulacion = mongoose.model('Postulacion', PostulacionSchema);
+const Postulacion = mongoose.model('Postulacion', PostulacionSchema, "postulaciones");
 module.exports = Postulacion;

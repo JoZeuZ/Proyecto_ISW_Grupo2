@@ -6,85 +6,111 @@ const Joi = require("joi");
  * Esquema de validación para el cuerpo de la solicitud de Postulacion.
  * @constant {Object}
  *  */
+
 const postulacionBodySchema = Joi.object({
-    nombre: Joi.string().required().messages({
-        "string.empty": "El nombre no puede estar vacío.",
-        "any.required": "El nombre es obligatorio.",
-        "string.base": "El nombre debe ser de tipo string.",
-    }),
-    descripcion: Joi.string().messages({
-        "string.base": "La descripción debe ser de tipo string.",
-    }),
-    correoElectronico: Joi.string().required().messages({
-        "string.empty": "El correo electrónico no puede estar vacío.",
-        "any.required": "El correo electrónico es obligatorio.",
-        "string.base": "El correo electrónico debe ser de tipo string.",
-    }),
-    propuestaProyecto: Joi.object({
-        nombre: Joi.string().required().messages({
-            "string.empty": "El nombre de la propuesta de proyecto no puede estar vacío.",
-            "any.required": "El nombre de la propuesta de proyecto es obligatorio.",
-            "string.base": "El nombre de la propuesta de proyecto debe ser de tipo string.",
+    nombrePostulante: Joi.string()
+        .required()
+        .messages({
+            "string.base": "El nombre del postulante debe ser de tipo string.",
+            "string.empty": "El nombre del postulante no puede estar vacío.",
+            "any.required": "El nombre del postulante es obligatorio."
         }),
-        contenido: Joi.string().required().messages({
-            "string.empty": "El contenido de la propuesta de proyecto no puede estar vacío.",
-            "any.required": "El contenido de la propuesta de proyecto es obligatorio.",
-            "string.base": "El contenido de la propuesta de proyecto debe ser de tipo string.",
+    rutPostulante: Joi.string()
+        .required()
+        .messages({
+            "string.base": "El rut del postulante debe ser de tipo string.",
+            "string.empty": "El rut del postulante no puede estar vacío.",
+            "any.required": "El rut del postulante es obligatorio."
         }),
-        formato: Joi.string().required().messages({
-            "string.empty": "El formato de la propuesta de proyecto no puede estar vacío.",
-            "any.required": "El formato de la propuesta de proyecto es obligatorio.",
-            "string.base": "El formato de la propuesta de proyecto debe ser de tipo string.",
+    correoElectronico: Joi.string()
+        .required()
+        .email()
+        .messages({
+            "string.base": "El correo electrónico del postulante debe ser de tipo string.",
+            "string.empty": "El correo electrónico del postulante no puede estar vacío.",
+            "any.required": "El correo electrónico del postulante es obligatorio.",
+            "string.email": "El correo electrónico del postulante debe ser un correo electrónico válido."
         }),
-    }),
-    imagenes: Joi.array().items(
-        Joi.object({
-            nombre: Joi.string().required().messages({
-                "string.empty": "El nombre de la imagen no puede estar vacío.",
-                "any.required": "El nombre de la imagen es obligatorio.",
-                "string.base": "El nombre de la imagen debe ser de tipo string.",
-            }),
-            data: Joi.binary().required().messages({
-                "binary.base": "La imagen debe ser de tipo binary.",
-                "any.required": "La imagen es obligatoria.",
-            }),
-            contentType: Joi.string().required().messages({
-                "string.empty": "El contentType de la imagen no puede estar vacío.",
-                "any.required": "El contentType de la imagen es obligatorio.",
-                "string.base": "El contentType de la imagen debe ser de tipo string.",
-            }),
+    numeroTelefono: Joi.string()
+        .allow("")
+        .messages({
+            "string.base": "El número de teléfono del postulante debe ser de tipo string.",
+            "string.empty": "El número de teléfono del postulante no puede estar vacío."
+        }),
+    descripcion: Joi.string()
+        .required()
+        .messages({
+            "string.base": "La descripción del postulante debe ser de tipo string.",
+            "string.empty": "La descripción del postulante no puede estar vacía.",
+            "any.required": "La descripción del postulante es obligatoria."
+        }),
+    nombreEmpresa: Joi.string()
+        .required()
+        .messages({
+            "string.base": "El nombre de la empresa debe ser de tipo string.",
+            "string.empty": "El nombre de la empresa no puede estar vacío.",
+            "any.required": "El nombre de la empresa es obligatorio."
+        }),
+    rutEmpresa: Joi.string()
+        .required()
+        .messages({
+            "string.base": "El rut de la empresa debe ser de tipo string.",
+            "string.empty": "El rut de la empresa no puede estar vacío.",
+            "any.required": "El rut de la empresa es obligatorio."
+        }),
+        propuestaProyecto: Joi.object({
+            nombre: Joi.string()
+                .required()
+                .messages({
+                    "string.base": "El nombre de la propuesta del proyecto debe ser de tipo string.",
+                    "string.empty": "El nombre de la propuesta del proyecto no puede estar vacío.",
+                    "any.required": "El nombre de la propuesta del proyecto es obligatorio."
+                }),
+            descripcion: Joi.string()
+                .required()
+                .messages({
+                    "string.base": "La descripción de la propuesta del proyecto debe ser de tipo string.",
+                    "string.empty": "La descripción de la propuesta del proyecto no puede estar vacía.",
+                    "any.required": "La descripción de la propuesta del proyecto es obligatoria."
+                }),
+            formato: Joi.string()
+                .required()
+                .messages({
+                    "string.base": "El formato de la propuesta del proyecto debe ser de tipo string.",
+                    "string.empty": "El formato de la propuesta del proyecto no puede estar vacío.",
+                    "any.required": "El formato de la propuesta del proyecto es obligatorio."
+                })
         })
-    ),
-    certificados: Joi.array().items(
-        Joi.object({
-            nombre: Joi.string().required().messages({
-                "string.empty": "El nombre del certificado no puede estar vacío.",
-                "any.required": "El nombre del certificado es obligatorio.",
-                "string.base": "El nombre del certificado debe ser de tipo string.",
-            }),
-            contenido: Joi.string().required().messages({
-                "string.empty": "El contenido del certificado no puede estar vacío.",
-                "any.required": "El contenido del certificado es obligatorio.",
-                "string.base": "El contenido del certificado debe ser de tipo string.",
-            }),
-            formato: Joi.string().required().messages({
-                "string.empty": "El formato del certificado no puede estar vacío.",
-                "any.required": "El formato del certificado es obligatorio.",
-                "string.base": "El formato del certificado debe ser de tipo string.",
-            }),
+        .required()
+        .messages({
+            "object.base": "La propuesta del proyecto debe ser de tipo object.",
+            "object.empty": "La propuesta del proyecto no puede estar vacía.",
+            "any.required": "La propuesta del proyecto es obligatoria."
+        }),        
+    imagenesRespaldoPostulacion: Joi.array()
+        .items(Joi.string()
+            .required()
+            .messages({
+                "string.base": "La imagen de respaldo de la postulación debe ser de tipo string.",
+                "string.empty": "La imagen de respaldo de la postulación no puede estar vacía.",
+                "any.required": "La imagen de respaldo de la postulación es obligatoria."
+            }))
+        .messages({
+            "array.base": "Las imágenes de respaldo de la postulación deben ser de tipo array.",
+            "array.empty": "Las imágenes de respaldo de la postulación no pueden estar vacías."
+        }),
+    concurso: Joi.string()
+        .required()
+        .pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)
+        .messages({
+            "string.empty": "El concurso no puede estar vacío.",
+            "any.required": "El concurso es obligatorio.",
+            "string.base": "El concurso debe ser de tipo string.",
+            "string.pattern.base": "El concurso proporcionado no es un ObjectId válido."
         })
-    ),
-    concurso: Joi.array().items(
-        Joi.string().pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)
-    ).messages({
-        "array.base": "Los concursos deben ser de tipo array.",
-        "string.pattern.base": "El concursoID proporcionado no es un ObjectId válido."
-    }),
 }).messages({
-    "object.unknown": "No se permiten propiedades adicionales.",
+    "object.unknown": "No se permiten propiedades adicionales."
 });
-
-
 
 const postulacionIdSchema = Joi.object({
     id: Joi.string()
@@ -96,8 +122,13 @@ const postulacionIdSchema = Joi.object({
             "string.base": "El id debe ser de tipo string.",
             "string.pattern.base": "El id proporcionado no es un ObjectId válido."
         }),
+}).messages({
+    "object.unknown": "No se permiten propiedades adicionales."
 });
 
-module.exports = { postulacionBodySchema, postulacionIdSchema };
+module.exports = {postulacionBodySchema, postulacionIdSchema};
+
+
+
 
 

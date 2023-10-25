@@ -7,6 +7,7 @@ const authorizationMiddleware = require("../middlewares/authorization.middleware
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
 
 const router = express.Router();
+
 router.use(authenticationMiddleware);
 
 router.get("/", concursoController.getConcurso);
