@@ -28,8 +28,10 @@ async function createPostulacion(postulacion) {
             imagenesRespaldoPostulacion,
             concurso,
         } = postulacion;
-        const postulacionFound = await Postulacion.findOne({nombre: postulacion.nombre}).exec();
+        const postulacionFound = await Postulacion.findOne({ rutPostulante }).exec();
+
         if (postulacionFound) return [null, "La postulacion ya existe"];
+
         const newPostulacion = new Postulacion({
             nombrePostulante,
             rutPostulante,

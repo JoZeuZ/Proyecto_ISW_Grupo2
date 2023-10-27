@@ -20,7 +20,7 @@ const postulacionBodySchema = Joi.object({
         .messages({
             "string.base": "El rut del postulante debe ser de tipo string.",
             "string.empty": "El rut del postulante no puede estar vacío.",
-            "any.required": "El rut del postulante es obligatorio."
+            "any.required": "El rut del postulante es obligatorio.",      
         }),
     correoElectronico: Joi.string()
         .required()
