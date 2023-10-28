@@ -7,23 +7,37 @@ const PostulacionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    rutPostulante:{
+        type: String,
+        required: true,
+        unique: true
+    },
+    correoElectronico:{
+      type: String,
+      required: true
+    },
+    numeroTelefono:{
+      type: String
+    },
     descripcion:{
         type: String,
         required: true
     },
-    correoElectronico:{
+    nombreEmpresa:{
         type: String,
         required: true
     },
-    numeroTelefono:{
-        type: String
+    rutEmpresa:{
+        type: String,
+        required: true,
+        unique: true
     },
     propuestaProyecto:{
-        tema: {
+        nombre: {
             type: String,
             required: true
         },
-        contenido: {
+        descripcion: {
             type: String,
             required: true
         },
@@ -32,7 +46,7 @@ const PostulacionSchema = new mongoose.Schema({
             required: true
         }
     },
-    imagenes: [
+    imagenesRespaldoPostulacion: [
     {
       nombre: {
         type: String,
@@ -48,29 +62,12 @@ const PostulacionSchema = new mongoose.Schema({
       },
     },
   ],
-  certificados: [
-    {
-      nombre: {
-        type: String,
-        required: true,
-      },
-      contenido: {
-        type: String,
-        required: true,
-      },
-      formato: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-  concurso: [{
+  concurso: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",
     required: true,
-}, ],
+  }, 
 });
-
 
 const Postulacion = mongoose.model('Postulacion', PostulacionSchema, "postulaciones");
 module.exports = Postulacion;

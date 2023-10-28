@@ -27,8 +27,13 @@ const ConcursoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Fondo',
         required: true
-    }
+    },
+    //rubrica: {
+       // type: mongoose.Schema.Types.ObjectId,
+      //  ref: 'Rubrica'
+    //}
 });
 
+  
 const Concurso = mongoose.model('Concurso', ConcursoSchema);
 module.exports = Concurso;

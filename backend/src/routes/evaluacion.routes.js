@@ -2,7 +2,7 @@
 
 const express = require("express");
 
-//const evaluarController = require("../controllers/evaluar.controller.js");
+const evaluarController = require("../controllers/evaluar.controller.js");
 
 const authorizationMiddleware = require("../middlewares/authorization.middleware.js");
 
@@ -13,6 +13,6 @@ const router = express.Router();
 router.use(authenticationMiddleware);
 
 
-//router.post("/evaluar/:postulacionId", authorizationMiddleware.isEvaluador, evaluarController.evaluarPostulacion);
+router.post("/evaluar/:postulacionId", authorizationMiddleware.isEvaluador, evaluarController.evaluarPostulacion);
 
 module.exports = router;
