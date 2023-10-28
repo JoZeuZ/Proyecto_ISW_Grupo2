@@ -16,6 +16,7 @@ const Concurso = require("../models/concurso.model");
  * @param {Object} req - Objeto de solicitud de Express.
  * @param {Object} res - Objeto de respuesta de Express.
  */
+
 async function validarMonto(req, res, next) {
   try {
     const concurso = req.body;
@@ -36,10 +37,6 @@ async function validarMonto(req, res, next) {
       });
     }
 
-    // Actualizar el monto asignado del fondo
-    fondo.montoAsignado = montoAsignadoActualizado;
-    await fondo.save();
-
     next();
   } catch (error) {
     handleError(error, "monto.middleware -> validarMonto");
@@ -48,28 +45,7 @@ async function validarMonto(req, res, next) {
 }
 
 
-// async function restarMontoFondo(req, res, next) {
-//   try {
-//     const concursoId = req.params.id;
-//     const concurso = await Concurso.findById(concursoId).populate('fondo');
-//     if (!concurso || !concurso.fondo) {
-//       return respondError(req, res, 404, 'Concurso o fondo no encontrado');
-//     }
-
-//     concurso.fondo.montoAsignado -= concurso.montoAsignado;
-//     // Remover el concurso del array de concursos del fondo
-//     concurso.fondo.concursos = concurso.fondo.concursos.filter(id => id.toString() !== concursoId);
-//     await concurso.fondo.save();
-
-//     next();
-//   } catch (error) {
-//     handleError(error, "monto.middleware -> restarMontoFondo");
-//     respondError(req, res, 500, 'Error al restar monto del fondo');
-//   }
-// }
-
 
 module.exports = {
   validarMonto,
-  // restarMontoFondo
 };

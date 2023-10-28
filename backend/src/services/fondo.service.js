@@ -21,14 +21,17 @@ async function createFondo(fondo) {
     const fondosFound = await Fondo.findOne({_id: fondo._id}).exec();
     if (fondosFound) return [null, "El fondo ya existe"];
 
-    // const concursosFound = await Concurso.find({ _id: { $in: concursos } });
-    // if (concursosFound.length === 0) return [null, "El concurso no existe"];
-    // const myConcurso = concursosFound.map((concurso) => concurso._id);
+    let myConcurso = [];
+    if (concursos && concursos.length > 0) {
+      const concursosFound = await Concurso.find({ _id: { $in: concursos } });
+      if (concursosFound.length === 0) return [null, "El concurso no existe"];
+      myConcurso = concursosFound.map((concurso) => concurso._id);
+    }
 
     const newFondo = new Fondo({
       montoTotal,
       montoAsignado,
-      concursos // myConcurso,
+      concursos: myConcurso,
     });
     await newFondo.save();
 

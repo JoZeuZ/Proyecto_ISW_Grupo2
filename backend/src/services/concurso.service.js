@@ -40,9 +40,20 @@ async function createConcurso(concurso) {
 
     const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
     const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
+    const fechaActualMoment = moment();
 
     if (!fechaInicioMoment.isValid() || !fechaFinMoment.isValid()) {
       return [null, 'Formato de fecha inválido'];
+    }
+
+    // Verificar que la fecha de inicio no es antes de la fecha actual
+    if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
+      return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
+    }
+
+    // Verificar que la fecha de fin no es antes que la fecha de inicio
+    if (fechaFinMoment.isBefore(fechaInicioMoment, 'day')) {
+      return [null, "La fecha de fin no puede ser antes que la fecha de inicio"];
     }
 
     const fechaInicioUTC = fechaInicioMoment.toDate();
@@ -99,6 +110,28 @@ async function updateConcurso(id, concurso) {
 
     const { nombre, bases, fechaInicio, fechaFin, montoAsignado, fondo } = concurso;
 
+    const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
+    const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
+    const fechaActualMoment = moment();
+
+    if (!fechaInicioMoment.isValid() || !fechaFinMoment.isValid()) {
+      return [null, 'Formato de fecha inválido'];
+    }
+
+    // Verificar que la fecha de inicio no es antes de la fecha actual
+    if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
+      return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
+    }
+
+    // Verificar que la fecha de fin no es antes que la fecha de inicio
+    if (fechaFinMoment.isBefore(fechaInicioMoment, 'day')) {
+      return [null, "La fecha de fin no puede ser antes que la fecha de inicio"];
+    }
+
+    const fechaInicioUTC = fechaInicioMoment.toDate();
+    const fechaFinUTC = fechaFinMoment.toDate();
+
+
     const fondoFound = await Fondo.find({ _id: { $in: fondo } });
     if (fondoFound.length === 0) return [null, "El fondo no existe"];
     const myFondo = fondoFound.map((fondo) => fondo._id);
@@ -109,8 +142,8 @@ async function updateConcurso(id, concurso) {
         $set: {
           nombre,
           bases,
-          fechaInicio,
-          fechaFin,
+          fechaInicio: fechaInicioUTC,
+          fechaFin: fechaFinUTC,
           montoAsignado,
           fondo: myFondo,
         },
