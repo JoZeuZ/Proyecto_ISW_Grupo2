@@ -24,11 +24,5 @@ router.use("/auth", authRoutes);
 // Define las rutas para los concursos /api/concurso
 router.use("/concurso", require("./concurso.routes.js"));
 
-
 // Exporta el enrutador
 module.exports = router;
-
-
-//Defino ruta de la postulacion
-
-router.use("/postulacion", require("./postulacion.routes.js"));

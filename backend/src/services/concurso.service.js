@@ -22,26 +22,54 @@ async function createConcurso(concurso) {
       fechaInicio,
       fechaFin,
       montoAsignado,
-      fondo,
+      fondo
     } = concurso;
-    const concursosFound = await Concurso.findOne({ nombre: concurso.nombre }).exec();
+
+    const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
+    const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
+    const fechaActualMoment = moment();
+
+    if (!fechaInicioMoment.isValid() || !fechaFinMoment.isValid()) {
+      return [null, 'Formato de fecha inválido'];
+    }
+
+     // Verificar que la fecha de inicio no es antes de la fecha actual
+     if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
+      return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
+    }
+
+    // Verificar que la fecha de fin no es antes que la fecha de inicio
+    if (fechaFinMoment.isBefore(fechaInicioMoment, 'day')) {
+      return [null, "La fecha de fin no puede ser antes que la fecha de inicio"];
+    }
+
+    const fechaInicioUTC = fechaInicioMoment.toDate();
+    const fechaFinUTC = fechaFinMoment.toDate();
+
+    const concursosFound = await Concurso.findOne({ nombre: concurso.nombre });
     if (concursosFound) return [null, "El concurso ya existe"];
+
+    const fondoFound = await Fondo.find({ _id: { $in: fondo } });
+    if (fondoFound.length === 0) return [null, "El fondo no existe"];
+    const myFondo = fondoFound.map((fondo) => fondo._id);
 
     const newConcurso = new Concurso({
       nombre,
       bases,
-      fechaInicio,
-      fechaFin,
+      fechaInicio: fechaInicioUTC,
+      fechaFin: fechaFinUTC,
       montoAsignado,
-      fondo,
+      fondo: myFondo,
     });
     await newConcurso.save();
 
     return [newConcurso, null];
   } catch (error) {
     handleError(error, "concurso.service -> createConcurso");
+    return [null, 'Error interno del servidor'];
   }
 }
+
 
 async function getConcursoById(id) {
   try {
@@ -56,21 +84,57 @@ async function getConcursoById(id) {
 
 async function updateConcurso(id, concurso) {
   try {
+    const concursoFound = await Concurso.findById(id);
+    if (!concursoFound) return [null, "El concurso no existe"];
+
+    const { nombre, bases, fechaInicio, fechaFin, montoAsignado, fondo } = concurso;
+
+    const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
+    const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
+    const fechaActualMoment = moment();
+
+    if (!fechaInicioMoment.isValid() || !fechaFinMoment.isValid()) {
+      return [null, 'Formato de fecha inválido'];
+    }
+
+    // Verificar que la fecha de inicio no es antes de la fecha actual
+    if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
+      return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
+    }
+
+    // Verificar que la fecha de fin no es antes que la fecha de inicio
+    if (fechaFinMoment.isBefore(fechaInicioMoment, 'day')) {
+      return [null, "La fecha de fin no puede ser antes que la fecha de inicio"];
+    }
+
+    const fechaInicioUTC = fechaInicioMoment.toDate();
+    const fechaFinUTC = fechaFinMoment.toDate();
+
+
+    const fondoFound = await Fondo.find({ _id: { $in: fondo } });
+    if (fondoFound.length === 0) return [null, "El fondo no existe"];
+    const myFondo = fondoFound.map((fondo) => fondo._id);
+
     const concursoUpdated = await Concurso.findByIdAndUpdate(
       id,
       {
-        $set: concurso,
+        $set: {
+          nombre,
+          bases,
+          fechaInicio: fechaInicioUTC,
+          fechaFin: fechaFinUTC,
+          montoAsignado,
+          fondo: myFondo,
+        },
       },
       { new: true }
     );
-    if (!concursoUpdated) return [null, "El concurso no existe"];
 
     return [concursoUpdated, null];
   } catch (error) {
     handleError(error, "concurso.service -> updateConcurso");
   }
 }
-
 
 async function deleteConcurso(id) {
   try {
