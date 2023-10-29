@@ -57,7 +57,7 @@ async function calcularPuntajeTotal(puntajes, criterios) {
         if (typeof puntajeObtenido !== 'undefined') {
             puntajeTotal += puntajeObtenido;
         } else {
-            console.warn('No se encontró puntaje para el criterio: ${criterio.name}');
+            console.warn(`No se encontró puntaje para el criterio: ${criterio.name}`);
         }
     });
 
