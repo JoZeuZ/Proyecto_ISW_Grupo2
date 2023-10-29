@@ -9,6 +9,7 @@ const Joi = require("joi");
 
 const postulacionBodySchema = Joi.object({
     nombrePostulante: Joi.string()
+        .trim()
         .required()
         .messages({
             "string.base": "El nombre del postulante debe ser de tipo string.",
@@ -33,9 +34,11 @@ const postulacionBodySchema = Joi.object({
         }),
     numeroTelefono: Joi.string()
         .allow("")
+        .pattern(/^(?:\+?56)?(?:0?[2-9])\d{8}$/)
         .messages({
             "string.base": "El número de teléfono del postulante debe ser de tipo string.",
-            "string.empty": "El número de teléfono del postulante no puede estar vacío."
+            "string.empty": "El número de teléfono del postulante no puede estar vacío.",
+            "string.pattern.base": "El número de teléfono del postulante debe ser un número de teléfono válido."
         }),
     descripcion: Joi.string()
         .required()

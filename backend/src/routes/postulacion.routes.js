@@ -5,19 +5,18 @@ const express = require("express");
 const postulacionController = require("../controllers/postulacion.controller.js");
 const authorizationMiddleware = require("../middlewares/authorization.middleware.js");
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
-const validarRutMiddleware = require("../middlewares/validarRUT.middleware.js");
-
-
+const {validarRutPostulante,validarRutEmpresa}= require("../middlewares/validarRut.middleware.js");
 
 const router = express.Router();
 
 router.use(authenticationMiddleware);
 
-router.get("/", postulacionController.getPostulaciones);
-router.post("/",validarRutMiddleware, authorizationMiddleware.isAdmin, postulacionController.createPostulacion);
-router.get("/:id", postulacionController.getPostulacionById);
-router.put("/:id", authorizationMiddleware.isAdmin, postulacionController.updatePostulacion);
-router.delete("/:id",authorizationMiddleware.isAdmin , postulacionController.deletePostulacion);
+router.get("/", postulacionController.getPostulaciones,authorizationMiddleware.isAdmin);
+router.post("/",validarRutPostulante,validarRutEmpresa, authorizationMiddleware.isPostulante, postulacionController.createPostulacion);
+router.get("/user/:id", postulacionController.getPostulacionById,authorizationMiddleware.isAdmin);
+router.get("/:id", postulacionController.getPostulacionById,authorizationMiddleware.isAdmin);
+router.put("/:id", authorizationMiddleware.isPostulante, postulacionController.updatePostulacion);
+router.delete("/:id",authorizationMiddleware.isPostulante , postulacionController.deletePostulacion);
 
 module.exports = router;
 
