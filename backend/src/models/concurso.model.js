@@ -88,7 +88,5 @@ ConcursoSchema.post('findOneAndDelete', async function (doc) {
   }
 });
 
-  
-  
 const Concurso = mongoose.model('Concurso', ConcursoSchema);
 module.exports = Concurso;
