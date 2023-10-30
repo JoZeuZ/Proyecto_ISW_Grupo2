@@ -19,5 +19,10 @@ router.use("/users", authenticationMiddleware, userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
 
+// Define las rutas para los fondos /api/fondo
+
+// Define las rutas para los concursos /api/concurso
+router.use("/concurso", require("./concurso.routes.js"));
+
 // Exporta el enrutador
 module.exports = router;
