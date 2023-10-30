@@ -11,9 +11,10 @@
     "backend",
     "http"
   ],
-  "author": "Camilo saez",
+  "author": "Jose Rodriguez",
   "license": "MIT",
   "dependencies": {
+
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -22,6 +23,7 @@
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.3",
+    "moment": "^2.29.4",
     "morgan": "^1.10.0",
     "rut.js": "^2.1.0"
   },
@@ -31,5 +33,6 @@
     "jsdoc": "^4.0.2",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3"
+
   }
 }

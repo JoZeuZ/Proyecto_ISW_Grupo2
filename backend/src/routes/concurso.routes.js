@@ -10,10 +10,13 @@ const router = express.Router();
 
 router.use(authenticationMiddleware);
 
+const montoMiddleware = require("../middlewares/fondo.middleware.js");
+
 router.get("/", concursoController.getConcurso);
-router.post("/", authorizationMiddleware.isAdmin, concursoController.createConcurso);
+router.post("/", authorizationMiddleware.isAdmin, montoMiddleware.validarMonto, concursoController.createConcurso);
 router.get("/:id", concursoController.getConcursoById);
-router.put("/:id", authorizationMiddleware.isAdmin, concursoController.updateConcurso);
+router.put("/:id", authorizationMiddleware.isAdmin, montoMiddleware.validarMonto, concursoController.updateConcurso);
 router.delete("/:id", authorizationMiddleware.isAdmin, concursoController.deleteConcurso);
 
 module.exports = router;
+
