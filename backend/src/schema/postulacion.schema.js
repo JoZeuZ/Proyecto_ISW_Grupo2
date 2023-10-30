@@ -75,13 +75,6 @@ const postulacionBodySchema = Joi.object({
                     "string.base": "La descripción de la propuesta del proyecto debe ser de tipo string.",
                     "string.empty": "La descripción de la propuesta del proyecto no puede estar vacía.",
                     "any.required": "La descripción de la propuesta del proyecto es obligatoria."
-                }),
-            formato: Joi.string()
-                .required()
-                .messages({
-                    "string.base": "El formato de la propuesta del proyecto debe ser de tipo string.",
-                    "string.empty": "El formato de la propuesta del proyecto no puede estar vacío.",
-                    "any.required": "El formato de la propuesta del proyecto es obligatorio."
                 })
         })
         .required()

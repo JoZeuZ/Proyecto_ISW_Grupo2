@@ -39,11 +39,7 @@ const PostulacionSchema = new mongoose.Schema({
         descripcion: {
             type: String,
             required: true
-        },
-        formato: {
-            type: String,
-            required: true
-        }   
+        }  
     },
     imagenesRespaldoPostulacion:[
       {
