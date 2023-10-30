@@ -89,10 +89,13 @@ async function deleteFondo(id) {
     await Fondo.findByIdAndDelete(id);
     return ["Fondo eliminado", null];
   } catch (error) {
+    if (error.statusCode === 400) {
+      return [null, error.message];
+    }
     handleError(error, "fondo.service -> deleteFondo");
+    return [null, "Error interno del servidor"];
   }
 }
-
 module.exports = {
   getFondo,
   createFondo,

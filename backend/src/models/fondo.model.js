@@ -18,6 +18,19 @@ const fondoSchema = new mongoose.Schema({
 
 })
 
+fondoSchema.pre('findOneAndDelete', async function (next) {
+    const fondoId = this.getQuery()['_id'];
+    const concursos = await mongoose.model('Concurso').find({ fondo: fondoId });
+  
+    if (concursos.length > 0) {
+      const error = new Error('No se puede eliminar el fondo porque tiene concursos asignados. Por favor, desasigne los concursos antes de eliminar el fondo.');
+      error.statusCode = 400;
+      return next(error);
+    }
+  
+    next();
+  });
+  
 
 const Fondo = mongoose.model("Fondo", fondoSchema);
 module.exports = Fondo;
