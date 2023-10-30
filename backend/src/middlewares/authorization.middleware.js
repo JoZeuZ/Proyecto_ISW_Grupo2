@@ -32,7 +32,6 @@ async function isAdmin(req, res, next) {
   }
 }
 
-
 async function isPostulante(req, res, next) {
   try {
     const user = await User.findOne({ email: req.email });
@@ -54,10 +53,6 @@ async function isPostulante(req, res, next) {
   }
 }
 
-
-
-
-
 /**
  * Middleware que verifica si el usuario tiene el rol de "evaluador".
  * @param {Object} req - Objeto de solicitud de Express.
@@ -65,7 +60,6 @@ async function isPostulante(req, res, next) {
  * @param {Function} next - Función de siguiente middleware.
  * @returns {Object} Mensaje de error si el usuario no tiene el rol de "evaluador".
  */
-
 async function isEvaluador(req, res, next) {
   try {
     const user = await User.findOne({ email: req.email });

@@ -9,7 +9,7 @@ const PostulacionSchema = new mongoose.Schema({
     },
     rutPostulante:{
         type: String,
-        required: true,
+        required: true
     },
     correoElectronico:{
       type: String,
@@ -25,11 +25,10 @@ const PostulacionSchema = new mongoose.Schema({
     nombreEmpresa:{
         type: String,
         required: true
-      
     },
     rutEmpresa:{
         type: String,
-        required: true,
+        required: true
     },
     propuestaProyecto:{
         nombre: {

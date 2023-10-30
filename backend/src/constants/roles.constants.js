@@ -2,5 +2,4 @@
 
 const ROLES = ["user", "admin","postulante", "evaluador"];
 
-
 module.exports = ROLES;
