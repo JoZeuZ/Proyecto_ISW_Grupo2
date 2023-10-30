@@ -11,7 +11,7 @@
     "backend",
     "http"
   ],
-  "author": "Camilo saez",
+  "author": "Jose Rodriguez",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -23,7 +23,9 @@
     "jsonwebtoken": "9.0.2",
     "mongoose": "^7.5.2",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.9.7"
+    "nodemailer": "^6.9.7",
+    "rut.js": "^2.1.0",
+    "moment": "^2.29.4"   
   },
   "devDependencies": {
     "eslint": "8.50.0",
