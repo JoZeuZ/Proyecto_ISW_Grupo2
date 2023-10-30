@@ -2,6 +2,7 @@
 
 const Postulacion = require("../models/postulacion.model");
 const { handleError } = require("../utils/errorHandler");
+const Concurso = require("../models/concurso.model");
 
 async function getPostulaciones() {
     try {
@@ -32,6 +33,10 @@ async function createPostulacion(postulacion) {
 
         if (postulacionFound) return [null, "La postulacion ya existe"];
 
+        const concursoFound = await Concurso.find({ _id: { $in: concurso } });
+        if (concursoFound.length === 0) return [null, "El concurso no existe"];
+        const myConcurso = concursoFound.map((concurso) => concurso._id);
+
         const newPostulacion = new Postulacion({
             nombrePostulante,
             rutPostulante,
@@ -42,7 +47,7 @@ async function createPostulacion(postulacion) {
             rutEmpresa,
             propuestaProyecto,
             imagenesRespaldoPostulacion,
-            concurso,
+            concurso: myConcurso,
         });
         await newPostulacion.save();
         return [newPostulacion, null];
