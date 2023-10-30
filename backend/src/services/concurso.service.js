@@ -1,8 +1,10 @@
 "use strict";
 
 const Concurso = require("../models/concurso.model");
+
 const Fondo = require("../models/fondo.model");
 const moment = require('moment');
+
 
 const { handleError } = require("../utils/errorHandler");
 
@@ -10,6 +12,7 @@ async function getConcurso() {
   try {
     const concursos = await Concurso.find().exec();
     if (!concursos) return [null, "No hay concursos"];
+
 
 
     const concursosFormateados = concursos.map(concurso => {
@@ -24,6 +27,7 @@ async function getConcurso() {
     });
 
     return [concursosFormateados, null];
+
   } catch (error) {
     handleError(error, "concurso.service -> getConcursos");
   }
@@ -37,6 +41,7 @@ async function createConcurso(concurso) {
       fechaInicio,
       fechaFin,
       montoAsignado,
+
       fondo
     } = concurso;
 
@@ -75,6 +80,7 @@ async function createConcurso(concurso) {
       fechaFin: fechaFinUTC,
       montoAsignado,
       fondo: myFondo,
+
     });
     await newConcurso.save();
 
@@ -89,6 +95,7 @@ async function getConcursoById(id) {
   try {
     const concursoFound = await Concurso.findById(id).exec();
     if (!concursoFound) return [null, "El concurso no existe"];
+
     const fechaInicioFormateada = moment(concursoFound.fechaInicio).format('DD/MM/YYYY');
     const fechaFinFormateada = moment(concursoFound.fechaFin).format('DD/MM/YYYY');
 
@@ -99,6 +106,7 @@ async function getConcursoById(id) {
     };
 
     return [concursoFormateado, null];
+
   } catch (error) {
     handleError(error, "concurso.service -> getConcursoById");
   }
@@ -106,6 +114,7 @@ async function getConcursoById(id) {
 
 async function updateConcurso(id, concurso) {
   try {
+
     const concursoFound = await Concurso.findById(id);
     if (!concursoFound) return [null, "El concurso no existe"];
 
@@ -152,14 +161,12 @@ async function updateConcurso(id, concurso) {
       { new: true }
     );
 
+
     return [concursoUpdated, null];
   } catch (error) {
     handleError(error, "concurso.service -> updateConcurso");
   }
 }
-
-
-
 async function deleteConcurso(id) {
   try {
     const concursoDeleted = await Concurso.findByIdAndDelete(id);

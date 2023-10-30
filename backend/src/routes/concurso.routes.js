@@ -7,6 +7,7 @@ const authorizationMiddleware = require("../middlewares/authorization.middleware
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
 
 const router = express.Router();
+
 router.use(authenticationMiddleware);
 
 const montoMiddleware = require("../middlewares/fondo.middleware.js");
@@ -18,3 +19,4 @@ router.put("/:id", authorizationMiddleware.isAdmin, montoMiddleware.validarMonto
 router.delete("/:id", authorizationMiddleware.isAdmin, concursoController.deleteConcurso);
 
 module.exports = router;
+
