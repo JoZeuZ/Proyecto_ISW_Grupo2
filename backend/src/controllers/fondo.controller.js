@@ -84,14 +84,20 @@ async function deleteFondo(req, res) {
         if (paramsError) return respondError(req, res, 400, paramsError.message);
 
         const [fondo, errorFondo] = await FondoService.deleteFondo(params.id);
-        if (errorFondo) return respondError(req, res, 404, errorFondo);
+        if (errorFondo) {
+            if (errorFondo.statusCode && errorFondo.message) {
+                return respondError(req, res, errorFondo.statusCode, errorFondo.message);
+            }
+            return respondError(req, res, 404, errorFondo);
+        }
 
         respondSuccess(req, res, 200, fondo);
     } catch (error) {
         handleError(error, "fondo.controller -> deleteFondo");
-        respondError(req, res, 400, error.message);
+        respondError(req, res, 500, "Error interno del servidor");
     }
 }
+
 
 module.exports = {
     getFondo,
