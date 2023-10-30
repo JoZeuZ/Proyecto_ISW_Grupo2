@@ -3,12 +3,14 @@
 const Concurso = require("../models/concurso.model");
 const Fondo = require("../models/fondo.model");
 const moment = require('moment');
+
 const { handleError } = require("../utils/errorHandler");
 
 async function getConcurso() {
   try {
     const concursos = await Concurso.find().exec();
     if (!concursos) return [null, "No hay concursos"];
+
 
     const concursosFormateados = concursos.map(concurso => {
       const fechaInicioFormateada = moment(concurso.fechaInicio).format('DD/MM/YYYY');
@@ -87,7 +89,6 @@ async function getConcursoById(id) {
   try {
     const concursoFound = await Concurso.findById(id).exec();
     if (!concursoFound) return [null, "El concurso no existe"];
-
     const fechaInicioFormateada = moment(concursoFound.fechaInicio).format('DD/MM/YYYY');
     const fechaFinFormateada = moment(concursoFound.fechaFin).format('DD/MM/YYYY');
 
@@ -156,6 +157,7 @@ async function updateConcurso(id, concurso) {
     handleError(error, "concurso.service -> updateConcurso");
   }
 }
+
 
 
 async function deleteConcurso(id) {
