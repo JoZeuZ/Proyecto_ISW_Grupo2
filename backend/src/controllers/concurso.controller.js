@@ -14,7 +14,7 @@ async function getConcurso(req, res) {
       ? respondSuccess(req, res, 204)
       : respondSuccess(req, res, 200, concursos);
   } catch (error) {
-    handleError(error, "concurso.controller -> getConcursos");
+    handleError(error, "concurso.controller -> getConcurso");
     respondError(req, res, 400, error.message);
   }
 }

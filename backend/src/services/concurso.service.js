@@ -1,6 +1,9 @@
 "use strict";
 
 const Concurso = require("../models/concurso.model");
+const Fondo = require("../models/fondo.model");
+const moment = require('moment');
+
 const { handleError } = require("../utils/errorHandler");
 
 async function getConcurso() {
@@ -8,7 +11,19 @@ async function getConcurso() {
     const concursos = await Concurso.find().exec();
     if (!concursos) return [null, "No hay concursos"];
 
-    return [concursos, null];
+
+    const concursosFormateados = concursos.map(concurso => {
+      const fechaInicioFormateada = moment(concurso.fechaInicio).format('DD/MM/YYYY');
+      const fechaFinFormateada = moment(concurso.fechaFin).format('DD/MM/YYYY');
+
+      return {
+        ...concurso.toObject(),
+        fechaInicio: fechaInicioFormateada,
+        fechaFin: fechaFinFormateada
+      };
+    });
+
+    return [concursosFormateados, null];
   } catch (error) {
     handleError(error, "concurso.service -> getConcursos");
   }
@@ -33,8 +48,8 @@ async function createConcurso(concurso) {
       return [null, 'Formato de fecha inválido'];
     }
 
-     // Verificar que la fecha de inicio no es antes de la fecha actual
-     if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
+    // Verificar que la fecha de inicio no es antes de la fecha actual
+    if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
       return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
     }
 
@@ -70,13 +85,20 @@ async function createConcurso(concurso) {
   }
 }
 
-
 async function getConcursoById(id) {
   try {
     const concursoFound = await Concurso.findById(id).exec();
     if (!concursoFound) return [null, "El concurso no existe"];
+    const fechaInicioFormateada = moment(concursoFound.fechaInicio).format('DD/MM/YYYY');
+    const fechaFinFormateada = moment(concursoFound.fechaFin).format('DD/MM/YYYY');
 
-    return [concursoFound, null];
+    const concursoFormateado = {
+      ...concursoFound.toObject(),
+      fechaInicio: fechaInicioFormateada,
+      fechaFin: fechaFinFormateada
+    };
+
+    return [concursoFormateado, null];
   } catch (error) {
     handleError(error, "concurso.service -> getConcursoById");
   }
@@ -135,6 +157,8 @@ async function updateConcurso(id, concurso) {
     handleError(error, "concurso.service -> updateConcurso");
   }
 }
+
+
 
 async function deleteConcurso(id) {
   try {
