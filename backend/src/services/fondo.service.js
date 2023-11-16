@@ -59,18 +59,13 @@ async function updateFondo(id, fondo) {
 
     const { montoTotal, montoAsignado, concursos} = fondo;
 
-    // const concursosFound = await Concurso.find({ _id: { $in: concursos } });
-    // if (concursosFound.length === 0) return [null, "El concurso no existe"];
-
-    // const myConcurso = concursosFound.map((concurso) => concurso._id);
-
     const fondoUpdated = await Fondo.findByIdAndUpdate(
       id,
       {
         $set: {
           montoTotal,
           montoAsignado,
-          concursos //: myConcurso,
+          concursos,
         },
       },
       { new: true }

@@ -73,7 +73,7 @@ async function updateFondo(req, res) {
         respondSuccess(req, res, 200, fondo);
     } catch (error) {
         handleError(error, "fondo.controller -> updateFondo");
-        respondError(req, res, 400, error.message);
+        respondError(req, res, 500, "No se pudo actualizar el fondo");
     }
 }
 

@@ -18,17 +18,17 @@ const concursoBodySchema = Joi.object({
             "string.empty": "Las bases no pueden estar vacías.",
             "any.required": "Las bases son obligatorias."
         }),
-    fechaInicio: Joi.date()
+    fechaInicio: Joi.string()// cambiado a string porque el tipo date causa conflictos con como recibe los datos la libreria moment
         .required()
         .messages({
-            "date.base": "La fecha de inicio debe ser una fecha válida.",
-            "any.required": "La fecha de inicio es obligatoria."
+            "any.required": "La fecha de inicio es obligatoria.",
+            "string.empty": "La fecha de inicio no puede estar vacía."
         }),
-    fechaFin: Joi.date()
+    fechaFin: Joi.string()// cambiado a string porque el tipo date causa conflictos con como recibe los datos la libreria moment
         .required()
         .messages({
-            "date.base": "La fecha de fin debe ser una fecha válida.",
-            "any.required": "La fecha de fin es obligatoria."
+            "any.required": "La fecha de fin es obligatoria.",
+            "string.empty": "La fecha de fin no puede estar vacía."
         }),
     montoAsignado: Joi.number()
         .required()

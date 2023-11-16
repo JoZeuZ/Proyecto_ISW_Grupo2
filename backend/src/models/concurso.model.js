@@ -3,31 +3,31 @@
 const mongoose = require('mongoose');
 
 const ConcursoSchema = new mongoose.Schema({
-    nombre: {
-        type: String,
-        required: true
-    },
-    bases: {
-        type: String,
-        required: true
-    },
-    fechaInicio: {
-        type: Date,
-        required: true
-    },
-    fechaFin: {
-        type: Date,
-        required: true
-    },
-    montoAsignado: {
-        type: Number,
-        required: true
-    },
-    fondo: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Fondo',
-        required: true
-    }
+  nombre: {
+    type: String,
+    required: true
+  },
+  bases: {
+    type: String,
+    required: true
+  },
+  fechaInicio: {
+    type: Date,
+    required: true
+  },
+  fechaFin: {
+    type: Date,
+    required: true
+  },
+  montoAsignado: {
+    type: Number,
+    required: true
+  },
+  fondo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Fondo',
+    required: true
+  }
 });
 
 ConcursoSchema.pre('save', async function (next) {
@@ -70,6 +70,49 @@ ConcursoSchema.post('save', async function () {
   }
 });
 
+ConcursoSchema.pre('findOneAndUpdate', async function(next) {
+  const query = this;
+  const update = query.getUpdate().$set;
+  const Fondo = mongoose.model('Fondo');
+  if (update && update.montoAsignado !== undefined) {
+    try {
+      const concursoOriginal = await Concurso.findById(query._conditions._id);
+      const fondo = await Fondo.findById(concursoOriginal.fondo);
+
+      const montoTotalAsignadoOtrosConcursos = fondo.montoAsignado - concursoOriginal.montoAsignado;
+      const nuevoMontoTotalAsignado = montoTotalAsignadoOtrosConcursos + update.montoAsignado;
+
+      if (nuevoMontoTotalAsignado > fondo.montoTotal) {
+        throw new Error("El monto asignado excede el monto total del fondo");
+      }
+
+      next();
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    next();
+  }
+});
+
+ConcursoSchema.post('findOneAndUpdate', async function(doc) {
+  if (doc) {
+    try {
+      const Fondo = mongoose.model('Fondo');
+      const fondo = await Fondo.findById(doc.fondo);
+
+      const montoTotalAsignado = await Concurso.aggregate([
+        { $match: { fondo: doc.fondo } },
+        { $group: { _id: null, total: { $sum: "$montoAsignado" } } }
+      ]).then(res => res[0] ? res[0].total : 0);
+
+      fondo.montoAsignado = montoTotalAsignado;
+      await fondo.save();
+    } catch (error) {
+      console.error("Error al actualizar el monto asignado del fondo", error);
+    }
+  }
+});
 
 
 ConcursoSchema.post('findOneAndDelete', async function (doc) {
