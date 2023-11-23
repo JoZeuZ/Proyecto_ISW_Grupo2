@@ -1,5 +1,6 @@
 "use strict";
 
+const Concurso = require("../models/concurso.model.js");
 const Rubrica = require("../models/rubrica.model.js");
 const { handleError } = require("../utils/errorHandler");
 
@@ -39,7 +40,9 @@ async function getRubricaById(id) {
 async function createRubrica(rubrica) {
     try {
         const { name, descripcion, criterios, puntajeAprobacion, concurso } = rubrica;
-        const rubricaFound = await Rubrica.findOne({ name: rubrica.name });
+        const concursoFound = await Concurso.findById(concurso);
+        if (!concursoFound) return [null, "El concurso no existe"];
+        const rubricaFound = await Rubrica.findOne({ concurso: rubrica.concurso });
         if (rubricaFound) return [null, "La rubrica ya existe"];
         const newRubrica = new Rubrica({
             name,
