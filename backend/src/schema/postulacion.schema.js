@@ -11,10 +11,12 @@ const postulacionBodySchema = Joi.object({
     nombrePostulante: Joi.string()
         .trim()
         .required()
+        .pattern(/^[A-Za-z\s]+$/)
         .messages({
             "string.base": "El nombre del postulante debe ser de tipo string.",
             "string.empty": "El nombre del postulante no puede estar vacío.",
-            "any.required": "El nombre del postulante es obligatorio."
+            "any.required": "El nombre del postulante es obligatorio.",
+            "string.pattern.base": "El nombre del postulante no puede contener números"
         }),
     rutPostulante: Joi.string()
         .required()
