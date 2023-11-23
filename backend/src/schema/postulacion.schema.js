@@ -16,7 +16,7 @@ const postulacionBodySchema = Joi.object({
             "string.base": "El nombre del postulante debe ser de tipo string.",
             "string.empty": "El nombre del postulante no puede estar vacío.",
             "any.required": "El nombre del postulante es obligatorio.",
-            "string.pattern.base": "El nombre del postulante no puede contener números ni simbolos"
+            "string.pattern.base": "El nombre del postulante solo puede contener letras."
         }),
     rutPostulante: Joi.string()
         .required()
