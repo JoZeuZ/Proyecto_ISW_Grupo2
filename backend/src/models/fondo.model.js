@@ -15,7 +15,11 @@ const fondoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Concurso",
     }],
-
+    categoria: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Categoria",
+        required: true
+    },
 })
 
 fondoSchema.pre('findOneAndDelete', async function (next) {

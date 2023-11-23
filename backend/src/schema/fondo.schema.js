@@ -13,6 +13,15 @@ const fondoBodySchema = Joi.object({
         "number.min": "El monto total no puede ser negativo.",
         "any.required": "El monto total es obligatorio."
     }),
+    categoria: Joi.string()
+        .required()
+        .pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)
+        .messages({
+            "string.empty": "La categoría no puede estar vacía.",
+            "any.required": "La categoría es obligatoria.",
+            "string.base": "La categoría debe ser un id valido.",
+            "string.pattern.base": "La categoría proporcionada no es un ObjectId válido."
+        }),
 }).messages({
     "object.unknown": "No se permiten propiedades adicionales."
 });
