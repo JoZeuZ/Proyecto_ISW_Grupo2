@@ -2,6 +2,7 @@
 // Importa el modelo de datos 'Role'
 const Role = require("../models/role.model.js");
 const User = require("../models/user.model.js");
+const Categoria = require("../models/categoria.model.js");
 
 /**
  * Crea los roles por defecto en la base de datos.
@@ -76,7 +77,33 @@ async function createUsers() {
   }
 }
 
+async function createDefaultCategories() {
+  try {
+    const count = await Categoria.estimatedDocumentCount();
+    if (count > 0) return;
+
+    await Promise.all([
+      new Categoria({
+        nombre: "Categoría A",
+        descripcion: "Descripción de la categoría A",
+      }).save(),
+      new Categoria({
+        nombre: "Categoría B",
+        descripcion: "Descripción de la categoría B",
+      }).save(),
+      new Categoria({
+        nombre: "Categoría C",
+        descripcion: "Descripción de la categoría C",
+      }).save(),
+    ]);
+    console.log("* => Categorías creadas exitosamente");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 module.exports = {
   createRoles,
   createUsers,
+  createDefaultCategories,
 };

@@ -28,4 +28,11 @@ const categoriaIdSchema = Joi.object({
         }),
 });
 
-module.exports = { categoriaBodySchema, categoriaIdSchema };
+const categoriaNombreSchema = Joi.object({
+    nombre: Joi.string().required().messages({
+        "string.empty": "El nombre no puede estar vacío.",
+        "any.required": "El nombre es obligatorio."
+    }),
+})
+
+module.exports = { categoriaBodySchema, categoriaIdSchema, categoriaNombreSchema };

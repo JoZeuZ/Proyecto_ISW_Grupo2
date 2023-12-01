@@ -10,6 +10,7 @@ router.use(authenticationMiddleware);
 
 router.get("/", categoriaController.getCategorias);
 router.get("/:id", categoriaController.getCategoriaById);
+// router.get("/nombre/:nombre", categoriaController.getCategoriaByNombre);
 router.post("/", authorizationMiddleware.isAdmin, categoriaController.createCategoria);
 router.put("/:id", authorizationMiddleware.isAdmin, categoriaController.updateCategoria);
 router.delete("/:id", authorizationMiddleware.isAdmin, categoriaController.deleteCategoria);

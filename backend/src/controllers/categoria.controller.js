@@ -3,7 +3,7 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const CategoriaService = require("../services/categoria.service");
 const { handleError } = require("../utils/errorHandler");
-const { categoriaBodySchema, categoriaIdSchema } = require("../schema/categoria.schema");
+const { categoriaBodySchema, categoriaIdSchema, categoriaNombreSchema } = require("../schema/categoria.schema");
 
 async function getCategorias(req, res) {
     try {
@@ -55,6 +55,22 @@ async function getCategoriaById(req, res) {
     }
 }
 
+async function getCategoriaByNombre(req, res) {
+    try {
+        const { params } = req;
+        const { error: paramsError } = categoriaNombreSchema.validate(params);
+        if (paramsError) return respondError(req, res, 400, paramsError.message);
+
+        const [categoria, errorCategoria] = await CategoriaService.getCategoriaByNombre(params.nombre);
+        if (errorCategoria) return respondError(req, res, 404, errorCategoria);
+
+        respondSuccess(req, res, 200, categoria);
+    } catch (error) {
+        handleError(error, "categoria.controller -> getCategoriaByNombre");
+        respondError(req, res, 400, error.message);
+    }
+}
+
 async function updateCategoria(req, res) {
     try {
         const { params, body } = req;
@@ -92,6 +108,7 @@ module.exports = {
     getCategorias,
     createCategoria,
     getCategoriaById,
+    getCategoriaByNombre,
     updateCategoria,
     deleteCategoria,
 };
