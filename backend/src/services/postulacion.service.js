@@ -26,7 +26,6 @@ async function createPostulacion(postulacion) {
             nombreEmpresa,
             rutEmpresa,
             propuestaProyecto,
-            imagenesRespaldoPostulacion,
             concurso,
         } = postulacion;
         const postulacionFound = await Postulacion.findOne({ rutPostulante, concurso }).exec();
@@ -46,7 +45,6 @@ async function createPostulacion(postulacion) {
             nombreEmpresa,
             rutEmpresa,
             propuestaProyecto,
-            imagenesRespaldoPostulacion,
             concurso: myConcurso,
         });
         await newPostulacion.save();

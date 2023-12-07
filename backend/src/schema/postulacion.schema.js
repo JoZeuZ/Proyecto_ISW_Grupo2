@@ -63,39 +63,12 @@ const postulacionBodySchema = Joi.object({
             "string.empty": "El rut de la empresa no puede estar vacío.",
             "any.required": "El rut de la empresa es obligatorio."
         }),
-        propuestaProyecto: Joi.object({
-            nombre: Joi.string()
-                .required()
-                .messages({
-                    "string.base": "El nombre de la propuesta del proyecto debe ser de tipo string.",
-                    "string.empty": "El nombre de la propuesta del proyecto no puede estar vacío.",
-                    "any.required": "El nombre de la propuesta del proyecto es obligatorio."
-                }),
-            descripcion: Joi.string()
-                .required()
-                .messages({
-                    "string.base": "La descripción de la propuesta del proyecto debe ser de tipo string.",
-                    "string.empty": "La descripción de la propuesta del proyecto no puede estar vacía.",
-                    "any.required": "La descripción de la propuesta del proyecto es obligatoria."
-                })
-        })
+    propuestaProyecto: Joi.string()
         .required()
         .messages({
-            "object.base": "La propuesta del proyecto debe ser de tipo object.",
-            "object.empty": "La propuesta del proyecto no puede estar vacía.",
+            "string.base": "La propuesta del proyecto debe ser de tipo string.",
+            "string.empty": "La propuesta del proyecto no puede estar vacía.",
             "any.required": "La propuesta del proyecto es obligatoria."
-        }),        
-    imagenesRespaldoPostulacion: Joi.array()
-        .items(Joi.string()
-            .required()
-            .messages({
-                "string.base": "La imagen de respaldo de la postulación debe ser de tipo string.",
-                "string.empty": "La imagen de respaldo de la postulación no puede estar vacía.",
-                "any.required": "La imagen de respaldo de la postulación es obligatoria."
-            }))
-        .messages({
-            "array.base": "Las imágenes de respaldo de la postulación deben ser de tipo array.",
-            "array.empty": "Las imágenes de respaldo de la postulación no pueden estar vacías."
         }),
     concurso: Joi.string()
         .required()

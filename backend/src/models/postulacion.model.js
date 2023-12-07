@@ -31,21 +31,15 @@ const PostulacionSchema = new mongoose.Schema({
         required: true
     },
     propuestaProyecto:{
-        nombre: {
-            type: String,
-            required: true
-        },
-        descripcion: {
-            type: String,
-            required: true
-        }  
-    },
-    imagenesRespaldoPostulacion:[
-      {
         type: String,
         required: true
+    },
+    respaldoPostulacion:
+      {
+        type: String,
+        default:"./respaldosPostulaciones/respaldoPostulacion.pdf"
       }
-    ],
+    ,
   concurso: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",
