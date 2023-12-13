@@ -24,6 +24,16 @@ async function createPostulacion(req, res) {
         const { body } = req;
         const { error: bodyError } = postulacionBodySchema.validate(body);
         if (bodyError) return respondError(req, res, 400, bodyError.message);
+
+        if (req.files && req.files.length > 0) {
+          for (const file of req.files) {
+            switch (file.fieldname) {
+              case "respaldoPostulacion":
+                body.imagenesRespaldoPostulacion = "respaldosPostulaciones/" + file.filename;
+                break;
+            }
+          }
+        }
     
         const [newPostulacion, postulacionError] = await PostulacionService.createPostulacion(body);
         if (postulacionError) return respondError(req, res, 400, postulacionError);
@@ -97,5 +107,3 @@ module.exports = {
   updatePostulacion,
   deletePostulacion,
 };
-
-

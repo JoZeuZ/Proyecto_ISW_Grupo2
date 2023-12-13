@@ -24,7 +24,7 @@ categoriaSchema.pre('findOneAndDelete', async function (next) {
     const fondo = await mongoose.model('Fondo').find({ categoria: nombreC});
 
     if (fondo.length > 0) {
-        const error = new Error('No se puede eliminar la categoria porque tiene fondos asignados. Por favor, desasigne los fondos antes de eliminar la categoria.');
+        const error = new Error("No se puede eliminar la categoria. Desasigne los fondos antes.");
         error.statusCode = 400;
         return next(error);
     }

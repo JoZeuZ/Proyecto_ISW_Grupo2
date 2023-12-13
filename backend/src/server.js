@@ -14,7 +14,7 @@ const indexRoutes = require("./routes/index.routes.js");
 const { setupDB } = require("./config/configDB.js");
 // Importa el handler de errores
 const { handleFatalError, handleError } = require("./utils/errorHandler.js");
-const { createRoles, createUsers, createDefaultCategories } = require("./config/initialSetup");
+const { createRoles, createUsers, createDefaultCategories, initializeTestData } = require("./config/initialSetup");
 
 /**
  * Inicia el servidor web
@@ -60,6 +60,8 @@ async function setupAPI() {
     await createUsers();
     // Inicia la creación de las categorias por defecto
     await createDefaultCategories();
+    // Inicia la creación de datos de prueba
+    await initializeTestData();
   } catch (err) {
     handleFatalError(err, "/server.js -> setupAPI");
   }

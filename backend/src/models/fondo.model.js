@@ -124,6 +124,5 @@ fondoSchema.pre('findOneAndUpdate', async function (next) {
 });
 
 
-
 const Fondo = mongoose.model("Fondo", fondoSchema);
 module.exports = Fondo;
