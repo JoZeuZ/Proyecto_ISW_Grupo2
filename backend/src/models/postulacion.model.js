@@ -16,11 +16,8 @@ const PostulacionSchema = new mongoose.Schema({
       required: true
     },
     numeroTelefono:{
-      type: String
-    },
-    descripcion:{
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     nombreEmpresa:{
         type: String,
@@ -30,28 +27,25 @@ const PostulacionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    propuestaProyecto:{
-        nombre: {
-            type: String,
-            required: true
-        },
-        descripcion: {
-            type: String,
-            required: true
-        }  
+    temaProyecto:{
+      type: String,
+      required: true
     },
-    imagenesRespaldoPostulacion:[
-      {
+    propuestaProyecto:{
         type: String,
         required: true
-      }
-    ],
+    },
+    respaldoPostulacion:
+      {
+        type: String,
+        default:"./respaldosPostulaciones/respaldoPostulacion.pdf"
+      },
   concurso: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",
     required: true,
   }, 
-});    
+});
 
 const Postulacion = mongoose.model('Postulacion', PostulacionSchema, "postulaciones");
 module.exports = Postulacion;

@@ -25,6 +25,12 @@ async function createFondo(req, res) {
         const { error: bodyError } = fondoBodySchema.validate(body);
         if (bodyError) return respondError(req, res, 400, bodyError.message);
 
+        if ('montoAsignado' in body || 'concursos' in body) {
+            return res.status(400).send({
+                message: 'No está permitido modificar montoAsignado o concursos directamente.'
+            });
+        }
+
         const [newFondo, fondoError] = await FondoService.createFondo(body);
 
         if (fondoError) return respondError(req, res, 400, fondoError);
@@ -63,6 +69,12 @@ async function updateFondo(req, res) {
 
         const { error: bodyError } = fondoBodySchema.validate(body);
         if (bodyError) return respondError(req, res, 400, bodyError.message);
+
+        if ('montoAsignado' in body || 'concursos' in body) {
+            return res.status(400).send({
+                message: 'No está permitido modificar montoAsignado o concursos directamente.'
+            });
+        }
 
         const [fondo, errorFondo] = await FondoService.updateFondo(
             params.id,

@@ -22,11 +22,10 @@ async function createPostulacion(postulacion) {
             rutPostulante,
             correoElectronico,
             numeroTelefono,
-            descripcion,
             nombreEmpresa,
             rutEmpresa,
+            temaProyecto,
             propuestaProyecto,
-            imagenesRespaldoPostulacion,
             concurso,
         } = postulacion;
         const postulacionFound = await Postulacion.findOne({ rutPostulante, concurso }).exec();
@@ -42,11 +41,10 @@ async function createPostulacion(postulacion) {
             rutPostulante,
             correoElectronico,
             numeroTelefono,
-            descripcion,
             nombreEmpresa,
             rutEmpresa,
+            temaProyecto,
             propuestaProyecto,
-            imagenesRespaldoPostulacion,
             concurso: myConcurso,
         });
         await newPostulacion.save();
@@ -100,9 +98,3 @@ module.exports = {
     updatePostulacion,
     deletePostulacion,
 };
-
-
-
-
-
-

@@ -19,5 +19,4 @@ const informeSchema = new mongoose.Schema({
 });
 
 const informe = mongoose.model("informe", informeSchema);
-
 module.exports = informe;

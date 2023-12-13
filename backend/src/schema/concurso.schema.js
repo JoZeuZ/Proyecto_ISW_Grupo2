@@ -45,7 +45,7 @@ const concursoBodySchema = Joi.object({
             "string.empty": "El fondo no puede estar vacío.",
             "any.required": "El fondo es obligatorio.",
             "string.base": "El fondo debe ser de tipo string.",
-            "string.pattern.base": "El fondo proporcionado no es un ObjectId válido."
+            "string.pattern.base": "El fondo proporcionado no es un ID válido."
         })
 }).messages({
     "object.unknown": "No se permiten propiedades adicionales."
