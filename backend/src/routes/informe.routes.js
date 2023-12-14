@@ -14,7 +14,8 @@ router.use(authenticationMiddleware);
 
 router.get("/", authorizationMiddleware.isAdmin, informeController.getInformes);
 router.get("/:id", authorizationMiddleware.isAdmin, informeController.getInformeById);
-router.get("/postulacion/:id", authorizationMiddleware.isAdmin, informeController.getInformeByPostulacionId);
+router.get("/postulacion/:id", authorizationMiddleware.isAdmin, 
+informeController.getInformeByPostulacionId);
 router.delete("/:id", authorizationMiddleware.isAdmin, informeController.deleteInforme);
 
 module.exports = router;

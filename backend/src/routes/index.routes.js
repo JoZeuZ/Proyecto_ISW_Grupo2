@@ -25,12 +25,12 @@ const router = express.Router();
 router.use("/users", authenticationMiddleware, userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
-//Define las rutas para la rubrica /api/rubrica
+// Define las rutas para la rubrica /api/rubrica
 router.use("/rubrica", rubricaRoutes);
-//Define las rutas para la evaluacion /api/evaluacion
+// Define las rutas para la evaluacion /api/evaluacion
 router.use("/evaluacion", evaluacionRoutes);
 
-//Define las rutas para la postulacion /api/postulacion
+// Define las rutas para la postulacion /api/postulacion
 router.use("/postulacion", postulacionRoutes);
 
 // Define las rutas para los fondos /api/fondo
@@ -42,6 +42,7 @@ router.use("/concurso", require("./concurso.routes.js"));
 // Define las rutas para las categorias /api/categoria
 router.use("/categoria", require("./categoria.routes.js"));
 
+router.use("/informe", informeRoutes);
 
 
 // Exporta el enrutador

@@ -2,6 +2,7 @@
 
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const informeService = require("../services/informe.service");
+const { informeIdSchema } = require("../schema/informe.schema");
 const { handleError } = require("../utils/errorHandler");
 
 async function getInformes(req, res) {
