@@ -105,83 +105,75 @@ async function createDefaultCategories() {
   }
 }
 
+
 /**
  * Crea un fondo de prueba en la base de datos.
  */
 async function createDefaultFunds() {
-  try {
-    const count = await Fondo.estimatedDocumentCount();
-    if (count > 0) return;
+  const count = await Fondo.estimatedDocumentCount();
+  if (count > 0) return;
 
-    const category = await new Categoria({
-      nombre: "Categoría Test",
-      descripcion: "Categoría de prueba para fondos",
-    }).save();
+  const categoria = await Categoria.findOne({ nombre: "Categoría A" });
+  const fondo = new Fondo({
+    _id: "6f9d88b9c3b3d9b1e4f0b1a0",
+    montoTotal: 1000000,
+    categoria: categoria._id,
+  });
 
-    const fondo = new Fondo({
-      montoTotal: 1000000,
-      categoria: category._id,
-    });
-
-    await fondo.save();
-    console.log("* => Fondo de prueba creado exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
+  await fondo.save();
+  console.log("* => Fondo de prueba creado exitosamente");
 }
 
 /**
  * Crea un concurso de prueba en la base de datos.
  */
-async function createDefaultContests(fondo) {
-  try {
-    const count = await Concurso.estimatedDocumentCount();
-    if (count > 0) return;
+async function createDefaultContests() {
+  const count = await Concurso.estimatedDocumentCount();
+  if (count > 0) return;
 
-    const concurso = new Concurso({
-      nombre: "Concurso Test",
-      bases: "Bases del concurso de prueba",
-      fechaInicio: new Date(),
-      fechaFin: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000), // Una semana después
-      montoAsignado: 100000,
-      fondo: fondo._id,
-    });
-
-    await concurso.save();
-    console.log("* => Concurso de prueba creado exitosamente");
-  } catch (error) {
-    console.error(error);
+  const fondo = await Fondo.findOne({ _id: "6f9d88b9c3b3d9b1e4f0b1a0" });
+  if (!fondo) {
+    createDefaultFunds();
   }
+
+  const concurso = new Concurso({
+    nombre: "Concurso Test",
+    bases: "Bases del concurso de prueba",
+    fechaInicio: new Date(),
+    fechaFin: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000), // Una semana después
+    montoAsignado: 100000,
+    fondo: fondo._id,
+  });
+
+  await concurso.save();
+  console.log("* => Concurso de prueba creado exitosamente");
 }
 
 /**
  * Crea una postulación de prueba en la base de datos.
  */
-async function createDefaultPostulacion(concurso) {
-  try {
-    const count = await Postulacion.estimatedDocumentCount();
-    if (count > 0) return;
+async function createDefaultPostulacion() {
+  const count = await Postulacion.estimatedDocumentCount();
+  if (count > 0) return;
 
-    const postulacion = new Postulacion({
-      nombrePostulante: "Test Postulante",
-      rutPostulante: "12345678-9",
-      correoElectronico: "testpostulante@example.com",
-      numeroTelefono: "99999999",
-      nombreEmpresa: "Empresa Test",
-      rutEmpresa: "87654321-k",
-      temaProyecto: "Tema del Proyecto Test",
-      propuestaProyecto: "Propuesta del Proyecto Test",
-      respaldoPostulacion: "./respaldosPostulaciones/respaldoPostulacion.pdf",
-      concurso: concurso._id,
-    });
-  
-    await postulacion.save();
-    console.log("* => Postulación de prueba creada exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
+  const concurso = await Concurso.findOne({ nombre: "Concurso Test" });
+  if (!concurso) createDefaultContests();
+
+  const postulacion = new Postulacion({
+    nombrePostulante: "Test Postulante",
+    rutPostulante: "12345678-9",
+    correoElectronico: "testpostulante@example.com",
+    numeroTelefono: "99999999",
+    nombreEmpresa: "Empresa Test",
+    rutEmpresa: "87654321-k",
+    temaProyecto: "Tema del Proyecto Test",
+    propuestaProyecto: "Propuesta del Proyecto Test",
+    respaldoPostulacion: "respaldoPostulacion.pdf",
+    concurso: concurso._id,
+  });
+  await postulacion.save();
+  console.log("* => Postulación de prueba creada exitosamente");
 }
-
 
 /**
  * Función principal para crear todos los datos de prueba.
