@@ -11,13 +11,15 @@ const postulacionBodySchema = Joi.object({
     nombrePostulante: Joi.string()
         .trim()
         .required()
-        .min(3)
+        .min(5)
         .max(50)
         .pattern(/^[A-Za-z\s]+$/)
         .messages({
             "string.base": "El nombre del postulante debe ser de tipo string.",
             "string.empty": "El nombre del postulante no puede estar vacío.",
             "any.required": "El nombre del postulante es obligatorio.",
+            "string.min": "El nombre del postulante debe tener un mínimo de {#limit} caracteres.",
+            "string.max": "El nombre del postulante debe tener un máximo de {#limit} caracteres.",
             "string.pattern.base": "El nombre del postulante solo puede contener letras."
         }),
     rutPostulante: Joi.string()
@@ -30,17 +32,18 @@ const postulacionBodySchema = Joi.object({
     correoElectronico: Joi.string()
         .trim()
         .required()
-        .max(100)
+        .max(50)
         .email()
         .messages({
             "string.base": "El correo electrónico del postulante debe ser de tipo string.",
             "string.empty": "El correo electrónico del postulante no puede estar vacío.",
             "any.required": "El correo electrónico del postulante es obligatorio.",
+            "string.max": "El correo electrónico del postulante debe tener un máximo de {#limit} caracteres.",
             "string.email": "El correo electrónico del postulante debe ser un correo electrónico válido."
         }),
     numeroTelefono: Joi.string()
-        .allow("")
-        .pattern(/^(?:\+?56)?(?:\s?9)(?:\d{1,8})$/)
+        .required()
+        .pattern(/^(?:\+?56\s?)?9\d{8}$/)
         .messages({
             "string.base": "El número de teléfono del postulante debe ser de tipo string.",
             "string.empty": "El número de teléfono del postulante no puede estar vacío.",
@@ -48,10 +51,14 @@ const postulacionBodySchema = Joi.object({
         }),
     nombreEmpresa: Joi.string()
         .required()
+        .min(5)
+        .max(50)
         .messages({
             "string.base": "El nombre de la empresa debe ser de tipo string.",
             "string.empty": "El nombre de la empresa no puede estar vacío.",
-            "any.required": "El nombre de la empresa es obligatorio."
+            "any.required": "El nombre de la empresa es obligatorio.",
+            "string.min": "El nombre de la empresa debe tener un mínimo de {#limit} caracteres.",
+            "string.max": "El nombre de la empresa debe tener un máximo de {#limit} caracteres."
         }),
     rutEmpresa: Joi.string()
         .required()
@@ -62,17 +69,25 @@ const postulacionBodySchema = Joi.object({
         }),
     temaProyecto: Joi.string()
         .required()
+        .min(5)
+        .max(100)
         .messages({
             "string.base": "El tema del proyecto debe ser de tipo string.",
             "string.empty": "El tema del proyecto no puede estar vacío.",
-            "any.required": "El tema del proyecto es obligatorio."
+            "any.required": "El tema del proyecto es obligatorio.",
+            "string.min": "El tema del proyecto debe tener un mínimo de {#limit} caracteres.",
+            "string.max": "El tema del proyecto debe tener un máximo de {#limit} caracteres."
         }),
     propuestaProyecto: Joi.string()
         .required()
+        .min(100)
+        .max(2000)
         .messages({
             "string.base": "La propuesta del proyecto debe ser de tipo string.",
             "string.empty": "La propuesta del proyecto no puede estar vacía.",
-            "any.required": "La propuesta del proyecto es obligatoria."
+            "any.required": "La propuesta del proyecto es obligatoria.",
+            "string.min": "La propuesta del proyecto debe tener un mínimo de {#limit} caracteres.",
+            "string.max": "La propuesta del proyecto debe tener un máximo de {#limit} caracteres."
         }),
     concurso: Joi.string()
         .required()
