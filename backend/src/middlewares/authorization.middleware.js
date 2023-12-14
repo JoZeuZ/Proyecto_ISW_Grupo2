@@ -62,7 +62,6 @@ async function isEvaluador(req, res, next) {
 
 module.exports = {
   isAdmin,
-  isPostulante,
   isEvaluador,
 };
 
