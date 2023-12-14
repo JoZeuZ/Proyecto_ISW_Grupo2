@@ -11,6 +11,8 @@ const postulacionBodySchema = Joi.object({
     nombrePostulante: Joi.string()
         .trim()
         .required()
+        .min(3)
+        .max(50)
         .pattern(/^[A-Za-z\s]+$/)
         .messages({
             "string.base": "El nombre del postulante debe ser de tipo string.",
@@ -26,7 +28,9 @@ const postulacionBodySchema = Joi.object({
             "any.required": "El rut del postulante es obligatorio.",      
         }),
     correoElectronico: Joi.string()
+        .trim()
         .required()
+        .max(100)
         .email()
         .messages({
             "string.base": "El correo electrónico del postulante debe ser de tipo string.",
@@ -36,18 +40,11 @@ const postulacionBodySchema = Joi.object({
         }),
     numeroTelefono: Joi.string()
         .allow("")
-        .pattern(/^(?:\+?56)?(?:0?[2-9])\d{8}$/)
+        .pattern(/^(?:\+?56)?(?:\s?9)(?:\d{1,8})$/)
         .messages({
             "string.base": "El número de teléfono del postulante debe ser de tipo string.",
             "string.empty": "El número de teléfono del postulante no puede estar vacío.",
-            "string.pattern.base": "El número de teléfono del postulante debe ser un número de teléfono válido."
-        }),
-    descripcion: Joi.string()
-        .required()
-        .messages({
-            "string.base": "La descripción del postulante debe ser de tipo string.",
-            "string.empty": "La descripción del postulante no puede estar vacía.",
-            "any.required": "La descripción del postulante es obligatoria."
+            "string.pattern.base": "El número de teléfono del postulante debe ser un número de teléfono válido en Chile."
         }),
     nombreEmpresa: Joi.string()
         .required()
@@ -62,6 +59,13 @@ const postulacionBodySchema = Joi.object({
             "string.base": "El rut de la empresa debe ser de tipo string.",
             "string.empty": "El rut de la empresa no puede estar vacío.",
             "any.required": "El rut de la empresa es obligatorio."
+        }),
+    temaProyecto: Joi.string()
+        .required()
+        .messages({
+            "string.base": "El tema del proyecto debe ser de tipo string.",
+            "string.empty": "El tema del proyecto no puede estar vacío.",
+            "any.required": "El tema del proyecto es obligatorio."
         }),
     propuestaProyecto: Joi.string()
         .required()

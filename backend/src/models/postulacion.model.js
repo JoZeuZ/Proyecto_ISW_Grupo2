@@ -16,11 +16,8 @@ const PostulacionSchema = new mongoose.Schema({
       required: true
     },
     numeroTelefono:{
-      type: String
-    },
-    descripcion:{
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     nombreEmpresa:{
         type: String,
@@ -30,6 +27,10 @@ const PostulacionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    temaProyecto:{
+      type: String,
+      required: true
+    },
     propuestaProyecto:{
         type: String,
         required: true
@@ -38,8 +39,7 @@ const PostulacionSchema = new mongoose.Schema({
       {
         type: String,
         default:"./respaldosPostulaciones/respaldoPostulacion.pdf"
-      }
-    ,
+      },
   concurso: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Concurso",

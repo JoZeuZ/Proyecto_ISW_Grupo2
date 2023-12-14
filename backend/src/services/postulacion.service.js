@@ -22,9 +22,9 @@ async function createPostulacion(postulacion) {
             rutPostulante,
             correoElectronico,
             numeroTelefono,
-            descripcion,
             nombreEmpresa,
             rutEmpresa,
+            temaProyecto,
             propuestaProyecto,
             concurso,
         } = postulacion;
@@ -41,9 +41,9 @@ async function createPostulacion(postulacion) {
             rutPostulante,
             correoElectronico,
             numeroTelefono,
-            descripcion,
             nombreEmpresa,
             rutEmpresa,
+            temaProyecto,
             propuestaProyecto,
             concurso: myConcurso,
         });
