@@ -98,9 +98,3 @@ module.exports = {
     updatePostulacion,
     deletePostulacion,
 };
-
-
-
-
-
-

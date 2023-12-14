@@ -102,8 +102,3 @@ const postulacionIdSchema = Joi.object({
 });
 
 module.exports = {postulacionBodySchema, postulacionIdSchema};
-
-
-
-
-

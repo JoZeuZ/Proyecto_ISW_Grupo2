@@ -9,8 +9,8 @@ const router = express.Router();
 router.use(authenticationMiddleware);
 
 router.get("/", fondoController.getFondo);
-router.post("/", authorizationMiddleware.isAdmin, fondoController.createFondo);
 router.get("/:id", fondoController.getFondoById);
+router.post("/", authorizationMiddleware.isAdmin, fondoController.createFondo);
 router.put("/:id", authorizationMiddleware.isAdmin, fondoController.updateFondo);
 router.delete("/:id", authorizationMiddleware.isAdmin, fondoController.deleteFondo);
 

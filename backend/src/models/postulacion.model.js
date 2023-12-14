@@ -45,7 +45,7 @@ const PostulacionSchema = new mongoose.Schema({
     ref: "Concurso",
     required: true,
   }, 
-});    
+});
 
 const Postulacion = mongoose.model('Postulacion', PostulacionSchema, "postulaciones");
 module.exports = Postulacion;

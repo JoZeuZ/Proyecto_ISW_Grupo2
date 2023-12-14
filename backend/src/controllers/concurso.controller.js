@@ -72,7 +72,7 @@ async function updateConcurso(req, res) {
     respondSuccess(req, res, 200, concursoUpdated);
   } catch (error) {
     handleError(error, "concurso.controller -> updateConcurso");
-    respondError(req, res, 500, error.message);
+    respondError(req, res, 500, "No se pudo actualizar el concurso");
   }
 }
 
