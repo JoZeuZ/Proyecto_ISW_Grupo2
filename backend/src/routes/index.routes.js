@@ -9,12 +9,15 @@ const evaluacionRoutes = require("./evaluacion.routes.js");
 const userRoutes = require("./user.routes.js");
 /** Enrutador de autenticación */
 const authRoutes = require("./auth.routes.js");
-
+/** Enrutador de postulacion */
 const postulacionRoutes = require("./postulacion.routes.js");
-
+/** Enrutador de concurso */
 const concursoRoutes = require("./concurso.routes.js");
 /** Middleware de autenticación */
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
+
+const informeRoutes = require("./informe.routes.js");
+
 /** Instancia del enrutador */
 const router = express.Router();
 
@@ -34,6 +37,7 @@ router.use("/fondo", require("./fondo.routes.js"));
 
 // Define las rutas para los concursos /api/concurso
 router.use("/concurso", require("./concurso.routes.js"));
+
 
 
 // Exporta el enrutador
