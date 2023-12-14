@@ -13,8 +13,6 @@ async function getConcurso() {
     const concursos = await Concurso.find().exec();
     if (!concursos) return [null, "No hay concursos"];
 
-
-
     const concursosFormateados = concursos.map(concurso => {
       const fechaInicioFormateada = moment(concurso.fechaInicio).format('DD/MM/YYYY');
       const fechaFinFormateada = moment(concurso.fechaFin).format('DD/MM/YYYY');
@@ -41,7 +39,6 @@ async function createConcurso(concurso) {
       fechaInicio,
       fechaFin,
       montoAsignado,
-
       fondo
     } = concurso;
 
@@ -119,7 +116,6 @@ async function updateConcurso(id, concurso) {
     if (!concursoFound) return [null, "El concurso no existe"];
 
     const { nombre, bases, fechaInicio, fechaFin, montoAsignado, fondo } = concurso;
-
     const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
     const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
     const fechaActualMoment = moment();
@@ -141,7 +137,6 @@ async function updateConcurso(id, concurso) {
     const fechaInicioUTC = fechaInicioMoment.toDate();
     const fechaFinUTC = fechaFinMoment.toDate();
 
-
     const fondoFound = await Fondo.find({ _id: { $in: fondo } });
     if (fondoFound.length === 0) return [null, "El fondo no existe"];
     const myFondo = fondoFound.map((fondo) => fondo._id);
@@ -160,8 +155,6 @@ async function updateConcurso(id, concurso) {
       },
       { new: true }
     );
-
-
     return [concursoUpdated, null];
   } catch (error) {
     handleError(error, "concurso.service -> updateConcurso");

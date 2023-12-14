@@ -30,6 +30,7 @@ router.use("/rubrica", rubricaRoutes);
 //Define las rutas para la evaluacion /api/evaluacion
 router.use("/evaluacion", evaluacionRoutes);
 
+//Define las rutas para la postulacion /api/postulacion
 router.use("/postulacion", postulacionRoutes);
 
 // Define las rutas para los fondos /api/fondo
@@ -37,6 +38,9 @@ router.use("/fondo", require("./fondo.routes.js"));
 
 // Define las rutas para los concursos /api/concurso
 router.use("/concurso", require("./concurso.routes.js"));
+
+// Define las rutas para las categorias /api/categoria
+router.use("/categoria", require("./categoria.routes.js"));
 
 
 
