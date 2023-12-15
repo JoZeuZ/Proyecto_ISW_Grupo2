@@ -24,6 +24,12 @@ function PageRoot() {
   return (
     <div>
       <div>
+        <button
+          style ={{marginRigth: '5px' }}
+          onClick={() => navigate('/postulaciones')}
+          >
+          Ver postulaciones
+        </button>
         <h1>Aqui deberia ir un header</h1>
         <p>Estas logeado como: {user.email}</p>
         <button onClick={handleLogout}>Cerrar sesion</button>
