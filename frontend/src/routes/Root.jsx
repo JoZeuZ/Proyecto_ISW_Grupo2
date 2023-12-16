@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/auth.service';
 import { AuthProvider, useAuth } from '../context/AuthContext';
+import { NavBar } from '../components/NavBar';
 
 function Root() {
   return (
@@ -12,7 +12,6 @@ function Root() {
 }
 
 function PageRoot() {
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
@@ -23,10 +22,10 @@ function PageRoot() {
 
   return (
     <div>
+      <NavBar />
       <div>
-        <h1>Aqui deberia ir un header</h1>
-        <p>Estas logeado como: {user.email}</p>
-        <button onClick={handleLogout}>Cerrar sesion</button>
+        <p>Estás logeado como: {user.email}</p>
+        <button onClick={handleLogout}>Cerrar sesión</button>
       </div>
       <Outlet />
     </div>

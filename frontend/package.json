@@ -10,12 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gobdigital-cl/gob.cl": "^3.0.10",
     "axios": "^1.5.1",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.47.0",
+    "react-hook-form": "^7.49.2",
     "react-router-dom": "^6.17.0"
   },
   "devDependencies": {

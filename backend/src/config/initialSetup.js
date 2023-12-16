@@ -116,6 +116,7 @@ async function createDefaultFunds() {
   const categoria = await Categoria.findOne({ nombre: "Categoría A" });
   const fondo = new Fondo({
     _id: "6f9d88b9c3b3d9b1e4f0b1a0",
+    nombre: "Fondo Test",
     montoTotal: 1000000,
     categoria: categoria._id,
   });
