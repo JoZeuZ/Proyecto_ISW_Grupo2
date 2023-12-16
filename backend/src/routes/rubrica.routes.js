@@ -12,9 +12,9 @@ const router = express.Router();
 
 router.use(authenticationMiddleware);
 
-router.get("/", authorizationMiddleware.isAdmin, rubricaController.getRubricas);
+router.get("/", rubricaController.getRubricas);
 router.post("/", authorizationMiddleware.isAdmin, rubricaController.createRubrica);
-router.get("/:id", authorizationMiddleware.isAdmin, rubricaController.getRubricaById);
+router.get("/:id", authorizationMiddleware.isEvaluador, rubricaController.getRubricaById);
 router.put("/:id", authorizationMiddleware.isAdmin, rubricaController.updateRubrica);
 router.delete("/:id", authorizationMiddleware.isAdmin, rubricaController.deleteRubrica);
 

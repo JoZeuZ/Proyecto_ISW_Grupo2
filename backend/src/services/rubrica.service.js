@@ -9,8 +9,9 @@ const { handleError } = require("../utils/errorHandler");
  */
 async function getRubricas() {
     try {
-        const rubricas = await Rubrica.find().exec();
+        const rubricas = await Rubrica.find().populate('concurso').exec();
         if (!rubricas) return [null, "No hay rúbricas"];
+        
 
         return [rubricas, null];
     } catch (error) {
