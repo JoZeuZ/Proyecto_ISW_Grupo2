@@ -3,6 +3,7 @@ import { createRubrica } from "../services/rubrica.service";
 import { getConcursos } from "../services/concurso.service";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function RubricaForm() {
   const {
@@ -43,6 +44,22 @@ export default function RubricaForm() {
       const res = await createRubrica(dataToSend);
       console.log(res);
       router("/rubrica");
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Rúbrica creada exitosamente",
+      });
     } catch (error) {
       console.error(error);
     }
@@ -51,7 +68,9 @@ export default function RubricaForm() {
   return (
     <form className="form-row" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group col-12">
-        <label htmlFor="name">Nombre</label>
+        <label className="col-5" htmlFor="name">
+          Nombre
+        </label>
         <div className="form-group col-5">
           <input
             {...register("name", { required: true })}
