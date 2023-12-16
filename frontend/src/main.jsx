@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
+import Rubrica from './routes/Rubricas/Rubrica.jsx';
+import CreateRubrica from './routes/Rubricas/CreateRubrica.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
       },
+      {
+        path: '/rubrica',
+        element: <Rubrica />,
+      },
+      {
+        path: '/rubrica/create',
+        element: <CreateRubrica/>,
+      }
     ],
   },
   {
