@@ -1,13 +1,12 @@
-import RubricaForm from "../../components/RubricaForm"
+import RubricaForm from "../../components/RubricaForm";
 
 const CreateRubrica = () => {
-  return(
+  return (
     <>
-        <br/>
-        <RubricaForm />
+      <br />
+      <RubricaForm />
     </>
-
-  ) 
+  );
 };
 
-export default CreateRubrica
+export default CreateRubrica;

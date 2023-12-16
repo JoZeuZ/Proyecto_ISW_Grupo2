@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../services/auth.service';
-import { AuthProvider, useAuth } from '../context/AuthContext';
+import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../services/auth.service";
+import { AuthProvider, useAuth } from "../context/AuthContext";
 
 function Root() {
   return (
@@ -16,7 +16,7 @@ function PageRoot() {
 
   const handleLogout = () => {
     logout();
-    navigate('/auth');
+    navigate("/auth");
   };
 
   const { user } = useAuth();
@@ -24,8 +24,9 @@ function PageRoot() {
   return (
     <div>
       <div>
-        <button onClick = {() => navigate('/rubrica')}>Ver Rubricas</button>{"  "}
-        <button onClick = {() => navigate('/')}>Home</button>
+        <button onClick={() => navigate("/rubrica")}>Ver Rubricas</button>
+        {"  "}
+        <button onClick={() => navigate("/")}>Home</button>
         <p>Estas logeado como: {user.email}</p>
         <button onClick={handleLogout}>Cerrar sesion</button>
       </div>
