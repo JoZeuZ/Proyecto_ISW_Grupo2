@@ -8,6 +8,7 @@ import Login from './routes/Login.jsx';
 import { Fondos } from './routes/Fondos/Fondos.jsx';
 import CreateFondo from './routes/Fondos/CreateFondo.jsx';
 import DetailsFondo from './routes/Fondos/DetailsFondo.jsx';
+import UpdateFondo from './routes/Fondos/UpdateFondo.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,20 +27,14 @@ const router = createBrowserRouter([
       {
         path: 'fondos/:id',
         element: <DetailsFondo />,
-        children: [
-          {
-            path: 'update',
-            element: <CreateFondo />,
-          },
-          {
-            path: 'delete',
-            element: <CreateFondo />,
-          }
-        ]
       },
       {
         path: '/fondos/create',
         element: <CreateFondo />,
+      },
+      {
+        path: 'fondos/:id/update',
+        element: <UpdateFondo />,
       },
     ],
   },

@@ -24,15 +24,16 @@ export const createFondo = async (fondo) => {
   }
 };
 
-export const updateFondo = async (fondo) => {
+export const updateFondo = async (id, fondo) => {
   try {
-    const response = await axios.put("/fondo", fondo);
+    const response = await axios.put(`/fondo/${id}`, fondo);
     if (response.status == 200){
         return response.data.data;
     }
-    return [];
+    return null;
   } catch (error) {
-    console.error(error);
+    console.error("Error al actualizar el fondo:", error);
+    return null;
   }
 };
 
