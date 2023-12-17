@@ -23,6 +23,12 @@ export const NavBar = () => {
               >
                 Fondos
               </button>
+              <button
+                className="btn btn-link nav-link"
+                onClick={() => navigate("/categorias")}
+              >
+                Categorías
+              </button>
             </li>
           </ul>
         </div>

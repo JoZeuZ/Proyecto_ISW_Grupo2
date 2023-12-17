@@ -16,7 +16,7 @@ export const createCategoria = async (categoria) => {
   try {
     const response = await axios.post("/categoria", categoria);
     if (response.status === 201) {
-      return response.data;
+      return response.data.data;
     }
   } catch (error) {
     console.error("Error al crear la categoría:", error);
@@ -24,17 +24,18 @@ export const createCategoria = async (categoria) => {
   }
 };
 
-export const updateCategoria = async (categoria) => {
+export const updateCategoria = async (id, categoria) => {
   try {
-    const response = await axios.put("/categoria", categoria);
-    if (response.status === 200) {
-      return response.data.data;
+    const response = await axios.put(`/categoria/${id}`, categoria);
+    if (response.status == 200){
+        return response.data.data;
     }
+    return null;
   } catch (error) {
-    console.error("Error al actualizar la categoría:", error);
-    return [];
+    console.error("Error al actualizar la categoria:", error);
+    return null;
   }
-}
+};
 
 export const deleteCategoria = async (id) => {
   try {
