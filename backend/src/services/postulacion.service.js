@@ -6,14 +6,15 @@ const Concurso = require("../models/concurso.model");
 
 async function getPostulaciones() {
     try {
-        const postulaciones = await Postulacion.find().exec();
-        if (!postulaciones) return [null, "No hay postulaciones"];
-    
-        return [postulaciones, null];
+      const postulaciones = await Postulacion.find().populate("concurso").exec();
+      if (!postulaciones) return [null, "No hay postulaciones"];
+  
+      return [postulaciones, null];
     } catch (error) {
-        handleError(error, "postulacion.service -> getpostulaciones");
+      handleError(error, "postulacion.service -> getpostulaciones");
     }
- }
+  }
+  
 
 async function createPostulacion(postulacion) {
     try{
@@ -25,7 +26,7 @@ async function createPostulacion(postulacion) {
             nombreEmpresa,
             rutEmpresa,
             temaProyecto,
-            propuestaProyecto,
+            respaldoPostulacion,
             concurso,
         } = postulacion;
         const postulacionFound = await Postulacion.findOne({ rutPostulante, concurso }).exec();
@@ -44,7 +45,7 @@ async function createPostulacion(postulacion) {
             nombreEmpresa,
             rutEmpresa,
             temaProyecto,
-            propuestaProyecto,
+            respaldoPostulacion,
             concurso: myConcurso,
         });
         await newPostulacion.save();

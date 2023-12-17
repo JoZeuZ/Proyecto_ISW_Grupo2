@@ -78,17 +78,6 @@ const postulacionBodySchema = Joi.object({
             "string.min": "El tema del proyecto debe tener un mínimo de {#limit} caracteres.",
             "string.max": "El tema del proyecto debe tener un máximo de {#limit} caracteres."
         }),
-    propuestaProyecto: Joi.string()
-        .required()
-        .min(100)
-        .max(2000)
-        .messages({
-            "string.base": "La propuesta del proyecto debe ser de tipo string.",
-            "string.empty": "La propuesta del proyecto no puede estar vacía.",
-            "any.required": "La propuesta del proyecto es obligatoria.",
-            "string.min": "La propuesta del proyecto debe tener un mínimo de {#limit} caracteres.",
-            "string.max": "La propuesta del proyecto debe tener un máximo de {#limit} caracteres."
-        }),
     concurso: Joi.string()
         .required()
         .pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)

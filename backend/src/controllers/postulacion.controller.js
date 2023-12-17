@@ -29,7 +29,7 @@ async function createPostulacion(req, res) {
           for (const file of req.files) {
             switch (file.fieldname) {
               case "respaldoPostulacion":
-                body.imagenesRespaldoPostulacion = "respaldosPostulaciones/" + file.filename;
+                body.respaldoPostulacion = "respaldosPostulaciones/" + file.filename;
                 break;
             }
           }
