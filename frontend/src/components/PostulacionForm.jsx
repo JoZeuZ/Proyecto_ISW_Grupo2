@@ -39,6 +39,10 @@ export default function PostulacionForm() {
     navigate("/auth");
   };
 
+  const customButtonStyle = {
+    fontSize: '1.2em', 
+    padding: '0.3em 1.2em', 
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group col-12">
@@ -125,15 +129,16 @@ export default function PostulacionForm() {
 
       {errors.exampleRequired && <span>Este campo es requerido</span>}
 
-      <div className="form-group col-12 d-flex justify-content-between align-items-end mt-3">
+      <div className="form-group col-12 mt-3 d-flex justify-content-between">
         <button
           onClick={handleVolverAlInicio}
-          className="btn btn-secondary btn-default-size"
+          className="btn btn-secondary btn-sm"
+          style={customButtonStyle} 
         >
           Volver al inicio
         </button>
-        <button type="submit" className="btn btn-primary btn-default-size">
-          Enviar
+        <button type="submit" className="btn btn-primary" style={customButtonStyle}>
+          Enviar Postulación
         </button>
       </div>
     </form>

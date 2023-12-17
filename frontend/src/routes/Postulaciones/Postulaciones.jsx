@@ -1,5 +1,6 @@
-import { getPostulaciones } from "../services/postulacion.service";
+import { getPostulaciones } from "../../services/postulacion.service";
 import { useEffect, useState } from "react";
+import DeletePostulacion from "./DeletePostulaciones";
 
 const Postulaciones = () => {
   const [postulaciones, setPostulaciones] = useState([]);
@@ -42,6 +43,7 @@ const Postulaciones = () => {
             <th onClick={() => handleSort("nombrePostulante")}>Nombre Postulante</th>
             <th onClick={() => handleSort("rutPostulante")}>RUT Postulante</th>
             <th onClick={() => handleSort("correoElectronico")}>Correo Electrónico</th>
+            <th onClick={() => handleSort("numeroTelefono")}>Numero Telefono</th>
             <th onClick={() => handleSort("nombreEmpresa")}>Nombre Empresa</th>
             <th onClick={() => handleSort("rutEmpresa")}>RUT Empresa</th>
             <th onClick={() => handleSort("temaProyecto")}>Tema Proyecto</th>
@@ -54,10 +56,14 @@ const Postulaciones = () => {
               <td>{postulacion.nombrePostulante}</td>
               <td>{postulacion.rutPostulante}</td>
               <td>{postulacion.correoElectronico}</td>
+              <td>{postulacion.numeroTelefono}</td>
               <td>{postulacion.nombreEmpresa}</td>
               <td>{postulacion.rutEmpresa}</td>
               <td>{postulacion.temaProyecto}</td>
               <td>{postulacion.concurso}</td>
+              <td>
+                <DeletePostulacion id={postulacion._id} />
+              </td>
             </tr>
           ))}
         </tbody>

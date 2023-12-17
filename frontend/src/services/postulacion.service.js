@@ -26,3 +26,15 @@ export const getPostulaciones = async () => {
       console.log(error);
     }
   };
+
+  export const deletePostulacion = async (id) => {
+    try {
+      const response = await axios.delete(`/postulacion/${id}`);
+      if (response.status === 200) {
+        return response.data;
+      }
+      return {};
+    } catch (error) {
+      console.log(error);
+    }
+  }
