@@ -18,6 +18,7 @@ const transporter = nodemailer.createTransport({
 
 async function evaluarPostulacion(postulacionId, puntajes) {
     try {
+        console.log(puntajes);
         const postulacion = await Postulacion.findById(postulacionId).populate('concurso');
         if (!postulacion) return [null, 'Postulación no encontrada'];
 
