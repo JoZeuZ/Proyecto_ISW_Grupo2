@@ -6,6 +6,7 @@ import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
 import Postulaciones from './routes/Postulaciones.jsx';
+import Postular from './routes/Postular.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     path: '/auth',
     element: <Login />,
   },
+  {
+    path: "/postular",
+    element: <Postular />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

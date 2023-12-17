@@ -13,3 +13,16 @@ export const getPostulaciones = async () => {
       console.log(error);
     }
   };
+
+  export const createPostulacion = async (postulacion) => {
+    try {
+      console.log(postulacion);
+      const response = await axios.post('/postulacion', postulacion, {headers: {'Content-Type': undefined}});
+      if (response.status === 201) {
+        return response.data;
+      }
+      return {};
+    } catch (error) {
+      console.log(error);
+    }
+  };
