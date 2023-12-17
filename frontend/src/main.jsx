@@ -5,6 +5,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
+import Concursos from './routes/Concursos/Concursos.jsx';
+import ConcursoForm from './components/ConcursoForm.jsx';
+
+
 
 const router = createBrowserRouter([
   {
@@ -16,7 +20,15 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
       },
+      {
+        path: '/concursos/concurso/create',
+        element: <ConcursoForm />,
+      }
     ],
+  },
+  {
+    path: '/concursos',
+    element: <Concursos />,
   },
   {
     path: '/auth',

@@ -24,9 +24,15 @@ function PageRoot() {
   return (
     <div>
       <div>
-        <h1>Aqui deberia ir un header</h1>
+        <h1>Municipalidad</h1>
         <p>Estas logeado como: {user.email}</p>
         <button onClick={handleLogout}>Cerrar sesion</button>
+      </div>
+      {/* <div>
+        {/* <button onClick={() => navigate('/concurso/create')}>Crear Concurso</button> */}
+      {/* </div> */}
+      <div>
+        <button style={{ marginRight: '5px' }} onClick={() => navigate('/concursos')}>Concursos</button>
       </div>
       <Outlet />
     </div>
