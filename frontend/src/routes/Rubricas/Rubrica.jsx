@@ -1,7 +1,6 @@
-import { getRubricas } from "../../services/rubrica.service";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteRubrica } from "../../services/rubrica.service";
+import { getRubricas, deleteRubrica } from "../../services/rubrica.service";
 import { useAuth } from "../../context/AuthContext";
 import Swal from "sweetalert2";
 

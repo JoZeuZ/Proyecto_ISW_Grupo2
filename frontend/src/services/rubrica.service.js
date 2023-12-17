@@ -43,3 +43,19 @@ export const deleteRubrica = async (rubricaId) => {
     throw error;
   }
 };
+
+export const updateRubrica = async (rubricaId, rubricaData) => {
+  try {
+    const response = await axios.put(`/rubrica/${rubricaId}`, rubricaData);
+    if (response.status === 200) {
+      return response.data.data;
+    }
+    return null;
+  } catch (error) {
+    console.error(
+      "Error al actualizar la rubrica:",
+      error.response?.data?.message || error.message
+    );
+    throw error;
+  }
+};
