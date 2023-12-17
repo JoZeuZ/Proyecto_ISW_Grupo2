@@ -42,9 +42,11 @@ export default function RubricaForm() {
     container: {
       width: "50%",
       margin: "auto",
-      border: "10px solid #006FB3",
+      border: "10px solid",
       borderRadius: "10px",
       padding: "20px",
+      borderImage: "linear-gradient(to right, #006FB3 50%, #FE6565 50%) 1",
+      borderImageSlice: "1",
     },
   };
 
@@ -119,9 +121,9 @@ export default function RubricaForm() {
         <div className="col-8">
           <textarea
             {...register("descripcion", { required: true })}
-            className="form-control col-5"
+            className="form-control col-7"
             style={{
-              width: "150px",
+              width: "200px",
               height: "100px",
               resize: "none", 
               textAlign: "center", 
@@ -153,9 +155,9 @@ export default function RubricaForm() {
               {...register(`criterios[${index}].descripcion`, {
                 required: true,
               })}
-              className="form-control col-5"
+              className="form-control col-7"
               style={{
-                width: "150px",
+                width: "200px",
                 height: "100px",
                 resize: "none", 
                 textAlign: "center", 
@@ -214,7 +216,11 @@ export default function RubricaForm() {
           />
         </div>
       </div>
-      <input className="btn btn-pill-primary" type="submit" />
+      <div className="col-5">
+        <div className ="col-10">
+        <input className="btn btn-pill-primary" type="submit"/>
+        </div>
+      </div>
     </form>
   </div>
   );
