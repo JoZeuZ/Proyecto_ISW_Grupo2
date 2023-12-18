@@ -8,50 +8,38 @@ import ConcursoForm from "../../components/ConcursoForm";
 const ConcursoUpdate = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors },
-    } = useForm();
+
     const [concurso, setConcurso] = useState(null);
 
     useEffect(() => {
         const fetchConcurso = async () => {
             try {
-                const concursoRes = await getConcurso(id);
-                setConcurso(concursoRes);
-
-                setValue("nombre", concursoRes.nombre);
-                setValue("bases", concursoRes.bases);
-                setValue("fechaInicio", concursoRes.fechaInicio);
-                setValue("fechaFin", concursoRes.fechaFin);
-                setValue("montoAsignado", concursoRes.montoAsignado);
-                setValue("fondo", concursoRes.fondo);
+                const concurso = await getConcurso(id);
+                if (concurso) {
+                    setConcurso({
+                        nombre: concurso.nombre,
+                        bases: concurso.bases,
+                        fechaInicio: concurso.fechaInicio,
+                        fechaFin: concurso.fechaFin,
+                        montoAsignado: concurso.montoAsignado,
+                        fondo : concurso.fondo,
+                    });
+                }
             } catch (error) {
                 console.error("Error al obtener el concurso:", error);
             }
         };
 
         fetchConcurso();
-        const fetchConcursoData = async () => {
-            try {
-                const res = await getConcurso(id);
-                setConcurso(res);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchConcursoData();
-    }, [id, setValue]);
-    
+    }, [id]);
+
+
 
 
     return concurso ? (
         <>
             <br />
-            <ConcursoForm
-                defaultValues={concurso}
+            <ConcursoForm defaultValue = {concurso}
                 buttonLabel="Actualizar"
                 isUpdateForm={true}
             />

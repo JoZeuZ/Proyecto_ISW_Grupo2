@@ -27,7 +27,6 @@ const Concursos = () => {
                             <th>Bases</th>
                             <th>Fecha de inicio</th>
                             <th>Fecha de fin</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

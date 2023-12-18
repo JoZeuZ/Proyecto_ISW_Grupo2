@@ -8,6 +8,7 @@ import Login from './routes/Login.jsx';
 import Concursos from './routes/Concursos/Concursos.jsx';
 import ConcursoForm from './components/ConcursoForm.jsx';
 import ConcursoAdm from './routes/Concursos/ConcursosAdm.jsx';
+import ConcursoUpdate from './routes/Concursos/ConcursoUpdate.jsx';
 
 
 
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
       {
         path: '/concursos/concurso/create',
         element: <ConcursoForm />,
-      }
+      },
+      {
+        path: '/concursos/concurso/update/:id',
+        element: <ConcursoUpdate />, 
+      },
     ],
   },
   {

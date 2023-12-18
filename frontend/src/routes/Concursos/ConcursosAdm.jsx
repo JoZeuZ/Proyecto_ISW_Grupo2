@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteConcurso, getConcursos, updateConcurso } from "../../services/concurso.service.js";
 import { useState, useEffect } from 'react';
 import ConcursoDelete from "./ConcursoDelete.jsx";
@@ -39,8 +39,11 @@ const ConcursoAdm = () => {
                                 <td>{concurso.bases}</td>
                                 <td>{concurso.fechaInicio}</td>
                                 <td>{concurso.fechaFin}</td>
-                                <td><ConcursoDelete id={concurso._id} /></td>
-                                <td><ConcursoUpdate id={concurso._id} /></td>
+                                <td><div>
+                                    <ConcursoDelete id={concurso._id} />
+                                    <Link to={`/concursos/concurso/update/${concurso._id}`}>Actualizar</Link>
+                                    </div>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

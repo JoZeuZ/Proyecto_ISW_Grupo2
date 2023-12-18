@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { createConcurso, updateConcurso } from "../services/concurso.service"
-import { useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Swal from 'sweetalert2';
 
@@ -10,10 +10,17 @@ export default function ConcursoForm({
     isUpdateForm = false,
 }) {
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm({ defaultValues });
+    
+
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const onFormSubmit = async (data) => {
+    const onSubmit = async (data) => {
         try {
             if (!isUpdateForm) {
                 await createConcurso(data);
@@ -46,7 +53,7 @@ export default function ConcursoForm({
 
     return (
         <div>
-            <form onSubmit={handleSubmit(onFormSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group col-12">
                     <label htmlFor="nombre">Nombre: </label>
                     <input
@@ -69,9 +76,9 @@ export default function ConcursoForm({
                         autoComplete="off"
                         {...register("bases")}
                     />
-                    
+
                     {errors.bases && (
-                    <span className="error-message">Este campo es obligatorio</span>
+                        <span className="error-message">Este campo es obligatorio</span>
                     )}
 
                 </div>
@@ -84,7 +91,7 @@ export default function ConcursoForm({
                         autoComplete="off"
                         {...register("fechaInicio")}
                     />
-                    {erros.FechaInicio && (
+                    {errors.FechaInicio && (
                         <span className="error-message">Este campo es obligatorio</span>
                     )}
                 </div>
@@ -101,34 +108,40 @@ export default function ConcursoForm({
                         <span className="error-message">Este campo es obligatorio</span>
                     )}
                 </div>
-                    <div>
-                        <label htmlFor="montoAsignado">Monto Asignado: </label>
-                        <input
-                            className="form-control"
-                            placeholder="Monto Asignado: "
-                            type="number"
-                            autoComplete="off"
-                            {...register("montoAsignado")}
-                        />
-                        {errors.MontoAsignado && (
-                            <span className="error-message">Este campo es obligatorio</span>
-                        )}
-                    </div>
-                    <div>
-                        <label htmlFor="fondo">Fondo: </label>
-                        <input
-                            className="form-control"
-                            placeholder="Fondo: "
-                            type="text"
-                            autoComplete="off"
-                            {...register("fondo")}
-                        />
-                        {errors.Fondo && (
-                            <span className="error-message">Este campo es obligatorio</span>
-                        )}
+                <div>
+                    <label htmlFor="montoAsignado">Monto Asignado: </label>
+                    <input
+                        className="form-control"
+                        placeholder="Monto Asignado: "
+                        type="number"
+                        autoComplete="off"
+                        {...register("montoAsignado")}
+                    />
+                    {errors.MontoAsignado && (
+                        <span className="error-message">Este campo es obligatorio</span>
+                    )}
+                </div>
+                <div>
+                    <label htmlFor="fondo">Fondo: </label>
+                    <input
+                        className="form-control"
+                        placeholder="Fondo: "
+                        type="text"
+                        autoComplete="off"
+                        {...register("fondo")}
+                    />
+                    {errors.Fondo && (
+                        <span className="error-message">Este campo es obligatorio</span>
+                    )}
 
-                    </div>
+                </div>
+                <input
+                    className="btn btn-pill-primary"
+                    type="submit"
+                    value="Crear"
+                />
             </form>
+
         </div >
     );
 
