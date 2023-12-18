@@ -4,6 +4,7 @@ import { createPostulacion } from "../services/postulacion.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { getConcursos } from "../services/concurso.service";
 import { useEffect, useState } from "react";
+import sweetalert2 from "sweetalert2";
 
 export default function PostulacionForm() {
   const [concurso, setConcursos] = useState([]);
@@ -27,11 +28,11 @@ export default function PostulacionForm() {
   }, []);
 
   useEffect(() => {
-  const foundConcurso = concurso.find(concurso => concurso._id === id);
-  if (foundConcurso) {
-    setSelectedConcursoId(id);
-  }
-}, [id, concurso]);
+    const foundConcurso = concurso.find((concurso) => concurso._id === id);
+    if (foundConcurso) {
+      setSelectedConcursoId(id);
+    }
+  }, [id, concurso]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -52,8 +53,23 @@ export default function PostulacionForm() {
     try {
       const response = await createPostulacion(formData);
       console.log(response);
+      sweetalert2
+        .fire({
+          icon: "success",
+          title: "¡Postulación enviada con éxito!",
+          confirmButtonText: "Ok",
+        })
+        .then(() => {
+          navigate("/concursos");
+        });
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      sweetalert2.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "Ha ocurrido un error al crear la postulación",
+        confirmButtonText: "Ok",
+      });
     }
   };
 
@@ -141,11 +157,12 @@ export default function PostulacionForm() {
         />
       </div>
 
+      <label htmlFor="concurso">Concurso seleccionado:</label>
       <select
         className="form-control"
         aria-label="Default select example"
         {...register("concurso", { required: true })}
-        value={selectedConcursoId || ""} 
+        value={selectedConcursoId || ""}
       >
         <option value="" disabled>
           Seleccione un concurso
