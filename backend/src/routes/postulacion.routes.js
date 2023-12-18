@@ -11,16 +11,11 @@ const router = express.Router();
 
 router.use(authenticationMiddleware);
 
-router.get("/", authorizationMiddleware.isAdmin,postulacionController.getPostulaciones);
-router.post("/",validarRutPostulante,validarRutEmpresa, authorizationMiddleware.isPostulante, postulacionController.createPostulacion);
-router.get("/:id",authorizationMiddleware.isAdmin,postulacionController.getPostulacionById);
+router.get("/", postulacionController.getPostulaciones);
+router.post("/", validarRutPostulante,validarRutEmpresa, authorizationMiddleware.isPostulante, postulacionController.createPostulacion);
+router.get("/:id", authorizationMiddleware.isAdmin, postulacionController.getPostulacionById);
 router.put("/:id", authorizationMiddleware.isPostulante, postulacionController.updatePostulacion);
 router.delete("/:id",authorizationMiddleware.isPostulante , postulacionController.deletePostulacion);
 
 module.exports = router;
-
-
-
-
-
 

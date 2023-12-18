@@ -1,3 +1,4 @@
+
 import ReactDOM from 'react-dom/client';
 import App from './routes/App.jsx';
 import './index.css';
@@ -13,15 +14,22 @@ import DetailsFondo from './routes/Fondos/DetailsFondo.jsx';
 import DetailsCategoria from './routes/Categorias/DetailsCategorias.jsx';
 import UpdateFondo from './routes/Fondos/UpdateFondo.jsx';
 import UpdateCategoria from './routes/Categorias/UpdateCategoria.jsx';
+import Rubrica from "./routes/Rubricas/Rubrica.jsx";
+import CreateRubrica from "./routes/Rubricas/CreateRubrica.jsx";
+import UpdateRubrica from "./routes/Rubricas/UpdateRubrica.jsx";
+import Postulaciones from './routes/Postulaciones/Postulaciones.jsx';
+import Postular from './routes/Postulaciones/Postular.jsx';
+import Evaluacion from './routes/EvaluacionPostulacion.jsx';
+import Informe from './routes/Rubricas/Informe.jsx';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <App />,
       },
       {
@@ -55,15 +63,43 @@ const router = createBrowserRouter([
       {
         path: 'categorias/:id/update',
         element: <UpdateCategoria />,
-      }
+      },
+      {
+        path: "/rubrica",
+        element: <Rubrica />,
+      },
+      {
+        path: "/rubrica/create",
+        element: <CreateRubrica />,
+      },
+      {
+        path: '/postulaciones',
+        element: <Postulaciones />,
+      },
+      {
+        path: 'postulacion/evaluar/:id',
+        element: <Evaluacion />,
+      },
+      {
+        path: '/informe',
+        element: <Informe />,
+      },
+        {
+          path: "/rubrica/:id/update",
+          element: <UpdateRubrica />,
+        },
     ],
   },
   {
-    path: '/auth',
+    path: "/auth",
     element: <Login />,
+  },
+  {
+    path: "/postular",
+    element: <Postular />,
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
 );

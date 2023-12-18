@@ -48,7 +48,7 @@ const fondoIdSchema = Joi.object({
             "any.required": "El id es obligatorio.",
             "string.base": "El id debe ser de tipo string.",
             "string.pattern.base": "El id proporcionado no es un ObjectId válido."
-        }),
+    }),
 });
 
 module.exports = { fondoBodySchema, fondoIdSchema };

@@ -31,14 +31,8 @@ async function setupServer() {
     // Agrega el middleware para el manejo de datos en formato JSON
     server.use(express.json());
     // Agregamos los cors
-    const corsOptions = {
-      origin: "http://localhost:5173", // Permitir todos los orígenes
-      credentials: true, // Permitir cookies
-    };
-    server.use(cors(corsOptions));
-    // Habilitar pre-flight para todas las rutas
-    server.options("*", cors(corsOptions)); 
-    // server.use(cors({ origin: "*" }));
+    server.use(cors({ origin: "http://localhost:5173",
+                      credentials: true }));
     // Agregamos el middleware para el manejo de cookies
     server.use(cookieParser());
     // Agregamos morgan para ver las peticiones que se hacen al servidor

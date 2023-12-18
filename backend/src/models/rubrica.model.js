@@ -36,6 +36,7 @@ const rubricaSchema = new mongoose.Schema({
     concurso: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Concurso",
+        required: true,
     },
 });
 
