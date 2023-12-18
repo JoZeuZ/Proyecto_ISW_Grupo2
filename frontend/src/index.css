@@ -17,3 +17,16 @@
 a {
   text-decoration: inherit;
 }
+
+li {
+  list-style: none;
+}
+.container-gob {
+  width: 50%;
+  margin: auto;
+  border: 10px solid;
+  border-radius: 10px;
+  padding: 20px;
+  border-image: linear-gradient(to right, #006FB3 50%, #FE6565 50%) 1;
+  border-image-slice: 1;
+}

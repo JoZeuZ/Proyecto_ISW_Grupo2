@@ -18,12 +18,17 @@ const transporter = nodemailer.createTransport({
 
 async function evaluarPostulacion(postulacionId, puntajes) {
     try {
+        console.log(puntajes);
         const postulacion = await Postulacion.findById(postulacionId).populate('concurso');
         if (!postulacion) return [null, 'Postulación no encontrada'];
+
 
         const concursoId = postulacion.concurso._id;
         const rubrica = await Rubrica.findOne({ concurso: concursoId });
         if (!rubrica) return [null, 'Rúbrica no encontrada'];
+
+        const InformeFound = await Informe.findOne({ postulacion: postulacionId }).exec();
+        if (InformeFound) return [null, "La postulacion ya fue evaluada"];
 
         const puntajeTotal = await calcularPuntajeTotal(puntajes, rubrica.criterios);
         const aprobado = puntajeTotal >= rubrica.puntajeAprobacion;
@@ -52,9 +57,13 @@ async function calcularPuntajeTotal(puntajes, criterios) {
     let puntajeTotal = 0;
 
     criterios.forEach(criterio => {
+
         const puntajeObtenido = puntajes[criterio.name];
 
         if (typeof puntajeObtenido !== 'undefined') {
+            if(puntajeObtenido > criterio.puntaje) {
+                throw new Error(`El puntaje entregado para el criterio ${criterio.name} excede el puntaje máximo`);
+            }
             puntajeTotal += puntajeObtenido;
         } else {
             console.warn(`No se encontró puntaje para el criterio: ${criterio.name}`);

@@ -1,6 +1,8 @@
 "use strict";
 
+const Concurso = require("../models/concurso.model.js");
 const Rubrica = require("../models/rubrica.model.js");
+const Postulacion = require("../models/postulacion.model.js");
 const { handleError } = require("../utils/errorHandler");
 
 /**
@@ -8,8 +10,9 @@ const { handleError } = require("../utils/errorHandler");
  */
 async function getRubricas() {
     try {
-        const rubricas = await Rubrica.find().exec();
+        const rubricas = await Rubrica.find().populate('concurso').exec();
         if (!rubricas) return [null, "No hay rúbricas"];
+        
 
         return [rubricas, null];
     } catch (error) {
@@ -39,7 +42,9 @@ async function getRubricaById(id) {
 async function createRubrica(rubrica) {
     try {
         const { name, descripcion, criterios, puntajeAprobacion, concurso } = rubrica;
-        const rubricaFound = await Rubrica.findOne({ name: rubrica.name });
+        const concursoFound = await Concurso.findById(concurso);
+        if (!concursoFound) return [null, "El concurso no existe"];
+        const rubricaFound = await Rubrica.findOne({ concurso: rubrica.concurso });
         if (rubricaFound) return [null, "La rubrica ya existe"];
         const newRubrica = new Rubrica({
             name,
@@ -91,10 +96,35 @@ async function deleteRubrica(id) {
     }
 }
 
+async function getRubricaByPostulacion(postulacionId) {
+    try {
+      const postulacion = await Postulacion.findById(postulacionId).populate('concurso');
+  
+      if (!postulacion) {
+        return [null, 'Postulación no encontrada'];
+      }
+  
+      const concurso = postulacion.concurso;
+  
+      // Buscar la rubrica asociada al concurso de esa postulación
+      const rubrica = await Rubrica.findOne({ concurso: concurso._id });
+  
+      if (!rubrica) {
+        return [null, 'Rubrica no encontrada para este concurso'];
+      }
+  
+      return rubrica;
+    } catch (error) {
+      console.error('Error al obtener la rubrica por postulación:', error);
+      return [null, 'Error interno al obtener la rubrica'];
+    }
+  }
+
 module.exports = {
     getRubricas,
     getRubricaById,
     createRubrica,
     updateRubrica,
     deleteRubrica,
+    getRubricaByPostulacion,
 };

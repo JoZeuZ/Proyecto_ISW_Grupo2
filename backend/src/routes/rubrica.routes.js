@@ -17,6 +17,8 @@ router.post("/", authorizationMiddleware.isAdmin, rubricaController.createRubric
 router.get("/:id", rubricaController.getRubricaById);
 router.put("/:id", authorizationMiddleware.isAdmin, rubricaController.updateRubrica);
 router.delete("/:id", authorizationMiddleware.isAdmin, rubricaController.deleteRubrica);
+router.get("/postulacion/:id", rubricaController.getRubricaByPostulacion);
+
 
 module.exports = router;
 
