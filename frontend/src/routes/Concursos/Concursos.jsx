@@ -11,7 +11,7 @@ const Concursos = () => {
     useEffect(() => {
         getConcursos().then((response) => {
             setConcursos(response);
-            console.log(concursos);
+            console.log(response);
         });
     }, []);
 
@@ -19,9 +19,6 @@ const Concursos = () => {
         <>
             <div>
                 <h1>Concursos</h1>
-                <button onClick={() => navigate ('concurso/create') }>
-                    Crear Concurso
-                </button>
                 <table border="1">
                     <thead>
                         <tr>

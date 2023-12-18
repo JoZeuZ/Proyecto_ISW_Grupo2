@@ -1,8 +1,12 @@
 import LoginForm from '../components/LoginForm';
 import { useNavigate } from 'react-router-dom';
+import { getConcursos } from '../services/concurso.service';
+
 
 function Login() {
   const navigate = useNavigate();
+  
+  
 
   if (localStorage.getItem('user')) {
     return (
@@ -17,7 +21,11 @@ function Login() {
     <div>
       <h2>Inicia sesion!</h2>
       <LoginForm />
+      <div>
+        <button style={{ marginRight: '5px' }} onClick={() => navigate('/concursos')}>Concursos</button>
+      </div>
     </div>
+
   );
 }
 

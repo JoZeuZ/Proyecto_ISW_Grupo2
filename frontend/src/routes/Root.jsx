@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/auth.service';
 import { AuthProvider, useAuth } from '../context/AuthContext';
+import { getConcursos } from '../services/concurso.service';
 
 function Root() {
   return (
@@ -28,12 +29,9 @@ function PageRoot() {
         <p>Estas logeado como: {user.email}</p>
         <button onClick={handleLogout}>Cerrar sesion</button>
       </div>
-      {/* <div>
-        {/* <button onClick={() => navigate('/concurso/create')}>Crear Concurso</button> */}
-      {/* </div> */}
-      <div>
-        <button style={{ marginRight: '5px' }} onClick={() => navigate('/concursos')}>Concursos</button>
-      </div>
+      <button onClick={() => navigate('concursos/concurso/create')}>
+        Crear Concurso
+      </button>
       <Outlet />
     </div>
   );
