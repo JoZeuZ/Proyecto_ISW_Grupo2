@@ -21,6 +21,7 @@ async function getPostulaciones(req, res) {
 
 async function createPostulacion(req, res) {
     try {
+      console.log(res.body);
         const { body } = req;
         const { error: bodyError } = postulacionBodySchema.validate(body);
         if (bodyError) return respondError(req, res, 400, bodyError.message);
@@ -29,7 +30,7 @@ async function createPostulacion(req, res) {
           for (const file of req.files) {
             switch (file.fieldname) {
               case "respaldoPostulacion":
-                body.imagenesRespaldoPostulacion = "respaldosPostulaciones/" + file.filename;
+                body.respaldoPostulacion = "respaldosPostulaciones/" + file.filename;
                 break;
             }
           }

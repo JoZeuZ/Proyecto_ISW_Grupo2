@@ -25,18 +25,24 @@ function PageRoot() {
     <div>
       <NavBar />
       <div>
+
+        
+
         <p>Estás logeado como: {user.email}</p>
         <button onClick={handleLogout}>Cerrar sesión</button>
       <button
+
           style ={{marginRigth: '5px' }}
           onClick={() => navigate('/postulaciones')}
           >
           Ver postulaciones
         </button>
+
         <button onClick={() => navigate("/informe")}>Ver Informes</button>
         <button onClick={() => navigate("/rubrica")}>Ver Rubricas</button>
         {"  "}
         <button onClick={() => navigate("/")}>Home</button>
+
       </div>
       <Outlet />
     </div>

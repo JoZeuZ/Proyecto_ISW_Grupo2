@@ -1,4 +1,7 @@
 
+import Postulaciones from "./routes/Postulaciones/Postulaciones.jsx";
+import Postular from "./routes/Postulaciones/Postular.jsx";
+import Concursos from "./routes/Concursos/Concursos.jsx";
 import ReactDOM from 'react-dom/client';
 import App from './routes/App.jsx';
 import './index.css';
@@ -22,6 +25,7 @@ import Postular from './routes/Postulaciones/Postular.jsx';
 import Evaluacion from './routes/EvaluacionPostulacion.jsx';
 import Informe from './routes/Rubricas/Informe.jsx';
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +37,12 @@ const router = createBrowserRouter([
         element: <App />,
       },
       {
+
+        path: "/postulaciones",
+        element: <Postulaciones />,
+      },
+  {
+
         path: '/fondos',
         element: <Fondos />,
       },
@@ -72,10 +82,7 @@ const router = createBrowserRouter([
         path: "/rubrica/create",
         element: <CreateRubrica />,
       },
-      {
-        path: '/postulaciones',
-        element: <Postulaciones />,
-      },
+    
       {
         path: 'postulacion/evaluar/:id',
         element: <Evaluacion />,
@@ -89,13 +96,23 @@ const router = createBrowserRouter([
           element: <UpdateRubrica />,
         },
     ],
+    
   },
   {
+    path: "/concursos",
+    element: <Concursos />,
+  },
+  
+  
+  {
+
     path: "/auth",
     element: <Login />,
   },
   {
-    path: "/postular",
+
+    path: "/postular/:id",
+
     element: <Postular />,
   },
 ]);
