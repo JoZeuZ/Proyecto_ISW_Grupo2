@@ -62,7 +62,13 @@ export default function RubricaForm() {
         title: "Rúbrica creada exitosamente",
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message || "Ocurrió un error al crear la rúbrica",
+        confirmButtonText: "Ok",
+      });
     }
   };
 
@@ -93,7 +99,7 @@ export default function RubricaForm() {
             onChange={(e) => setSelectedConcursoID(e.target.value)}
             value={selectedConcursoID}
           >
-            <option value="">Selecciona un concurso</option>
+            <option value="" disabled selected>Selecciona un concurso</option>
             {concursos.map((concurso) => (
               <option key={concurso._id} value={concurso._id}>
                 {concurso.nombre}

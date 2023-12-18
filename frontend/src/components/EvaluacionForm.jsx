@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { evaluarPostulacion } from "../services/evaluar.service";
-import { getRubricaByPostulacion} from "../services/rubrica.service";
+import { getRubricaByPostulacion } from "../services/rubrica.service";
 import Swal from "sweetalert2";
 
 export default function EvaluacionForm() {
@@ -50,7 +50,13 @@ export default function EvaluacionForm() {
       const evaluacionResult = await evaluarPostulacion(id, puntajes);
       console.log("Postulación evaluada con éxito:", evaluacionResult);
     } catch (error) {
-      console.error("Error al evaluar postulacion:", error);
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message || "Ocurrió un error al crear la rúbrica",
+        confirmButtonText: "Ok",
+      });
     }
   };
 
@@ -66,22 +72,23 @@ export default function EvaluacionForm() {
                 <label className="col-2" htmlFor={`puntaje_${criterio.name}`}>
                   {criterio.name}
                 </label>
-                <div className = "col-2">
-                <input
-                  type="number"
-                  className="form-control"
-                  {...register(`puntaje_${criterio.name}`, {
-                    required: false,
-                    min: 0,
-                    max: criterio.puntaje,
-                  })}
-                />
+                <div className="col-2">
+                  <input
+                    type="number"
+                    className="form-control"
+                    {...register(`puntaje_${criterio.name}`, {
+                      required: false,
+                      min: 0,
+                      max: criterio.puntaje,
+                    })}
+                  />
+                  <span>Puntaje Máximo: {criterio.puntaje}</span>
                 </div>
               </div>
             );
           })}
-          <br/>
-          <input className="btn btn-pill-primary" type="submit" value="Evaluar" />
+        <br />
+        <input className="btn btn-pill-primary" type="submit" value="Evaluar" />
       </form>
     </div>
   );
