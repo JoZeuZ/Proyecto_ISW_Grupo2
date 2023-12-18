@@ -30,6 +30,7 @@ function PageRoot() {
           >
           Ver postulaciones
         </button>
+        <button onClick={() => navigate("/informe")}>Ver Informes</button>
         <button onClick={() => navigate("/rubrica")}>Ver Rubricas</button>
         {"  "}
         <button onClick={() => navigate("/")}>Home</button>

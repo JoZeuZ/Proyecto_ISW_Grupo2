@@ -17,6 +17,7 @@ const Rubrica = () => {
   const fetchRubricas = async () => {
     try {
       const respuesta = await getRubricas();
+      console.log(respuesta);
       const rubricasFormateada = respuesta.map((rubrica) => ({
         ...rubrica,
         concurso: rubrica.concurso.nombre,
@@ -26,6 +27,7 @@ const Rubrica = () => {
       console.error("Error al obtener las rúbricas:", error);
     }
   };
+
 
   const handleDeleteRubrica = async (rubricaId) => {
     try {
