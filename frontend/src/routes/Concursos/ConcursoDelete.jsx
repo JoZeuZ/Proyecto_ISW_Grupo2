@@ -27,7 +27,7 @@ const ConcursoDelete = ({ id }) => {
                             'El concurso fue borrado.',
                             'success'
                         )
-                        navigate('/concursos');
+                        navigate('/concurso');
                     })
                     .catch((error) => {
                         console.error("Error al eliminar el fondo:", error);
