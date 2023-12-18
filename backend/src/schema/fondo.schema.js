@@ -8,14 +8,20 @@ const Joi = require("joi");
  * @constant {Object}
  */
 const fondoBodySchema = Joi.object({
-    nombre: Joi.string().required().messages({
+    nombre: Joi.string().required().min(5).max(50).trim().messages({
         "string.empty": "El nombre no puede estar vacío.",
         "string.base": "El nombre debe ser un string.",
+        "string.min": "El nombre debe tener al menos 5 caracteres.",
+        "string.max": "El nombre no puede tener más de 50 caracteres.",
         "any.required": "El nombre es obligatorio.",
+
     }),
-    montoTotal: Joi.number().required().min(0).messages({
+    montoTotal: Joi.number().required().greater(100000).messages({
         "number.base": "El monto total debe ser un número.",
-        "number.min": "El monto total no puede ser negativo.",
+        "number.integer": "El monto total debe ser un número entero.",
+        "number.positive": "El monto total debe ser un número positivo.",
+        "number.unsafe": "El monto total debe ser un valor permitido.",
+        "number.greater": "El monto total debe ser mayor a 100000.",
         "any.required": "El monto total es obligatorio.",
     }),
     categoria: Joi.string().required().pattern(/^(?:[0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/)

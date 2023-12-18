@@ -6,9 +6,14 @@ const CreateFondo = () => {
   const navigate = useNavigate();
 
   const onFormSubmit = async (data) => {
-    const res = await createFondo(data);
-    console.log(res);
-    navigate("/fondos");
+    try {
+      const res = await createFondo(data);
+      console.log(res);
+      navigate("/fondos");
+    } catch (error) {
+      console.error("Error al crear fondo:", error);
+    }
+
   };
 
   return (
