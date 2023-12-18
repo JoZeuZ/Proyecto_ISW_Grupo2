@@ -21,12 +21,132 @@ a {
 li {
   list-style: none;
 }
+
+.btn-sm {
+  padding: .25rem .5rem; 
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: .2rem;
+}
+
+.btn-action {
+  min-width: 80px; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .container-gob {
-  width: 50%;
+  width: 60%;
   margin: auto;
   border: 10px solid;
   border-radius: 10px;
   padding: 20px;
   border-image: linear-gradient(to right, #006FB3 50%, #FE6565 50%) 1;
   border-image-slice: 1;
+}
+
+.form-group label {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-pill-primary, .btn-pill-secondary {
+  border-radius: 20px;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-pill-primary {
+  background-color: #006FB3;
+}
+
+.btn-pill-secondary {
+  background-color: #FE6565;
+}
+
+.btn-pill-primary:hover, .btn-pill-secondary:hover {
+  opacity: 0.9;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8em;
+}
+
+
+.fondos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Crea un diseño de cuadrícula responsivo */
+  grid-gap: 20px; /* Espacio entre tarjetas */
+  padding: 20px; /* Espacio alrededor de la cuadrícula */
+}
+
+.card {
+  background-color: #fff; /* Color de fondo de la tarjeta */
+  border: 1px solid #ddd; /* Borde de la tarjeta */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra de la tarjeta */
+  overflow: hidden; /* Asegura que todo el contenido se quede dentro de la tarjeta */
+}
+
+.card-body {
+  padding: 20px; /* Espacio interior de la tarjeta */
+}
+
+.card-title {
+  margin-bottom: 15px; /* Espacio debajo del título de la tarjeta */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Color de fondo para el botón */
+  color: white; /* Color del texto del botón */
+  text-decoration: none; /* Remueve el subrayado del enlace */
+  padding: 10px 20px; /* Espacio interior del botón */
+  border-radius: 5px; /* Bordes redondeados del botón */
+  display: inline-block; /* Asegura que el botón sea un bloque en línea */
+  white-space: nowrap;
+  min-width: 10%;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Color del botón al pasar el ratón por encima */
+}
+
+.btn-secondary {
+  background-color: #FE6565; /* Color de fondo para el botón */
+  color: white; /* Color del texto del botón */
+  text-decoration: none; /* Remueve el subrayado del enlace */
+  padding: 10px 20px; /* Espacio interior del botón */
+  border-radius: 5px; /* Bordes redondeados del botón */
+  display: inline-block; /* Asegura que el botón sea un bloque en línea */
+  white-space: nowrap;
+  min-width: 10%;
+}
+
+.btn-secondary:hover {
+  background-color: #b04646; /* Color del botón al pasar el ratón por encima */
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+.search-bar {
+  padding: 8px;
+  margin-bottom: 20px; /* Espacio debajo de la barra de búsqueda */
+  border: 1px solid #ccc; /* Borde sutil */
+  border-radius: 4px; /* Bordes redondeados */
+  width: 40%; /* Ancho completo dentro de su contenedor */
+  background-color: white; /* Color de fondo */
+  color: black;
 }

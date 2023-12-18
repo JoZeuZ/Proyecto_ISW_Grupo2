@@ -3,6 +3,10 @@
 const mongoose = require("mongoose");
 
 const fondoSchema = new mongoose.Schema({
+    nombre: {
+        type: String,
+        required: true,
+    },
     montoTotal: {
         type: Number,
         required: true,
