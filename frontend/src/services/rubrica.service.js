@@ -12,6 +12,22 @@ export const getRubricas = async () => {
   }
 };
 
+export const getRubricaById = async (rubricaId) => {
+  try {
+    const response = await axios.get(`/rubrica/${rubricaId}`);
+    if (response.status === 200) {
+      return response.data.data;
+    }
+    return null;
+  } catch (error) {
+    console.error(
+      "Error al obtener la rubrica:",
+      error.response?.data?.message || error.message
+    );
+    throw error;
+  }
+};
+
 export const createRubrica = async (rubricaData) => {
   try {
     const response = await axios.post("/rubrica", rubricaData);
@@ -54,6 +70,22 @@ export const updateRubrica = async (rubricaId, rubricaData) => {
   } catch (error) {
     console.error(
       "Error al actualizar la rubrica:",
+      error.response?.data?.message || error.message
+    );
+    throw error;
+  }
+};
+
+export const getRubricaByPostulacion = async (postulacionId) => {
+  try {
+    const response = await axios.get(`/rubrica/postulacion/${postulacionId}`);
+    if (response.status === 200) {
+      return response.data.data;
+    }
+    return null;
+  } catch (error) {
+    console.error(
+      "Error al obtener la rubrica por postulación:",
       error.response?.data?.message || error.message
     );
     throw error;

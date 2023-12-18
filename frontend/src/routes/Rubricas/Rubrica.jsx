@@ -42,7 +42,8 @@ const Rubrica = () => {
       {isAdmin ? (
         <button
           className="btn btn-primary"
-          onClick={() => navigate("/rubrica/create")}
+          style={{borderRadius: "10px"}}
+          onClick={() => navigate("/rubrica/create")}  
         >
           Crear Rubrica
         </button>
@@ -80,11 +81,14 @@ const Rubrica = () => {
                 </td>
                 <td>{rubrica.puntajeAprobacion}</td>
                 <td>
-                  <button className="btn btn-primary">Editar</button>
+                  <button className="btn btn-primary" style={{borderRadius: "10px"}}
+                  onClick={() => navigate(`/rubrica/${rubrica._id}/update`)}
+                  >Editar</button>
                   {"  "}
                   {isAdmin ? (
                     <button
                       className="btn btn-danger"
+                      style={{borderRadius: "10px"}}
                       onClick={() => {
                         Swal.fire({
                           title: "¿Estás seguro?",

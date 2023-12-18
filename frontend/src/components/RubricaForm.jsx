@@ -17,7 +17,7 @@ export default function RubricaForm() {
     name: "criterios",
   });
   const [concursos, setConcursos] = useState([]);
-  const [selectedConcursoID, setSelectedConcursoID] = useState(""); // Estado para almacenar el ID del concurso seleccionado
+  const [selectedConcursoID, setSelectedConcursoID] = useState(""); 
 
   useEffect(() => {
     const fetchConcursos = async () => {
@@ -38,17 +38,6 @@ export default function RubricaForm() {
 
   const router = useNavigate();
 
-  const styles = {
-    container: {
-      width: "50%",
-      margin: "auto",
-      border: "10px solid",
-      borderRadius: "10px",
-      padding: "20px",
-      borderImage: "linear-gradient(to right, #006FB3 50%, #FE6565 50%) 1",
-      borderImageSlice: "1",
-    },
-  };
 
   const onSubmit = async (data) => {
     try {
@@ -78,29 +67,28 @@ export default function RubricaForm() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className = "container-gob">
       <h1>Formulario Creación de Rubrica</h1>
     <form className="form-row" onSubmit={handleSubmit(onSubmit)}>
     <div className="form-group col-12">
-        <label className="col-5" htmlFor="name">
+        <label  htmlFor="name">
           Nombre
         </label>
-        <div className="form-group col-5">
+        <div className="form-group">
           <input
             {...register("name", { required: true })}
-            className="form-control col-10"
+            className="form-control"
             type="text"
             placeholder="Nombre de la Rubrica"
           />
         </div>
       </div>
       <div className="form-group col-12">
-        <label className="col-5" htmlFor="concurso">
+        <label  htmlFor="concurso">
           Seleccionar concurso:
         </label>
-        <div className="form-group col-12">
           <select
-            className="form-control col-5"
+            className="form-control"
             name="concurso"
             onChange={(e) => setSelectedConcursoID(e.target.value)}
             value={selectedConcursoID}
@@ -112,18 +100,16 @@ export default function RubricaForm() {
               </option>
             ))}
           </select>
-        </div>
       </div>
       <div className="form-group col-12">
-        <label className="col-5" htmlFor="descripcion">
+        <label htmlFor="descripcion">
           Descripción
         </label>
-        <div className="col-8">
           <textarea
             {...register("descripcion", { required: true })}
-            className="form-control col-7"
+            className="form-control"
             style={{
-              width: "200px",
+              // width: "372.8px",
               height: "100px",
               resize: "none", 
               textAlign: "center", 
@@ -132,32 +118,28 @@ export default function RubricaForm() {
             }}
             placeholder="Descripción de la Rubrica"
           />
-        </div>
       </div>
       {fields.map((criterio, index) => (
         <div className="form-group col-12" key={criterio.id}>
-          <label className="col-5" htmlFor={`criterios[${index}].name`}>
+          <label htmlFor={`criterios[${index}].name`}>
             Nombre del Criterio
           </label>
-          <div className="form-group col-5">
             <input
               {...register(`criterios[${index}].name`, { required: true })}
-              className="form-control col-10"
+              className="form-control"
               type="text"
               placeholder="Nombre del Criterio"
             />
-          </div>
-          <label className="col-5" htmlFor={`criterios[${index}].descripcion`}>
+          <label htmlFor={`criterios[${index}].descripcion`}>
             Descripción del Criterio
           </label>
-          <div className="form-group col-8">
             <textarea
               {...register(`criterios[${index}].descripcion`, {
                 required: true,
               })}
-              className="form-control col-7"
+              className="form-control"
               style={{
-                width: "200px",
+                // width: "372.8px",
                 height: "100px",
                 resize: "none", 
                 textAlign: "center", 
@@ -166,8 +148,7 @@ export default function RubricaForm() {
               }}
               placeholder="Descripción del Criterio"
             />
-          </div>
-          <label className="col-5" htmlFor={`criterios[${index}].puntaje`}>
+          <label htmlFor={`criterios[${index}].puntaje`}>
             Puntaje del Criterio
           </label>
           <div className="form-group col-5">
@@ -218,7 +199,7 @@ export default function RubricaForm() {
       </div>
       <div className="col-5">
         <div className ="col-10">
-        <input className="btn btn-pill-primary" type="submit"/>
+        <input className="btn btn-pill-primary" type="submit" value="Crear"/>
         </div>
       </div>
     </form>

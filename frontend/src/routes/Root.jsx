@@ -24,6 +24,12 @@ function PageRoot() {
   return (
     <div>
       <div>
+      <button
+          style ={{marginRigth: '5px' }}
+          onClick={() => navigate('/postulaciones')}
+          >
+          Ver postulaciones
+        </button>
         <button onClick={() => navigate("/rubrica")}>Ver Rubricas</button>
         {"  "}
         <button onClick={() => navigate("/")}>Home</button>
