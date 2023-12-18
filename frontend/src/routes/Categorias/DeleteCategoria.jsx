@@ -44,7 +44,7 @@ const DeleteCategoria = ({ id, onDeleteSuccess}) => {
   };
 
   return (
-    <button className="btn btn-secondary btn-sm btn-action" onClick={handleDelete} disabled={isDeleting}>
+    <button className="btn btn-secondary btn-sm" onClick={handleDelete} disabled={isDeleting}>
       {isDeleting ? "Eliminando..." : "Eliminar"}
     </button>
   );

@@ -43,7 +43,7 @@ const DeleteFondo = ({ id }) => {
     });
   };  
   return (
-    <button className="btn btn-pill-secondary" onClick={handleDelete} disabled={isDeleting}>
+    <button className="btn btn-secondary" onClick={handleDelete} disabled={isDeleting}>
       {isDeleting ? "Eliminando..." : "Eliminar Fondo"}
     </button>
   );

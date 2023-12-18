@@ -1,4 +1,3 @@
-// UpdateFondo.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getFondo } from "../../services/fondo.service.js";

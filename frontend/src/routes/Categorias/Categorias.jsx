@@ -16,7 +16,7 @@ export const Categorias = () => {
   return (
     <div>
       <h1>Categorias</h1>
-      <Link className="btn btn-pill-primary" to="/categorias/create">
+      <Link className="btn btn-pill-primary btn-sm" to="/categorias/create">
         Crear Categoria
       </Link>
         <DetailsCategoria />

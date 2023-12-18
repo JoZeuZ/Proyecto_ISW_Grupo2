@@ -8,11 +8,11 @@ const Joi = require("joi");
  * @constant {Object}
  */
 const fondoBodySchema = Joi.object({
-    nombre: Joi.string().required().min(5).max(50).trim().messages({
+    nombre: Joi.string().required().min(5).max(40).trim().messages({
         "string.empty": "El nombre no puede estar vacío.",
         "string.base": "El nombre debe ser un string.",
         "string.min": "El nombre debe tener al menos 5 caracteres.",
-        "string.max": "El nombre no puede tener más de 50 caracteres.",
+        "string.max": "El nombre no puede tener más de 40 caracteres.",
         "any.required": "El nombre es obligatorio.",
 
     }),

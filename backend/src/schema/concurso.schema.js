@@ -6,9 +6,14 @@ const Joi = require("joi");
 const concursoBodySchema = Joi.object({
     nombre: Joi.string()
         .required()
+        .min(5)
+        .max(40)
+        .trim()
         .messages({
             "string.base": "El nombre debe ser de tipo string.",
             "string.empty": "El nombre no puede estar vacío.",
+            "string.min": "El nombre debe tener al menos 5 caracteres.",
+            "string.max": "El nombre no puede tener más de 40 caracteres.",
             "any.required": "El nombre es obligatorio."
         }),
     bases: Joi.string()

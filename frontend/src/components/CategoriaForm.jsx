@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { createCategoria, updateCategoria } from "../services/categoria.service.js";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function CategoriaForm({ defaultValues, buttonLabel = 'Crear', isUpdateForm = false }) {
   const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues });
@@ -11,12 +12,30 @@ export default function CategoriaForm({ defaultValues, buttonLabel = 'Crear', is
     try {
       if (isUpdateForm) {
         await updateCategoria(id, data);
+        Swal.fire({
+          title: "¡Éxito!",
+          text: "¡Categoria modificada exitosamente!",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
       } else {
         await createCategoria(data);
+        Swal.fire({
+          title: "¡Éxito!",
+          text: "¡Categoria creada exitosamente!",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
       }
       navigate("/categorias");
     } catch (error) {
-      console.error("Error al procesar la categoría:", error);
+      console.error("Error al crear/modificar categoria:", error);
+      Swal.fire({
+        title: "Error",
+        text: error.message || "Ocurrió un error inesperado",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
   };
 
@@ -27,7 +46,7 @@ export default function CategoriaForm({ defaultValues, buttonLabel = 'Crear', is
         <label htmlFor="nombre">Nombre de la Categoría</label>
         <input
           autoComplete="off"
-          {...register("nombre", { required: true })}
+          {...register("nombre")}
           className="form-control"
           type="text"
           placeholder="Escriba aquí el nombre de la categoría"
@@ -37,7 +56,7 @@ export default function CategoriaForm({ defaultValues, buttonLabel = 'Crear', is
       <div className="form-group col-12">
         <label htmlFor="descripcion">Descripción</label>
         <textarea
-          {...register("descripcion", { required: true })}
+          {...register("descripcion")}
           className="form-control"
           placeholder="Descripción de la categoría"
         ></textarea>

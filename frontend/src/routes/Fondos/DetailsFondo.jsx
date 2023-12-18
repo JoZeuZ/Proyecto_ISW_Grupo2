@@ -5,6 +5,7 @@ import { getCategorias } from "../../services/categoria.service.js";
 import { getConcursos } from "../../services/concurso.service.js";
 import { useNavigate } from "react-router-dom";
 import DeleteFondo from "./DeleteFondo.jsx";
+import "./Fondos.css"
 
 const DetailsFondo = () => {
   const { id } = useParams();
@@ -20,11 +21,17 @@ const DetailsFondo = () => {
         if (responseFondo) {
           setFondo(responseFondo);
           const resCategorias = await getCategorias();
-          const categoria = resCategorias.find((cat) => cat._id === responseFondo.categoria);
-          setCategoriaNombre(categoria ? categoria.nombre : "Categoría no encontrada");
+          const categoria = resCategorias.find(
+            (cat) => cat._id === responseFondo.categoria
+          );
+          setCategoriaNombre(
+            categoria ? categoria.nombre : "Categoría no encontrada"
+          );
 
           const resConcursos = await getConcursos();
-          const concursosDelFondo = resConcursos.filter((con) => responseFondo.concursos.includes(con._id));
+          const concursosDelFondo = resConcursos.filter((con) =>
+            responseFondo.concursos.includes(con._id)
+          );
           setConcursos(concursosDelFondo);
         }
       } catch (error) {
@@ -41,24 +48,33 @@ const DetailsFondo = () => {
 
   return (
     <>
-      <br />
-      <h2>Detalles del fondo:</h2>
-      <div>
-        <p>Nombre: {fondo.nombre}</p>
-        <p>Monto total: {fondo.montoTotal}</p>
-        <p>Monto asignado: {fondo.montoAsignado}</p>
-        <p>Categoría: {categoriaNombre}</p>
-        <div>
-          <h3>Concursos:</h3>
+      <div className="details-container">
+        <h2>Detalles del fondo</h2>
+        <div className="card">
+          <p><strong>Nombre:</strong> {fondo.nombre}</p>
+          <p><strong>Monto total:</strong> {fondo.montoTotal}</p>
+          <p><strong>Monto asignado:</strong> {fondo.montoAsignado}</p>
+          <p><strong>Categoría:</strong> {categoriaNombre}</p>
+        </div>
+
+        <div className="concursos-container">
+          <h3>Concursos</h3>
           <ul>
-            {concursos.length > 0 ? concursos.map((concurso) => <li key={concurso._id}>{concurso.nombre}</li>) : <li>No hay concursos</li>}
+            {concursos.length > 0 ? 
+              concursos.map((concurso) => (
+                <li className="concurso-item" key={concurso._id}>
+                  {concurso.nombre}
+                </li>
+              )) : <li>No hay concursos</li>
+            }
           </ul>
         </div>
-      </div>
-      <div>
-        <button className="btn btn-pill-primary" onClick={() => navigate("/fondos")}>Volver</button>
-        <DeleteFondo id={id} />
-        <Link className="btn btn-pill-primary" to={`/fondos/${id}/update`}>Actualizar Fondo</Link>
+
+        <div className="actions">
+          <button className="btn btn-primary2" onClick={() => navigate("/fondos")}>Volver</button>
+          <DeleteFondo id={id} />
+          <Link className="btn btn-primary" to={`/fondos/${id}/update`}>Actualizar Fondo</Link>
+        </div>
       </div>
     </>
   );
