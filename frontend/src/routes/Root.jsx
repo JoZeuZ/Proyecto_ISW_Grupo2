@@ -32,6 +32,10 @@ function PageRoot() {
       <button onClick={() => navigate('concursos/concurso/create')}>
         Crear Concurso
       </button>
+      <div>
+        <button style={{ marginRight: '5px' }} onClick={() => navigate('/concurso')}>Concursos</button>
+        
+      </div>
       <Outlet />
     </div>
   );

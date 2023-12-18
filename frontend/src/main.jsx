@@ -7,6 +7,7 @@ import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
 import Concursos from './routes/Concursos/Concursos.jsx';
 import ConcursoForm from './components/ConcursoForm.jsx';
+import ConcursoAdm from './routes/Concursos/ConcursosAdm.jsx';
 
 
 
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <App />,
+      },
+      {
+        path: '/concurso',
+        element: <ConcursoAdm />,
       },
       {
         path: '/concursos/concurso/create',

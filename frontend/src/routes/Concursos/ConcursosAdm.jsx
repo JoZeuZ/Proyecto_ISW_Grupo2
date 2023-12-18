@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { getConcursos } from "../../services/concurso.service.js";
+import { deleteConcurso, getConcursos, updateConcurso } from "../../services/concurso.service.js";
 import { useState, useEffect } from 'react';
+import ConcursoDelete from "./ConcursoDelete.jsx";
+import ConcursoUpdate from "./ConcursoUpdate.jsx";
 
 
-const Concursos = () => {
+const ConcursoAdm = () => {
     const navigate = useNavigate();
 
     const [concursos, setConcursos] = useState([]);
@@ -37,6 +39,8 @@ const Concursos = () => {
                                 <td>{concurso.bases}</td>
                                 <td>{concurso.fechaInicio}</td>
                                 <td>{concurso.fechaFin}</td>
+                                <td><ConcursoDelete id={concurso._id} /></td>
+                                <td><ConcursoUpdate id={concurso._id} /></td>
                             </tr>
                         ))}
                     </tbody>
@@ -45,4 +49,4 @@ const Concursos = () => {
         </>
     );
 }
-export default Concursos;
+export default ConcursoAdm;
