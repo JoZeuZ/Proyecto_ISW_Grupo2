@@ -1,3 +1,4 @@
+
 import axios from './root.service';
 
 
@@ -92,12 +93,14 @@ export const updateConcurso = async (id, data) => {
         "Error al conectar con el servidor. Intente nuevamente más tarde."
       );
     }
+
   }
 };
 
 export const getConcurso = async (id) => {
   try {
     const response = await axios.get(`/concurso/${id}`);
+
     if (response.status === 200) {
       return response.data;
     }
@@ -116,3 +119,4 @@ export const getConcurso = async (id) => {
     }
   }
 };
+

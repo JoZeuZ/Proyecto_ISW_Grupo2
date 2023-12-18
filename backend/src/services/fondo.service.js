@@ -18,7 +18,7 @@ async function getFondo() {
 
 async function createFondo(fondo) {
   try {
-    const { montoTotal, montoAsignado, concursos, categoria } = fondo;
+    const { nombre, montoTotal, montoAsignado, concursos, categoria } = fondo;
     const fondosFound = await Fondo.findOne({ _id: fondo._id }).exec();
     if (fondosFound) return [null, "El fondo ya existe"];
 
@@ -37,6 +37,7 @@ async function createFondo(fondo) {
     if (!categoriaFound) return [null, "La categoria no existe"];
 
     const newFondo = new Fondo({
+      nombre,
       montoTotal,
       montoAsignado,
       concursos: myConcurso,
@@ -70,7 +71,7 @@ async function updateFondo(id, fondo) {
       throw new Error('No está permitido modificar montoAsignado o concursos directamente.');
     }
 
-    const { montoTotal, montoAsignado, concursos, categoria } = fondo;
+    const { nombre, montoTotal, montoAsignado, concursos, categoria } = fondo;
 
     const categoriaFound = await Categoria.findById(categoria);
     if (!categoriaFound) return [null, "La categoria no existe"];
@@ -79,6 +80,7 @@ async function updateFondo(id, fondo) {
       id,
       {
         $set: {
+          nombre,
           montoTotal,
           montoAsignado,
           concursos,
