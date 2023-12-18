@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from '../context/AuthContext';
 import { NavBar } from '../components/NavBar';
 import { useNavigate } from "react-router-dom";
 
+
 function Root() {
   return (
     <AuthProvider>
@@ -27,7 +28,6 @@ function PageRoot() {
       <div>
 
         
-
         <p>Estás logeado como: {user.email}</p>
         <button onClick={handleLogout}>Cerrar sesión</button>
       <button
@@ -43,6 +43,13 @@ function PageRoot() {
         {"  "}
         <button onClick={() => navigate("/")}>Home</button>
 
+      </div>
+      <button onClick={() => navigate('concursos/concurso/create')}>
+        Crear Concurso
+      </button>
+      <div>
+        <button style={{ marginRight: '5px' }} onClick={() => navigate('/concurso')}>Concursos</button>
+        
       </div>
       <Outlet />
     </div>

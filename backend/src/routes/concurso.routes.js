@@ -8,6 +8,7 @@ const authenticationMiddleware = require("../middlewares/authentication.middlewa
 
 const router = express.Router();
 router.get("/", concursoController.getConcurso);
+
 router.use(authenticationMiddleware);
 
 const montoMiddleware = require("../middlewares/fondo.middleware.js");

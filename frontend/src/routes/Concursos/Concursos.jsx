@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { getConcursos } from "../../services/concurso.service.js";
+
 import { useState, useEffect } from "react";
 
 const Concursos = () => {
@@ -57,3 +58,4 @@ const Concursos = () => {
   );
 };
 export default Concursos;
+

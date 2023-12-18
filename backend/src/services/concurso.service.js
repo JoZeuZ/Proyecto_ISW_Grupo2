@@ -25,7 +25,6 @@ async function getConcurso() {
     });
 
     return [concursosFormateados, null];
-
   } catch (error) {
     handleError(error, "concurso.service -> getConcursos");
   }

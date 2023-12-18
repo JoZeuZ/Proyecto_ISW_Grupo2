@@ -34,6 +34,7 @@ async function setupServer() {
     server.use(express.json());
     // Agregamos los cors
     server.use(cors({ origin: "http://localhost:5173",
+
                       credentials: true }));
 
     // Agregamos el middleware para el manejo de cookies

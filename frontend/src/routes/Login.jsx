@@ -3,6 +3,7 @@ import LoginForm from '../components/LoginForm';
 import { useNavigate } from 'react-router-dom';
 
 
+
 function Login() {
   const navigate = useNavigate();
 
@@ -21,11 +22,14 @@ function Login() {
     <div>
       <h2>Inicia sesión</h2>
       <LoginForm />
+
       
       <div>
         <button style={{ marginRight: '5px' }} onClick={() => navigate('/concursos')}>Concursos</button>
       </div> 
+
     </div>
+
   );
 }
 

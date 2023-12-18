@@ -9,6 +9,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
+
+import Concursos from './routes/Concursos/Concursos.jsx';
+import ConcursoForm from './components/ConcursoForm.jsx';
+import ConcursoAdm from './routes/Concursos/ConcursosAdm.jsx';
+import ConcursoUpdate from './routes/Concursos/ConcursoUpdate.jsx';
+
+
 import { Categorias } from './routes/Categorias/Categorias.jsx';
 import { Fondos } from './routes/Fondos/Fondos.jsx';
 import CreateFondo from './routes/Fondos/CreateFondo.jsx';
@@ -37,6 +44,18 @@ const router = createBrowserRouter([
         element: <App />,
       },
       {
+
+        path: '/concurso',
+        element: <ConcursoAdm />,
+      },
+      {
+        path: '/concursos/concurso/create',
+        element: <ConcursoForm />,
+      },
+      {
+        path: '/concursos/concurso/update/:id',
+        element: <ConcursoUpdate />, 
+      },
 
         path: "/postulaciones",
         element: <Postulaciones />,
@@ -95,9 +114,11 @@ const router = createBrowserRouter([
           path: "/rubrica/:id/update",
           element: <UpdateRubrica />,
         },
+
     ],
     
   },
+  
   {
     path: "/concursos",
     element: <Concursos />,
@@ -107,6 +128,7 @@ const router = createBrowserRouter([
   {
 
     path: "/auth",
+
     element: <Login />,
   },
   {
