@@ -5,6 +5,7 @@ const rubricaService = require("../services/rubrica.service");
 const { rubricaBodySchema, rubricaIdSchema } = require("../schema/rubrica.schema");
 const { handleError } = require("../utils/errorHandler");
 
+
 async function getRubricas(req, res) {
     try {
         const [rubricas, errorRubricas] = await rubricaService.getRubricas();
@@ -90,10 +91,23 @@ async function deleteRubrica(req, res) {
     }
 }
 
+async function getRubricaByPostulacion(req, res) {
+    try {
+        const { params } = req;
+        const rubrica = await rubricaService.getRubricaByPostulacion(params.id);
+        respondSuccess(req, res, 200, rubrica);
+    } catch (error) {
+      console.error('Error al obtener la rubrica por postulación:', error);
+      return res.status(500).json({ error: 'Error interno al obtener la rubrica' });
+    }
+  }
+
+
 module.exports = {
     getRubricas,
     getRubricaById,
     createRubrica,
     updateRubrica,
     deleteRubrica,
+    getRubricaByPostulacion,
 };
