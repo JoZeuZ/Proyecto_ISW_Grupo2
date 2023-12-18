@@ -14,7 +14,7 @@ function Root() {
 }
 
 function PageRoot() {
-
+  const navigate = useNavigate();
   const handleLogout = () => {
     logout();
     navigate("/auth");

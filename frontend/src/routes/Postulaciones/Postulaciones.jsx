@@ -1,20 +1,16 @@
 import { getPostulaciones } from "../../services/postulacion.service";
 import { useEffect, useState } from "react";
 import DeletePostulacion from "./DeletePostulaciones";
-
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-
 
 const Postulaciones = () => {
   const [postulaciones, setPostulaciones] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-
   const navigate = useNavigate();
   const { user } = useAuth();
   const isEvaluador = user.roles.some((role) => role.name === "evaluador");
-
 
   useEffect(() => {
     getPostulaciones().then((response) => {
@@ -22,14 +18,12 @@ const Postulaciones = () => {
         return {
           ...postulacion,
 
-          concurso: postulacion.concurso.nombre 
-
+          concurso: postulacion.concurso.nombre,
         };
       });
       setPostulaciones(postulacionesConNombreConcurso);
     });
   }, []);
-
 
   const handleSort = (campo) => {
     const orden = campo === sortBy && sortOrder === "asc" ? "desc" : "asc";
@@ -51,19 +45,21 @@ const Postulaciones = () => {
       <table border="1">
         <thead>
           <tr>
-
-            <th onClick={() => handleSort("nombrePostulante")}>Nombre Postulante</th>
+            <th onClick={() => handleSort("nombrePostulante")}>
+              Nombre Postulante
+            </th>
             <th onClick={() => handleSort("rutPostulante")}>RUT Postulante</th>
-            <th onClick={() => handleSort("correoElectronico")}>Correo Electrónico</th>
-            <th onClick={() => handleSort("numeroTelefono")}>Numero Telefono</th>
-
+            <th onClick={() => handleSort("correoElectronico")}>
+              Correo Electrónico
+            </th>
+            <th onClick={() => handleSort("numeroTelefono")}>
+              Numero Telefono
+            </th>
             <th onClick={() => handleSort("nombreEmpresa")}>Nombre Empresa</th>
             <th onClick={() => handleSort("rutEmpresa")}>RUT Empresa</th>
             <th onClick={() => handleSort("temaProyecto")}>Tema Proyecto</th>
             <th onClick={() => handleSort("concurso")}>Concurso</th>
-
             <th>Acciones</th>
-
           </tr>
         </thead>
         <tbody>
@@ -79,19 +75,19 @@ const Postulaciones = () => {
               <td>{postulacion.concurso}</td>
               <td>
                 <DeletePostulacion id={postulacion._id} />
-
                 {isEvaluador ? (
                   <button
                     className="btn btn-primary"
                     style={{ borderRadius: "10px" }}
-                    onClick={() => navigate(`/postulacion/evaluar/${postulacion._id}`)}
+                    onClick={() =>
+                      navigate(`/postulacion/evaluar/${postulacion._id}`)
+                    }
                   >
                     Evaluar
                   </button>
                 ) : (
                   ""
                 )}
-
               </td>
             </tr>
           ))}
@@ -102,4 +98,3 @@ const Postulaciones = () => {
 };
 
 export default Postulaciones;
-
