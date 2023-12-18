@@ -39,7 +39,7 @@ const postulacionBodySchema = Joi.object({
             "string.empty": "El correo electrónico del postulante no puede estar vacío.",
             "any.required": "El correo electrónico del postulante es obligatorio.",
             "string.max": "El correo electrónico del postulante debe tener un máximo de {#limit} caracteres.",
-            "string.email": "El correo electrónico del postulante debe ser un correo electrónico válido."
+            "string.email": "El correo electrónico del postulante debe ser un correo electrónico válido. Formato: xxxxx@xxxx"
         }),
     numeroTelefono: Joi.string()
         .required()
@@ -47,7 +47,7 @@ const postulacionBodySchema = Joi.object({
         .messages({
             "string.base": "El número de teléfono del postulante debe ser de tipo string.",
             "string.empty": "El número de teléfono del postulante no puede estar vacío.",
-            "string.pattern.base": "El número de teléfono del postulante debe ser un número de teléfono válido en Chile."
+            "string.pattern.base": "El número de teléfono del postulante debe seguir el formato +569XXXXXXXX o 9XXXXXXXX."
         }),
     nombreEmpresa: Joi.string()
         .required()
