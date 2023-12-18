@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/auth.service';
 import { AuthProvider, useAuth } from '../context/AuthContext';
+import { NavBar } from '../components/NavBar';
+import { useNavigate } from "react-router-dom";
 
 function Root() {
   return (
@@ -12,27 +13,36 @@ function Root() {
 }
 
 function PageRoot() {
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate('/auth');
+    navigate("/auth");
   };
 
   const { user } = useAuth();
 
   return (
     <div>
+      <NavBar />
       <div>
-        <button
+
+        
+
+        <p>Estás logeado como: {user.email}</p>
+        <button onClick={handleLogout}>Cerrar sesión</button>
+      <button
+
           style ={{marginRigth: '5px' }}
           onClick={() => navigate('/postulaciones')}
           >
           Ver postulaciones
         </button>
-        <h1>Aqui deberia ir un header</h1>
-        <p>Estas logeado como: {user.email}</p>
-        <button onClick={handleLogout}>Cerrar sesion</button>
+
+        <button onClick={() => navigate("/informe")}>Ver Informes</button>
+        <button onClick={() => navigate("/rubrica")}>Ver Rubricas</button>
+        {"  "}
+        <button onClick={() => navigate("/")}>Home</button>
+
       </div>
       <Outlet />
     </div>

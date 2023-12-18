@@ -16,7 +16,12 @@ const indexRoutes = require("./routes/index.routes.js");
 const { setupDB } = require("./config/configDB.js");
 // Importa el handler de errores
 const { handleFatalError, handleError } = require("./utils/errorHandler.js");
-const { createRoles, createUsers, createDefaultCategories, initializeTestData } = require("./config/initialSetup");
+const {
+  createRoles,
+  createUsers,
+  createDefaultCategories,
+  initializeTestData,
+} = require("./config/initialSetup");
 
 /**
  * Inicia el servidor web
@@ -28,7 +33,9 @@ async function setupServer() {
     // Agrega el middleware para el manejo de datos en formato JSON
     server.use(express.json());
     // Agregamos los cors
-    server.use(cors({ origin: "http://localhost:5173", credentials: true }));
+    server.use(cors({ origin: "http://localhost:5173",
+                      credentials: true }));
+
     // Agregamos el middleware para el manejo de cookies
     server.use(cookieParser());
     // Agregamos morgan para ver las peticiones que se hacen al servidor

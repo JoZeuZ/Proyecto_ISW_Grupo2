@@ -10,7 +10,7 @@ const categoriaSchema = new mongoose.Schema({
     },
     descripcion: {
         type: String,
-        required: false
+        required: true,
     },
     fondos: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -36,11 +36,13 @@ validarRutPostulante,validarRutEmpresa,postulacionController.updatePostulacion);
 //Rutas que requieren logeo
 router.use(authenticationMiddleware);
 
+
 router.get("/", authorizationMiddleware.isAdmin,postulacionController.getPostulaciones);
 router.get("/:id",authorizationMiddleware.isAdmin,postulacionController.getPostulacionById);
 router.delete("/:id", authorizationMiddleware.isAdmin,postulacionController.deletePostulacion);
 
 module.exports = router;
+
 
 
 

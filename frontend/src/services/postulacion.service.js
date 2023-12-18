@@ -1,3 +1,4 @@
+
 import axios from "./root.service";
 
 export const getPostulaciones = async () => {
@@ -55,3 +56,4 @@ export const deletePostulacion = async (id) => {
     }
   }
 };
+

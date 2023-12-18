@@ -9,12 +9,15 @@ const evaluacionRoutes = require("./evaluacion.routes.js");
 const userRoutes = require("./user.routes.js");
 /** Enrutador de autenticación */
 const authRoutes = require("./auth.routes.js");
-
+/** Enrutador de postulacion */
 const postulacionRoutes = require("./postulacion.routes.js");
-
+/** Enrutador de concurso */
 const concursoRoutes = require("./concurso.routes.js");
 /** Middleware de autenticación */
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
+
+const informeRoutes = require("./informe.routes.js");
+
 /** Instancia del enrutador */
 const router = express.Router();
 
@@ -22,12 +25,12 @@ const router = express.Router();
 router.use("/users", authenticationMiddleware, userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
-//Define las rutas para la rubrica /api/rubrica
+// Define las rutas para la rubrica /api/rubrica
 router.use("/rubrica", rubricaRoutes);
-//Define las rutas para la evaluacion /api/evaluacion
+// Define las rutas para la evaluacion /api/evaluacion
 router.use("/evaluacion", evaluacionRoutes);
 
-//Define las rutas para la postulacion /api/postulacion
+// Define las rutas para la postulacion /api/postulacion
 router.use("/postulacion", postulacionRoutes);
 
 // Define las rutas para los fondos /api/fondo
@@ -38,6 +41,8 @@ router.use("/concurso", require("./concurso.routes.js"));
 
 // Define las rutas para las categorias /api/categoria
 router.use("/categoria", require("./categoria.routes.js"));
+
+router.use("/informe", informeRoutes);
 
 
 // Exporta el enrutador

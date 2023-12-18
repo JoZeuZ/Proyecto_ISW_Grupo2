@@ -9,6 +9,7 @@ import sweetalert2 from "sweetalert2";
 export default function PostulacionForm() {
   const [concurso, setConcursos] = useState([]);
   const [selectedConcursoId, setSelectedConcursoId] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -16,6 +17,7 @@ export default function PostulacionForm() {
     watch,
   } = useForm();
   const respaldoPostulacion = watch("respaldoPostulacion");
+
 
   const { id } = useParams();
 
@@ -37,6 +39,7 @@ export default function PostulacionForm() {
   const onSubmit = async (data) => {
     console.log(data);
     console.log(data.concursos);
+
     const formData = new FormData();
     for (const key in data) {
       if (
@@ -53,6 +56,7 @@ export default function PostulacionForm() {
     try {
       const response = await createPostulacion(formData);
       console.log(response);
+
       sweetalert2
         .fire({
           icon: "success",
@@ -70,17 +74,20 @@ export default function PostulacionForm() {
         text: error.message || "Ha ocurrido un error al crear la postulación",
         confirmButtonText: "Ok",
       });
+
     }
   };
 
   const navigate = useNavigate();
   const handleVolverAlInicio = () => {
+
     navigate("/concursos");
   };
 
   const customButtonStyle = {
     fontSize: "1.2em",
     padding: "0.3em 1.2em",
+
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -157,6 +164,7 @@ export default function PostulacionForm() {
         />
       </div>
 
+
       <label htmlFor="concurso">Concurso seleccionado:</label>
       <select
         className="form-control"
@@ -174,12 +182,14 @@ export default function PostulacionForm() {
         ))}
       </select>
 
+
       {errors.exampleRequired && <span>Este campo es requerido</span>}
 
       <div className="form-group col-12 mt-3 d-flex justify-content-between">
         <button
           onClick={handleVolverAlInicio}
           className="btn btn-secondary btn-sm"
+
           style={customButtonStyle}
         >
           Volver a concursos
@@ -189,6 +199,7 @@ export default function PostulacionForm() {
           className="btn btn-primary"
           style={customButtonStyle}
         >
+
           Enviar Postulación
         </button>
       </div>
