@@ -7,12 +7,12 @@ const authorizationMiddleware = require("../middlewares/authorization.middleware
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
 
 const router = express.Router();
+router.get("/", concursoController.getConcurso);
 
 router.use(authenticationMiddleware);
 
 const montoMiddleware = require("../middlewares/fondo.middleware.js");
 
-router.get("/", concursoController.getConcurso);
 router.post("/", authorizationMiddleware.isAdmin, montoMiddleware.validarMonto, concursoController.createConcurso);
 router.get("/:id", concursoController.getConcursoById);
 router.put("/:id", authorizationMiddleware.isAdmin, concursoController.updateConcurso);
