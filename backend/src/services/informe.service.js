@@ -6,7 +6,7 @@ const { handleError } = require("../utils/errorHandler");
 
 async function getInformes() {
   try {
-    const informes = await Informe.find().exec();
+    const informes = await Informe.find().populate('postulacion').exec();
     if (!informes) return [null, "No hay informes"];
     return [informes, null];
   } catch (error) {
