@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { deleteConcurso, getConcursos, updateConcurso } from "../../services/concurso.service.js";
 import { useState, useEffect } from 'react';
 import ConcursoDelete from "./ConcursoDelete.jsx";
-import ConcursoUpdate from "./ConcursoUpdate.jsx";
 
 
 const ConcursoAdm = () => {
