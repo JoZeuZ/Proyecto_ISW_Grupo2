@@ -2,12 +2,11 @@ import React from 'react';
 import LoginForm from '../components/LoginForm';
 import { useNavigate } from 'react-router-dom';
 
+
 function Login() {
   const navigate = useNavigate();
 
-  const handlePostular = () => {
-    navigate('/postular'); 
-  };
+
 
   if (localStorage.getItem('user')) {
     return (
@@ -22,7 +21,10 @@ function Login() {
     <div>
       <h2>Inicia sesión</h2>
       <LoginForm />
-      <button onClick={handlePostular}>Postular</button> 
+      
+      <div>
+        <button style={{ marginRight: '5px' }} onClick={() => navigate('/concursos')}>Concursos</button>
+      </div> 
     </div>
   );
 }

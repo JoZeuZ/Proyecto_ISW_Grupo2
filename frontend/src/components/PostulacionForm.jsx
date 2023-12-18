@@ -1,9 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { createPostulacion } from "../services/postulacion.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getConcursos } from "../services/concurso.service";
+import { useEffect, useState } from "react";
 
 export default function PostulacionForm() {
+  const [concurso, setConcursos] = useState([]);
+  const [selectedConcursoId, setSelectedConcursoId] = useState("");
   const {
     register,
     handleSubmit,
@@ -12,7 +16,26 @@ export default function PostulacionForm() {
   } = useForm();
   const respaldoPostulacion = watch("respaldoPostulacion");
 
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchConcursos = async () => {
+      const response = await getConcursos();
+      setConcursos(response);
+    };
+    fetchConcursos();
+  }, []);
+
+  useEffect(() => {
+  const foundConcurso = concurso.find(concurso => concurso._id === id);
+  if (foundConcurso) {
+    setSelectedConcursoId(id);
+  }
+}, [id, concurso]);
+
   const onSubmit = async (data) => {
+    console.log(data);
+    console.log(data.concursos);
     const formData = new FormData();
     for (const key in data) {
       if (
@@ -36,12 +59,12 @@ export default function PostulacionForm() {
 
   const navigate = useNavigate();
   const handleVolverAlInicio = () => {
-    navigate("/auth");
+    navigate("/concursos");
   };
 
   const customButtonStyle = {
-    fontSize: '1.2em', 
-    padding: '0.3em 1.2em', 
+    fontSize: "1.2em",
+    padding: "0.3em 1.2em",
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -118,14 +141,21 @@ export default function PostulacionForm() {
         />
       </div>
 
-      <div className="form-group col-12">
-        <label htmlFor="concurso">Concurso</label>
-        <input
-          className="form-control"
-          {...register("concurso", { required: true })}
-          placeholder="Eliga el concurso"
-        />
-      </div>
+      <select
+        className="form-control"
+        aria-label="Default select example"
+        {...register("concurso", { required: true })}
+        value={selectedConcursoId || ""} 
+      >
+        <option value="" disabled>
+          Seleccione un concurso
+        </option>
+        {concurso.map((concurso) => (
+          <option key={concurso._id} value={concurso._id}>
+            {concurso.nombre}
+          </option>
+        ))}
+      </select>
 
       {errors.exampleRequired && <span>Este campo es requerido</span>}
 
@@ -133,11 +163,15 @@ export default function PostulacionForm() {
         <button
           onClick={handleVolverAlInicio}
           className="btn btn-secondary btn-sm"
-          style={customButtonStyle} 
+          style={customButtonStyle}
         >
-          Volver al inicio
+          Volver a concursos
         </button>
-        <button type="submit" className="btn btn-primary" style={customButtonStyle}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          style={customButtonStyle}
+        >
           Enviar Postulación
         </button>
       </div>

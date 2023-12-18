@@ -19,7 +19,7 @@ export const getPostulaciones = async () => {
       console.log(postulacion);
       const response = await axios.post('/postulacion', postulacion, {headers: {'Content-Type': undefined}});
       if (response.status === 201) {
-        return response.data;
+        return response.data.data;
       }
       return {};
     } catch (error) {
