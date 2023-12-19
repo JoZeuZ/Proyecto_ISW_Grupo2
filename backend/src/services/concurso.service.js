@@ -3,8 +3,7 @@
 const Concurso = require("../models/concurso.model");
 
 const Fondo = require("../models/fondo.model");
-const moment = require('moment');
-
+const { parse, isValid, isBefore, format } = require('date-fns');
 
 const { handleError } = require("../utils/errorHandler");
 
@@ -14,8 +13,8 @@ async function getConcurso() {
     if (!concursos) return [null, "No hay concursos"];
 
     const concursosFormateados = concursos.map(concurso => {
-      const fechaInicioFormateada = moment(concurso.fechaInicio).format('DD/MM/YYYY');
-      const fechaFinFormateada = moment(concurso.fechaFin).format('DD/MM/YYYY');
+      const fechaInicioFormateada = format(new Date(concurso.fechaInicio), 'dd-MM-yyyy');
+      const fechaFinFormateada = format(new Date(concurso.fechaFin), 'dd-MM-yyyy');
 
       return {
         ...concurso.toObject(),
@@ -27,10 +26,12 @@ async function getConcurso() {
     return [concursosFormateados, null];
   } catch (error) {
     handleError(error, "concurso.service -> getConcursos");
+    return [null, 'Error interno del servidor'];
   }
 }
 
-async function createConcurso(concurso) {
+
+const createConcurso = async (concurso) => {
   try {
     const {
       nombre,
@@ -41,28 +42,34 @@ async function createConcurso(concurso) {
       fondo
     } = concurso;
 
-    const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
-    const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
-    const fechaActualMoment = moment();
+    // Realizar el parsing manualmente
+    const fechaInicioParts = fechaInicio.split('-');
+    const fechaFinParts = fechaFin.split('-');
 
-    if (!fechaInicioMoment.isValid() || !fechaFinMoment.isValid()) {
+    if (fechaInicioParts.length !== 3 || fechaFinParts.length !== 3) {
       return [null, 'Formato de fecha inválido'];
     }
 
-    // Verificar que la fecha de inicio no es antes de la fecha actual
-    if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
+    const fechaInicioUTC = new Date(`${fechaInicioParts[2]}-${fechaInicioParts[1]}-${fechaInicioParts[0]}`);
+    const fechaFinUTC = new Date(`${fechaFinParts[2]}-${fechaFinParts[1]}-${fechaFinParts[0]}`);
+    const fechaActual = new Date();
+
+    if (isNaN(fechaInicioUTC.getTime()) || isNaN(fechaFinUTC.getTime())) {
+      return [null, 'Formato de fecha inválido'];
+    }
+
+    if (fechaInicioUTC < fechaActual) {
       return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
     }
 
-    // Verificar que la fecha de fin no es antes que la fecha de inicio
-    if (fechaFinMoment.isBefore(fechaInicioMoment, 'day')) {
+    if (fechaFinUTC < fechaInicioUTC) {
       return [null, "La fecha de fin no puede ser antes que la fecha de inicio"];
     }
 
-    const fechaInicioUTC = fechaInicioMoment.toDate();
-    const fechaFinUTC = fechaFinMoment.toDate();
+    const fechaInicioISOString = fechaInicioUTC.toISOString();
+    const fechaFinISOString = fechaFinUTC.toISOString();
 
-    const concursosFound = await Concurso.findOne({ nombre: concurso.nombre });
+    const concursosFound = await Concurso.findOne({ nombre });
     if (concursosFound) return [null, "El concurso ya existe"];
 
     const fondoFound = await Fondo.find({ _id: { $in: fondo } });
@@ -72,12 +79,12 @@ async function createConcurso(concurso) {
     const newConcurso = new Concurso({
       nombre,
       bases,
-      fechaInicio: fechaInicioUTC,
-      fechaFin: fechaFinUTC,
+      fechaInicio: fechaInicioISOString,
+      fechaFin: fechaFinISOString,
       montoAsignado,
       fondo: myFondo,
-
     });
+
     await newConcurso.save();
 
     return [newConcurso, null];
@@ -85,15 +92,18 @@ async function createConcurso(concurso) {
     handleError(error, "concurso.service -> createConcurso");
     return [null, 'Error interno del servidor'];
   }
-}
+};
+
+
+
 
 async function getConcursoById(id) {
   try {
     const concursoFound = await Concurso.findById(id).exec();
     if (!concursoFound) return [null, "El concurso no existe"];
 
-    const fechaInicioFormateada = moment(concursoFound.fechaInicio).format('DD/MM/YYYY');
-    const fechaFinFormateada = moment(concursoFound.fechaFin).format('DD/MM/YYYY');
+    const fechaInicioFormateada = format(new Date(concursoFound.fechaInicio), 'dd-MM-yyyy');
+    const fechaFinFormateada = format(new Date(concursoFound.fechaFin), 'dd-MM-yyyy');
 
     const concursoFormateado = {
       ...concursoFound.toObject(),
@@ -105,36 +115,34 @@ async function getConcursoById(id) {
 
   } catch (error) {
     handleError(error, "concurso.service -> getConcursoById");
+    return [null, 'Error interno del servidor'];
   }
 }
 
 async function updateConcurso(id, concurso) {
   try {
-
     const concursoFound = await Concurso.findById(id);
     if (!concursoFound) return [null, "El concurso no existe"];
 
     const { nombre, bases, fechaInicio, fechaFin, montoAsignado, fondo } = concurso;
-    const fechaInicioMoment = moment(fechaInicio, 'DD/MM/YYYY');
-    const fechaFinMoment = moment(fechaFin, 'DD/MM/YYYY');
-    const fechaActualMoment = moment();
+    const fechaInicioParsed = parse(fechaInicio, 'dd-MM-yyyy', new Date());
+    const fechaFinParsed = parse(fechaFin, 'dd-MM-yyyy', new Date());
+    const fechaActual = new Date();
 
-    if (!fechaInicioMoment.isValid() || !fechaFinMoment.isValid()) {
+    if (!isValid(fechaInicioParsed) || !isValid(fechaFinParsed)) {
       return [null, 'Formato de fecha inválido'];
     }
 
-    // Verificar que la fecha de inicio no es antes de la fecha actual
-    if (fechaInicioMoment.isBefore(fechaActualMoment, 'day')) {
+    if (isBefore(fechaInicioParsed, fechaActual)) {
       return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
     }
 
-    // Verificar que la fecha de fin no es antes que la fecha de inicio
-    if (fechaFinMoment.isBefore(fechaInicioMoment, 'day')) {
+    if (isBefore(fechaFinParsed, fechaInicioParsed)) {
       return [null, "La fecha de fin no puede ser antes que la fecha de inicio"];
     }
 
-    const fechaInicioUTC = fechaInicioMoment.toDate();
-    const fechaFinUTC = fechaFinMoment.toDate();
+    const fechaInicioUTC = fechaInicioParsed.toISOString();
+    const fechaFinUTC = fechaFinParsed.toISOString();
 
     const fondoFound = await Fondo.find({ _id: { $in: fondo } });
     if (fondoFound.length === 0) return [null, "El fondo no existe"];
@@ -154,11 +162,14 @@ async function updateConcurso(id, concurso) {
       },
       { new: true }
     );
+
     return [concursoUpdated, null];
   } catch (error) {
     handleError(error, "concurso.service -> updateConcurso");
+    return [null, 'Error interno del servidor'];
   }
 }
+
 async function deleteConcurso(id) {
   try {
     const concursoDeleted = await Concurso.findByIdAndDelete(id);
@@ -167,13 +178,14 @@ async function deleteConcurso(id) {
     return [concursoDeleted, null];
   } catch (error) {
     handleError(error, "concurso.service -> deleteConcurso");
+    return [null, 'Error interno del servidor'];
   }
 }
 
 module.exports = {
-  getConcurso,
   createConcurso,
   getConcursoById,
+  getConcurso,
   updateConcurso,
   deleteConcurso,
 };

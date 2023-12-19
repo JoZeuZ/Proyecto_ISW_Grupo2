@@ -38,8 +38,9 @@ export const createConcurso = async (data) => {
   catch (error) {
     if (error.response && error.response.data) {
       console.error(error.response.data);
+      const errorMessage = error.response.data.message;
       throw new Error(
-        error.response.data.message || "Error desconocido al crear el Concurso"
+        errorMessage || "Error desconocido al crear el Concurso"
       );
     } else {
       throw new Error(
