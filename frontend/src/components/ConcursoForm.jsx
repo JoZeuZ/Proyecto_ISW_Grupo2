@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { createConcurso, updateConcurso } from "../services/concurso.service"
 import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
+import { format } from 'date-fns';
 import Swal from 'sweetalert2';
 
 export default function ConcursoForm({
@@ -13,9 +14,10 @@ export default function ConcursoForm({
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
-      } = useForm({ defaultValues });
-    
+    } = useForm({ defaultValues });
+
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -23,6 +25,10 @@ export default function ConcursoForm({
     const onSubmit = async (data) => {
         try {
             if (!isUpdateForm) {
+                // Asegúrate de formatear las fechas antes de enviarlas al backend
+                data.fechaInicio = format(new Date(data.fechaInicio), 'dd-MM-yyyy', new Date());
+                data.fechaFin = format(new Date(data.fechaFin), 'dd-MM-yyyy', new Date());
+
                 await createConcurso(data);
                 Swal.fire({
                     title: "¡Éxito!",
@@ -31,6 +37,10 @@ export default function ConcursoForm({
                     confirmButtonText: "Ok",
                 });
             } else {
+                // Asegúrate de formatear las fechas antes de enviarlas al backend
+                data.fechaInicio = format(new Date(data.fechaInicio), 'dd-MM-yyyy', new Date());
+                data.fechaFin = format(new Date(data.fechaFin), 'dd-MM-yyyy', new Date());
+
                 await updateConcurso(id, data);
                 Swal.fire({
                     title: "¡Éxito!",
@@ -50,6 +60,7 @@ export default function ConcursoForm({
             });
         }
     };
+
 
     return (
         <div>
