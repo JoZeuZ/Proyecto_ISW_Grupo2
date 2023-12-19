@@ -31,30 +31,31 @@ export default function EvaluacionForm() {
       puntajes[criterio.name] = parseInt(data[`puntaje_${criterio.name}`]);
     });
     router("/postulaciones");
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      },
-    });
-    Toast.fire({
-      icon: "success",
-      title: "Postulacion evaluada exitosamente",
-    });
+
     try {
       const evaluacionResult = await evaluarPostulacion(id, puntajes);
       console.log("Postulación evaluada con éxito:", evaluacionResult);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Postulacion evaluada exitosamente",
+      });
     } catch (error) {
       console.log(error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: error.message || "Ocurrió un error al crear la rúbrica",
+        text: error.message || "Ocurrió un error al evaluar la postulacion",
         confirmButtonText: "Ok",
       });
     }

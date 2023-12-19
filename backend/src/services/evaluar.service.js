@@ -28,7 +28,11 @@ async function evaluarPostulacion(postulacionId, puntajes) {
         if (!rubrica) return [null, 'Rúbrica no encontrada'];
 
         const InformeFound = await Informe.findOne({ postulacion: postulacionId }).exec();
-        if (InformeFound) return [null, "La postulacion ya fue evaluada"];
+        if (InformeFound) {
+            const error = new Error('La postulación ya ha sido evaluada');
+            error.statusCode = 400;
+            throw error;
+        }
 
         const puntajeTotal = await calcularPuntajeTotal(puntajes, rubrica.criterios);
         const aprobado = puntajeTotal >= rubrica.puntajeAprobacion;
@@ -50,6 +54,7 @@ async function evaluarPostulacion(postulacionId, puntajes) {
     }
     catch (error) {
         handleError(error, "evaluar.service -> evaluarPostulacion");
+        throw error;
     }
 }
 

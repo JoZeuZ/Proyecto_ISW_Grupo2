@@ -10,6 +10,7 @@ const Rubrica = () => {
   const { user } = useAuth();
   const isAdmin = user.roles.some((role) => role.name === "admin");
   console.log("es administrador? ", isAdmin);
+
   useEffect(() => {
     fetchRubricas();
   }, []);
@@ -27,7 +28,6 @@ const Rubrica = () => {
       console.error("Error al obtener las rúbricas:", error);
     }
   };
-
 
   const handleDeleteRubrica = async (rubricaId) => {
     try {
@@ -78,14 +78,18 @@ const Rubrica = () => {
                 </td>
                 <td>{rubrica.puntajeAprobacion}</td>
                 <td>
-                  <button className="btn btn-primary" style={{borderRadius: "10px"}}
-                  onClick={() => navigate(`/rubrica/${rubrica._id}/update`)}
-                  >Editar</button>
+                  <button
+                    className="btn btn-primary"
+                    style={{ borderRadius: "10px" }}
+                    onClick={() => navigate(`/rubrica/${rubrica._id}/update`)}
+                  >
+                    Editar
+                  </button>
                   {"  "}
                   {isAdmin ? (
                     <button
                       className="btn btn-danger"
-                      style={{borderRadius: "10px"}}
+                      style={{ borderRadius: "10px" }}
                       onClick={() => {
                         Swal.fire({
                           title: "¿Estás seguro?",

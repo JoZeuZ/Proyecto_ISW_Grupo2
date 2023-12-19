@@ -1,9 +1,12 @@
 import { getInformes, deleteInforme } from "../../services/informe.service";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import Swal from "sweetalert2";
 
 const Informes = () => {
   const [informes, setInformes] = useState([]);
+  const { user } = useAuth();
+  const isAdmin = user.roles.some((role) => role.name === "admin");
 
   useEffect(() => {
     fetchInformes();
@@ -53,32 +56,36 @@ const Informes = () => {
                 <td>{informe.resultados}</td>
                 <td>{informe.aprobado ? "Si" : "No"}</td>
                 <td>
-                  <button
-                    className="btn btn-danger"
-                    style={{ borderRadius: "10px" }}
-                    onClick={() => {
-                      Swal.fire({
-                        title: "¿Estás seguro?",
-                        text: "¡No podrás revertir esto!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Sí, eliminarlo",
-                      }).then((result) => {
-                        if (result.isConfirmed) {
-                          handleDeleteInforme(informe._id);
-                          Swal.fire({
-                            title: "¡Eliminado!",
-                            text: "El informe ha sido eliminado.",
-                            icon: "success",
-                          });
-                        }
-                      });
-                    }}
-                  >
-                    Eliminar
-                  </button>
+                {isAdmin ? (
+                    <button
+                      className="btn btn-danger"
+                      style={{ borderRadius: "10px" }}
+                      onClick={() => {
+                        Swal.fire({
+                          title: "¿Estás seguro?",
+                          text: "¡No podrás revertir esto!",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#3085d6",
+                          cancelButtonColor: "#d33",
+                          confirmButtonText: "Sí, eliminarlo",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            handleDeleteInforme(informe._id);
+                            Swal.fire({
+                              title: "¡Eliminado!",
+                              text: "El informe ha sido eliminado.",
+                              icon: "success",
+                            });
+                          }
+                        });
+                      }}
+                    >
+                      Eliminar
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </td>
               </tr>
             ))}
