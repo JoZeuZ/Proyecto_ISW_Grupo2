@@ -31,7 +31,7 @@ async function getConcurso() {
 }
 
 
-async function createConcurso(concurso) {
+const createConcurso = async (concurso) => {
   try {
     const {
       nombre,
@@ -42,24 +42,32 @@ async function createConcurso(concurso) {
       fondo
     } = concurso;
 
-    const fechaInicioParsed = parse(fechaInicio, 'dd-MM-yyyy', new Date());
-    const fechaFinParsed = parse(fechaFin, 'dd-MM-yyyy', new Date());
-    const fechaActual = new Date();
+    // Realizar el parsing manualmente
+    const fechaInicioParts = fechaInicio.split('-');
+    const fechaFinParts = fechaFin.split('-');
 
-    if (!isValid(fechaInicioParsed) || !isValid(fechaFinParsed)) {
+    if (fechaInicioParts.length !== 3 || fechaFinParts.length !== 3) {
       return [null, 'Formato de fecha inválido'];
     }
 
-    if (isBefore(fechaInicioParsed, fechaActual)) {
+    const fechaInicioUTC = new Date(`${fechaInicioParts[2]}-${fechaInicioParts[1]}-${fechaInicioParts[0]}`);
+    const fechaFinUTC = new Date(`${fechaFinParts[2]}-${fechaFinParts[1]}-${fechaFinParts[0]}`);
+    const fechaActual = new Date();
+
+    if (isNaN(fechaInicioUTC.getTime()) || isNaN(fechaFinUTC.getTime())) {
+      return [null, 'Formato de fecha inválido'];
+    }
+
+    if (fechaInicioUTC < fechaActual) {
       return [null, "La fecha de inicio no puede ser antes de la fecha actual"];
     }
 
-    if (isBefore(fechaFinParsed, fechaInicioParsed)) {
+    if (fechaFinUTC < fechaInicioUTC) {
       return [null, "La fecha de fin no puede ser antes que la fecha de inicio"];
     }
 
-    const fechaInicioUTC = fechaInicioParsed.toISOString();
-    const fechaFinUTC = fechaFinParsed.toISOString();
+    const fechaInicioISOString = fechaInicioUTC.toISOString();
+    const fechaFinISOString = fechaFinUTC.toISOString();
 
     const concursosFound = await Concurso.findOne({ nombre });
     if (concursosFound) return [null, "El concurso ya existe"];
@@ -71,8 +79,8 @@ async function createConcurso(concurso) {
     const newConcurso = new Concurso({
       nombre,
       bases,
-      fechaInicio: fechaInicioUTC,
-      fechaFin: fechaFinUTC,
+      fechaInicio: fechaInicioISOString,
+      fechaFin: fechaFinISOString,
       montoAsignado,
       fondo: myFondo,
     });
@@ -84,7 +92,7 @@ async function createConcurso(concurso) {
     handleError(error, "concurso.service -> createConcurso");
     return [null, 'Error interno del servidor'];
   }
-}
+};
 
 
 
@@ -175,6 +183,7 @@ async function deleteConcurso(id) {
 }
 
 module.exports = {
+  createConcurso,
   getConcursoById,
   getConcurso,
   updateConcurso,
