@@ -1,8 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../services/auth.service';
 import { AuthProvider, useAuth } from '../context/AuthContext';
-import { getConcursos } from '../services/concurso.service';
+import { NavBar } from '../components/NavBar'; // Asegúrate de que la ruta sea correcta
 
 function Root() {
   return (
@@ -13,30 +11,13 @@ function Root() {
 }
 
 function PageRoot() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/auth');
-  };
-
   const { user } = useAuth();
 
   return (
     <div>
-      <div>
-        <h1>Municipalidad</h1>
-        <p>Estas logeado como: {user.email}</p>
-        <button onClick={handleLogout}>Cerrar sesion</button>
-      </div>
-      <button onClick={() => navigate('concursos/concurso/create')}>
-        Crear Concurso
-      </button>
-      <div>
-        <button style={{ marginRight: '5px' }} onClick={() => navigate('/concurso')}>Concursos</button>
-        
-      </div>
-      <Outlet />
+      <NavBar /> {/* El NavBar ahora maneja la navegación y el logout */}
+      <p>Estás logeado como: {user.email}</p>
+      <Outlet /> {/* Esto renderizará los componentes de tus rutas hijas */}
     </div>
   );
 }

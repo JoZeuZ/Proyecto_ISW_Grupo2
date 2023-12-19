@@ -1,0 +1,32 @@
+.table-categorias {
+  width: 100%;
+  border-collapse: collapse;
+  max-width: 100%; /* Para asegurarte de que la tabla no sobrepase el ancho de su contenedor */
+  overflow-x: auto; /* Añade desplazamiento horizontal si la tabla es más ancha que la pantalla */
+  margin: 1rem auto; /* Margen superior e inferior de 1rem y centrado horizontalmente */
+  width: calc(100% - 2rem); /* El ancho será el 100% del contenedor menos los márgenes laterales */
+  box-sizing: border-box; /* Para incluir el padding y el borde dentro del ancho definido */
+}
+
+
+.table-categorias tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Color de fondo para filas impares */
+}
+
+.table-categorias tr:hover {
+  background-color: #ddd; /* Color de fondo al pasar el mouse */
+}
+
+.table-categorias th {
+  cursor: pointer; /* Cambia el cursor para indicar que se puede clickear */
+}
+
+.search-bar {
+    padding: 8px;
+    margin-bottom: 20px; /* Espacio debajo de la barra de búsqueda */
+    border: 1px solid #ccc; /* Borde sutil */
+    border-radius: 4px; /* Bordes redondeados */
+    width: 40%; /* Ancho completo dentro de su contenedor */
+    background-color: white; /* Color de fondo */
+    color: black;
+  }

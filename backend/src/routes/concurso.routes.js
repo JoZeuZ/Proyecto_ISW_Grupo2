@@ -13,6 +13,7 @@ router.use(authenticationMiddleware);
 
 const montoMiddleware = require("../middlewares/fondo.middleware.js");
 
+
 router.post("/", authorizationMiddleware.isAdmin, montoMiddleware.validarMonto, concursoController.createConcurso);
 router.get("/:id", concursoController.getConcursoById);
 router.put("/:id", authorizationMiddleware.isAdmin, concursoController.updateConcurso);

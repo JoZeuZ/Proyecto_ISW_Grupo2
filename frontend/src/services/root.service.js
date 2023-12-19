@@ -5,12 +5,10 @@ const API_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:5000/api';
 
 const instance = axios.create({
   baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  
   withCredentials: true,
 });
-
+//Eliminado el content type para subir archivo
 instance.interceptors.request.use(
   (config) => {
     const token = cookies.get('jwt-auth', { path: '/' });
