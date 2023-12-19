@@ -1,27 +1,29 @@
 import { getPostulaciones } from "../../services/postulacion.service";
 import { useEffect, useState } from "react";
 import DeletePostulacion from "./DeletePostulaciones";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Postulaciones = () => {
   const [postulaciones, setPostulaciones] = useState([]);
+  const [originalPostulaciones, setOriginalPostulaciones] = useState([]); //
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
   const { user } = useAuth();
   const isEvaluador = user.roles.some((role) => role.name === "evaluador");
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPostulaciones().then((response) => {
       const postulacionesConNombreConcurso = response.map((postulacion) => {
         return {
           ...postulacion,
-
           concurso: postulacion.concurso.nombre,
         };
       });
       setPostulaciones(postulacionesConNombreConcurso);
+      setOriginalPostulaciones(postulacionesConNombreConcurso);
     });
   }, []);
 
@@ -39,9 +41,40 @@ const Postulaciones = () => {
     setSortOrder(orden);
   };
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (searchTerm.trim() === "") {
+      // Si el término de búsqueda está vacío, mostrar todas las postulaciones originales
+      setPostulaciones(originalPostulaciones);
+    } else {
+      // Si hay un término de búsqueda, filtrar las postulaciones
+      const filteredPostulaciones = originalPostulaciones.filter(
+        (postulacion) =>
+          postulacion.concurso.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setPostulaciones(filteredPostulaciones);
+    }
+  };
+
   return (
     <>
       <h1>Postulaciones</h1>
+      <form className="search mx-auto" onSubmit={handleSearch}>
+        <input
+          className="form-control"
+          type="text"
+          name="search"
+          placeholder="Buscar por concurso"
+          aria-label="Buscar por concurso"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <div className="search-action">
+          <button className="btn btn-outline-search" type="submit">
+            <i className="icon cl cl-search"></i>
+          </button>
+        </div>
+      </form>
       <table border="1">
         <thead>
           <tr>
@@ -59,7 +92,6 @@ const Postulaciones = () => {
             <th onClick={() => handleSort("rutEmpresa")}>RUT Empresa</th>
             <th onClick={() => handleSort("temaProyecto")}>Tema Proyecto</th>
             <th onClick={() => handleSort("concurso")}>Concurso</th>
-            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
