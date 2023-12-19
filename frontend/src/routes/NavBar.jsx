@@ -5,17 +5,6 @@ export const NavBar = () => {
   return (
     <nav className="navbar navbar-dark navbar-expand-lg">
       <div className="container">
-        <button
-          className="navbar-toggler collapsed"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarDarkExampleCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
         <div
           className="navbar-collapse collapse"
           id="navbarDarkExampleCollapse"
@@ -34,10 +23,27 @@ export const NavBar = () => {
               >
                 Fondos
               </button>
+              <button
+                className="btn btn-link nav-link"
+                onClick={() => navigate("/categorias")}
+              >
+                Categorías
+              </button>
             </li>
           </ul>
         </div>
       </div>
+      <button
+        className="navbar-toggler collapsed"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarDarkExampleCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
     </nav>
   );
 };

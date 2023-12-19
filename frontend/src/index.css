@@ -2,17 +2,14 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  
 }
 
 a {
@@ -39,12 +36,14 @@ li {
 
 .container-gob {
   width: 60%;
+  min-height: 100vh;
   margin: auto;
   border: 10px solid;
   border-radius: 10px;
   padding: 20px;
   border-image: linear-gradient(to right, #006FB3 50%, #FE6565 50%) 1;
   border-image-slice: 1;
+
 }
 
 .form-group label {
@@ -142,6 +141,7 @@ html, body {
   height: 100%;
   background-color: white;
 }
+
 .search-bar {
   padding: 8px;
   margin-bottom: 20px; /* Espacio debajo de la barra de búsqueda */

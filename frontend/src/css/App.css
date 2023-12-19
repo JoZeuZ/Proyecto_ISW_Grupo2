@@ -1,0 +1,46 @@
+.main-container {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .hero {
+    background-color: #789ec8;
+    color: white;
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+  }
+  
+  .feature-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+    text-align: center;
+  }
+  
+  .feature-card h3 {
+    color: #50a3fb;
+  }
+  
+  .how-to {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .footer {
+    background-color: #cdd1d5;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  

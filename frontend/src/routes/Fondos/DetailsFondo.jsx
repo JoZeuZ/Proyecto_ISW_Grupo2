@@ -5,7 +5,7 @@ import { getCategorias } from "../../services/categoria.service.js";
 import { getConcursos } from "../../services/concurso.service.js";
 import { useNavigate } from "react-router-dom";
 import DeleteFondo from "./DeleteFondo.jsx";
-import "./Fondos.css"
+import "../../css/Fondos.css"
 
 const DetailsFondo = () => {
   const { id } = useParams();

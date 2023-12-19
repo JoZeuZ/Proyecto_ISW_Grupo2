@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import DeleteCategoria from "./DeleteCategoria.jsx";
 import { getFondos } from "../../services/fondo.service.js";
 import { Link } from "react-router-dom";
-import "./Categorias.css";
+import "../../css/Categorias.css";
 
 const DetailsCategorias = () => {
   const [categorias, setCategorias] = useState([]);
