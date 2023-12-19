@@ -1,40 +1,40 @@
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getConcursos } from "../../services/concurso.service.js";
 
-import { useState, useEffect } from "react";
-
 const Concursos = () => {
   const navigate = useNavigate();
-
-  const handlePostular = (id) => {
-    navigate(`/postular/${id}`); 
-  };
-
-  const handleVolverAlLogin = () => {
-    navigate('/auth'); 
-  };
-
   const [concursos, setConcursos] = useState([]);
 
   useEffect(() => {
     getConcursos().then((response) => {
       setConcursos(response);
-      console.log(response);
     });
   }, []);
 
+  const handlePostular = (id) => {
+    navigate(`/postular/${id}`);
+  };
+
+  const handleVolverAlLogin = () => {
+    navigate('/auth');
+  };
+
   return (
-    <>
-      <div>
-        <h1>Concursos</h1>
-        <button onClick={handleVolverAlLogin}>Volver al Login</button>
-        <table border="1">
-          <thead>
+    <div className="container mt-4">
+      <h1 className="text-center mb-3">Concursos Disponibles</h1>
+      <div className="text-right mb-3">
+        <button onClick={handleVolverAlLogin} className="btn btn-link">Volver al Login</button>
+      </div>
+      <div className="table-responsive">
+        <table className="table table-bordered table-hover">
+          <thead className="thead-dark">
             <tr>
               <th>Nombre</th>
               <th>Bases</th>
               <th>Fecha de inicio</th>
               <th>Fecha de fin</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -45,7 +45,7 @@ const Concursos = () => {
                 <td>{concurso.fechaInicio}</td>
                 <td>{concurso.fechaFin}</td>
                 <td>
-                <button onClick={() => handlePostular(concurso._id)}>
+                  <button onClick={() => handlePostular(concurso._id)} className="btn btn-primary">
                     Postular
                   </button>
                 </td>
@@ -54,8 +54,8 @@ const Concursos = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
-export default Concursos;
 
+export default Concursos;

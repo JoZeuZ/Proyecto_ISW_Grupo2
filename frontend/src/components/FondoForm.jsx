@@ -61,7 +61,7 @@ export default function FondoForm({
 
   return (
     <div className="container-gob">
-      <form onSubmit={handleSubmit(onFormSubmit)}>
+      <form onSubmit={handleSubmit(onFormSubmit)} className="fondo-form">
         <div className="form-group col-12">
           <label htmlFor="nombre">Nombre del Fondo</label>
           <input

@@ -34,11 +34,12 @@ const Informes = () => {
 
   return (
     <>
-      <h1>Informes</h1>
-      {informes.length > 0 ? (
-        <table border="1">
-          <thead>
+      <h1 className="mb-4">Informes</h1>
+      <div className="table-responsive">
+        <table className="table">
+          <thead className="thead-dark">
             <tr>
+              {" "}
               <th>Nombre Postulante</th>
               <th>Puntaje Obtenido</th>
               <th>Aprobado?</th>
@@ -50,7 +51,7 @@ const Informes = () => {
               <tr key={informe._id}>
                 <td>{informe.postulacion}</td>
                 <td>{informe.resultados}</td>
-                <td>{informe.aprobado ? 'Si' : 'No'}</td>
+                <td>{informe.aprobado ? "Si" : "No"}</td>
                 <td>
                   <button
                     className="btn btn-danger"
@@ -83,9 +84,8 @@ const Informes = () => {
             ))}
           </tbody>
         </table>
-      ) : (
-        <p>No hay informes</p>
-      )}
+      </div>
+      {informes.length === 0 && <p>No hay informes</p>}
     </>
   );
 };

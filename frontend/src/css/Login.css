@@ -1,0 +1,47 @@
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 50px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .login-header {
+    text-align: center;
+    color: #005ea2;
+  }
+  
+  .postulate-section {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .postulate-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .btn-primary {
+    background-color: #005ea2;
+    border-color: #005ea2;
+  }
+  
+  .btn-primary:hover {
+    background-color: #003d73;
+    border-color: #003d73;
+  }
+  
+  .btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+  

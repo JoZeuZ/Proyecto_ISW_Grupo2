@@ -41,7 +41,7 @@ export default function CategoriaForm({ defaultValues, buttonLabel = 'Crear', is
 
   return (
     <div className="container-gob">
-    <form onSubmit={handleSubmit(onFormSubmit)}>
+    <form onSubmit={handleSubmit(onFormSubmit)} className="fondo-form">
       <div className="form-group col-12">
         <label htmlFor="nombre">Nombre de la Categoría</label>
         <input

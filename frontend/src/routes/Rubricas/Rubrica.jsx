@@ -40,22 +40,17 @@ const Rubrica = () => {
 
   return (
     <>
-      <h1>Rubricas</h1>
-      {isAdmin ? (
+      <h1 className="mb-3">Rúbricas</h1>
+      {isAdmin && (
         <button
-          className="btn btn-primary"
-          style={{borderRadius: "10px"}}
+          className="btn btn-primary mb-3"
           onClick={() => navigate("/rubrica/create")}  
         >
-          Crear Rubrica
+          Crear Rúbrica
         </button>
-      ) : (
-        ""
       )}
-      <br />
-      <br />
-      {rubricas.length > 0 ? (
-        <table border="1">
+      <div className="table-responsive">
+        <table className="table">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -122,8 +117,11 @@ const Rubrica = () => {
             ))}
           </tbody>
         </table>
-      ) : (
+      </div>
+      {isAdmin ? (
         <p>No hay rúbricas disponibles.</p>
+      ) : (
+        ""
       )}
     </>
   );
