@@ -13,11 +13,17 @@ async function evaluarPostulacion(req, res) {
         if (bodyError) return respondError(req, res, 400, bodyError.message);
 
         const resultado = await evaluacionService.evaluarPostulacion(postulacionId, puntajes);
-
         respondSuccess(req, res, 200, resultado);
+
+
     } catch (error) {
         console.error('Error al evaluar la postulación:', error);
-        respondError(req, res, 500, 'Error al evaluar la postulación');
+        if(error.statusCode === 400){
+            return respondError(req, res, 400, error.message);
+        }else{
+            respondError(req, res, 500, 'Error al evaluar la postulación');
+        }
+
     }
 }
 
