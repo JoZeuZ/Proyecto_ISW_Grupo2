@@ -45,7 +45,7 @@ const ConcursoDelete = ({ id }) => {
     };
     return (
         <>
-            <button className="btn btn-pill-secondary" onClick={handleDlete} disabled={isDeleting}>
+            <button className="btn btn-secondary" onClick={handleDlete} disabled={isDeleting}>
                 {isDeleting ? "Eliminando..." : "Eliminar"}
             </button>
         </>

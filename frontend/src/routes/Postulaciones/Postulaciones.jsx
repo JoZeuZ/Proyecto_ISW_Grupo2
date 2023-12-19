@@ -58,7 +58,8 @@ const Postulaciones = () => {
 
   return (
     <>
-      <h1>Postulaciones</h1>
+      <div className="container-fluid mt-4">
+        <h1 className="mb-3 text-primary">Postulaciones</h1>
       <form className="search mx-auto" onSubmit={handleSearch}>
         <input
           className="form-control"
@@ -75,56 +76,67 @@ const Postulaciones = () => {
           </button>
         </div>
       </form>
-      <table border="1">
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("nombrePostulante")}>
-              Nombre Postulante
-            </th>
-            <th onClick={() => handleSort("rutPostulante")}>RUT Postulante</th>
-            <th onClick={() => handleSort("correoElectronico")}>
-              Correo Electrónico
-            </th>
-            <th onClick={() => handleSort("numeroTelefono")}>
-              Numero Telefono
-            </th>
-            <th onClick={() => handleSort("nombreEmpresa")}>Nombre Empresa</th>
-            <th onClick={() => handleSort("rutEmpresa")}>RUT Empresa</th>
-            <th onClick={() => handleSort("temaProyecto")}>Tema Proyecto</th>
-            <th onClick={() => handleSort("concurso")}>Concurso</th>
-          </tr>
-        </thead>
-        <tbody>
-          {postulaciones.map((postulacion) => (
-            <tr key={postulacion._id}>
-              <td>{postulacion.nombrePostulante}</td>
-              <td>{postulacion.rutPostulante}</td>
-              <td>{postulacion.correoElectronico}</td>
-              <td>{postulacion.numeroTelefono}</td>
-              <td>{postulacion.nombreEmpresa}</td>
-              <td>{postulacion.rutEmpresa}</td>
-              <td>{postulacion.temaProyecto}</td>
-              <td>{postulacion.concurso}</td>
-              <td>
-                <DeletePostulacion id={postulacion._id} />
-                {isEvaluador ? (
-                  <button
-                    className="btn btn-primary"
-                    style={{ borderRadius: "10px" }}
-                    onClick={() =>
-                      navigate(`/postulacion/evaluar/${postulacion._id}`)
-                    }
-                  >
-                    Evaluar
-                  </button>
-                ) : (
-                  ""
-                )}
-              </td>
+        <div className="table-responsive">
+          <table className="table table-hover">
+            <thead className="bg-primary text-white">
+            <tr>
+              <th scope="col" onClick={() => handleSort("nombrePostulante")}>
+                Nombre Postulante
+              </th>
+              <th scope="col" onClick={() => handleSort("rutPostulante")}>
+                RUT Postulante
+              </th>
+              <th scope="col" onClick={() => handleSort("correoElectronico")}>
+                Correo Electrónico
+              </th>
+              <th scope="col" onClick={() => handleSort("numeroTelefono")}>
+                Numero Teléfono
+              </th>
+              <th scope="col" onClick={() => handleSort("nombreEmpresa")}>
+                Nombre Empresa
+              </th>
+              <th scope="col" onClick={() => handleSort("rutEmpresa")}>
+                RUT Empresa
+              </th>
+              <th scope="col" onClick={() => handleSort("temaProyecto")}>
+                Tema Proyecto
+              </th>
+              <th scope="col" onClick={() => handleSort("concurso")}>
+                Concurso
+              </th>
+              <th scope="col">Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {postulaciones.map((postulacion) => (
+              <tr key={postulacion._id}>
+                <td>{postulacion.nombrePostulante}</td>
+                <td>{postulacion.rutPostulante}</td>
+                <td>{postulacion.correoElectronico}</td>
+                <td>{postulacion.numeroTelefono}</td>
+                <td>{postulacion.nombreEmpresa}</td>
+                <td>{postulacion.rutEmpresa}</td>
+                <td>{postulacion.temaProyecto}</td>
+                <td>{postulacion.concurso}</td>
+                <td>
+                  <DeletePostulacion id={postulacion._id} />
+                  {isEvaluador && (
+                    <button
+                      className="btn btn-info ml-1"
+                      onClick={() =>
+                        navigate(`/postulacion/evaluar/${postulacion._id}`)
+                      }
+                    >
+                      Evaluar
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 };

@@ -5,7 +5,7 @@ import { getCategorias } from "../../services/categoria.service.js";
 import { getConcursos } from "../../services/concurso.service.js";
 import { useNavigate } from "react-router-dom";
 import DeleteFondo from "./DeleteFondo.jsx";
-import "../../css/Fondos.css"
+import "../../css/Fondos.css";
 
 const DetailsFondo = () => {
   const { id } = useParams();
@@ -51,29 +51,46 @@ const DetailsFondo = () => {
       <div className="details-container">
         <h2>Detalles del fondo</h2>
         <div className="card">
-          <p><strong>Nombre:</strong> {fondo.nombre}</p>
-          <p><strong>Monto total:</strong> {fondo.montoTotal}</p>
-          <p><strong>Monto asignado:</strong> {fondo.montoAsignado}</p>
-          <p><strong>Categoría:</strong> {categoriaNombre}</p>
+          <p>
+            <strong>Nombre:</strong> {fondo.nombre}
+          </p>
+          <p>
+            <strong>Monto total:</strong> {fondo.montoTotal}
+          </p>
+          <p>
+            <strong>Monto asignado:</strong> {fondo.montoAsignado}
+          </p>
+          <p>
+            <strong>Categoría:</strong> {categoriaNombre}
+          </p>
         </div>
 
         <div className="concursos-container">
           <h3>Concursos</h3>
           <ul>
-            {concursos.length > 0 ? 
+            {concursos.length > 0 ? (
               concursos.map((concurso) => (
                 <li className="concurso-item" key={concurso._id}>
-                  {concurso.nombre}
+                  {concurso.nombre} - Monto Asignado: ${concurso.montoAsignado}
                 </li>
-              )) : <li>No hay concursos</li>
-            }
+              ))
+            ) : (
+              <li>No hay concursos</li>
+            )}
           </ul>
         </div>
 
         <div className="actions">
-          <button className="btn btn-primary2" onClick={() => navigate("/fondos")}>Volver</button>
+          <button
+            className="btn btn-primary2"
+            onClick={() => navigate("/fondos")}
+          >
+            Volver
+          </button>
           <DeleteFondo id={id} />
-          <Link className="btn btn-primary" to={`/fondos/${id}/update`}>Actualizar Fondo</Link>
+          <Link className="btn btn-primary" to={`/fondos/${id}/update`}>
+            Actualizar Fondo
+          </Link>
         </div>
       </div>
     </>

@@ -43,8 +43,8 @@ const DeletePostulacion = ({ id }) => {
     });
   };  
   return (
-    <button className="btn btn-pill-secondary" onClick={handleDelete} disabled={isDeleting}>
-      {isDeleting ? "Eliminando..." : "Eliminar Postulación"}
+    <button className="btn btn-secondary btn-sm" onClick={handleDelete} disabled={isDeleting}>
+      {isDeleting ? "Eliminando..." : "Eliminar"}
     </button>
   );
 };
